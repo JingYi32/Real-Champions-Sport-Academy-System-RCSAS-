@@ -1,7 +1,8 @@
 package rcsas;
+
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import javax.swing.*;
 
 public class Page1HomePage extends JFrame implements ActionListener{
     private Button login, signup, exit;

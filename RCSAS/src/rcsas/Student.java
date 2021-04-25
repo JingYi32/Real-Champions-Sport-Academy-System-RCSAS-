@@ -4,12 +4,12 @@ import java.util.Date;
 public class Student {
     private String name;
     private int pin;
-    private int phone;
+    private long phone;
     private String address;
     private String email;
     private Date dob;
 
-    public Student(String name, int pin, int phone, String address, String email, Date dob) {
+    public Student(String name, int pin, long phone, String address, String email, Date dob) {
         this.name = name;
         this.pin = pin;
         this.phone = phone;
@@ -32,7 +32,7 @@ public class Student {
         this.pin = pin;
     }
 
-    public int getPhone() {
+    public long getPhone() {
         return phone;
     }
     public void setPhone(int phone) {

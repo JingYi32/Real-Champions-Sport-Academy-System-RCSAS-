@@ -7,15 +7,13 @@ public class Coach {
     private Date joined;
     private Date terminated;
     private int rate;
-    private int phone;
+    private long phone;
     private String address;
     private int code_sc;
-    private String name_sc;
     private int code_sp;
-    private String name_sp;
     private int Rating;
 
-    public Coach(int id, String name, Date joined, Date terminated, int rate, int phone, int code_sc, String name_sc, int code_sp, String name_sp, int Rating) {
+    public Coach(int id, String name, Date joined, Date terminated, int rate, long phone, int code_sc, String name_sc, int code_sp, String name_sp, int Rating) {
         this.id = id;
         this.name = name;
         this.joined = joined;
@@ -23,9 +21,7 @@ public class Coach {
         this.rate = rate;
         this.phone = phone;
         this.code_sc = code_sc;
-        this.name_sc = name_sc;
         this.code_sp = code_sp;
-        this.name_sp = name_sp;
         this.Rating = Rating;
     }
 
@@ -64,7 +60,7 @@ public class Coach {
         this.rate = rate;
     }
 
-    public int getPhone() {
+    public long getPhone() {
         return phone;
     }
     public void setPhone(int phone) {
@@ -85,25 +81,11 @@ public class Coach {
         this.code_sc = code_sc;
     }
 
-    public String getName_sc() {
-        return name_sc;
-    }
-    public void setName_sc(String name_sc) {
-        this.name_sc = name_sc;
-    }
-
     public int getCode_sp() {
         return code_sp;
     }
     public void setCode_sp(int code_sp) {
         this.code_sp = code_sp;
-    }
-
-    public String getName_sp() {
-        return name_sp;
-    }
-    public void setName_sp(String name_sp) {
-        this.name_sp = name_sp;
     }
 
     public int getRating() {
