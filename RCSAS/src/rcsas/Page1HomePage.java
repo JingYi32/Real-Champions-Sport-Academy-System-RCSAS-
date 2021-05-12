@@ -115,7 +115,7 @@ public class Page1HomePage extends JFrame implements ActionListener{
                     RCSAS.whoLogin = null;
                 } else{
                     setVisible(false);  //same as this.setVisible(false);
-                   // RCSAS.second.setVisible(true);
+                    RCSAS.SecondPage.setVisible(true);
                 }
             }
         }

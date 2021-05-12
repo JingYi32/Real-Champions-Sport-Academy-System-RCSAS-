@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class RCSAS {
     public static Page1HomePage HomePage = new Page1HomePage();
+    public static Page2SecondPage SecondPage = new Page2SecondPage();
     public static Admin whoLogin = null;
     public static ArrayList<Admin> allAdmin = new ArrayList<Admin>();
     public static ArrayList<Booking> allBooking = new ArrayList<Booking>();
