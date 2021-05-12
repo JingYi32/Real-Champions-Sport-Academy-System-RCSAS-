@@ -1,11 +1,7 @@
 package rcsas;
-import java.awt.Button;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 public class Page2SecondPage extends JFrame implements ActionListener{
     private Button book, booking_records, display, pay, logout; //booking records=status //display = coach + sport records
     public Page2SecondPage(){

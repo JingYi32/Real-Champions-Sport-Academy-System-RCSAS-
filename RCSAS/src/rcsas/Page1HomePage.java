@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.PrintWriter;
+import java.util.regex.Pattern;
 
 
 public class Page1HomePage extends JFrame implements ActionListener{
@@ -55,7 +56,17 @@ public class Page1HomePage extends JFrame implements ActionListener{
                         p.println(c.getPin());
                         p.println();
                     } 
-                    p.close();                    
+                    p.close();
+                    p = new PrintWriter("student.txt");
+                    for(int i=0; i<RCSAS.allStudent.size(); i++){
+                        Student st = RCSAS.allStudent.get(i);
+                        p.println(st.getName());
+                        p.println(st.getPin());
+                        p.println(st.getPhone());
+                        p.println(st.getEmail());
+                        p.println();
+                    } 
+                    p.close();
                     p = new PrintWriter("booking.txt");
                     for(int i=0; i<RCSAS.allBooking.size(); i++){
                         Booking b = RCSAS.allBooking.get(i);
@@ -83,17 +94,33 @@ public class Page1HomePage extends JFrame implements ActionListener{
         } else if(e.getSource()==signup){
             String a = JOptionPane.showInputDialog("Enter name:");
             boolean flag = true;
-            for(int i=0; i<RCSAS.allAdmin.size(); i++){
-                Admin c = RCSAS.allAdmin.get(i);
-                if(a.equals(c.getName())){
+            for(int i=0; i<RCSAS.allStudent.size(); i++){
+                Student st = RCSAS.allStudent.get(i);
+                if(a.equals(st.getName())){
                     flag = false;
                     break;
                 }   
 }
             if(flag){
-                int pin = Integer.parseInt(JOptionPane.showInputDialog("Pin"));
-                Admin c = new Admin(a,pin);
-                RCSAS.allAdmin.add(c);
+                String b1 = JOptionPane.showInputDialog("Pin:");
+                if (Pattern.compile("[1-9]{1}\\d{5,10}").matcher(b1).matches()){
+                    int b = Integer.parseInt(b1);
+                    String c1 = JOptionPane.showInputDialog("Phone Number(60XXXXXXXXX):");
+                    if (Pattern.compile("^\\d{11}$").matcher(c1).matches()){
+                        long c = Long.parseLong(c1);
+                        String d = JOptionPane.showInputDialog("Email Address:");
+                        if(Pattern.compile("^(.+)@(.+)$").matcher(d).matches()){
+                            Student st = new Student(a,b,c,d);
+                            RCSAS.allStudent.add(st);
+                        }else{
+                            JOptionPane.showMessageDialog(null, "Invalid email!");
+                        }
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Invalid phone number!");
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(null,"Invalid pin number! Pin number should match condition below: \n1. Pin number should be numeric. \n2. Length of pin number should be 6-10. \n3. Pin number should not start by 0. \n");
+                }
             } else{
                 JOptionPane.showMessageDialog(signup, "Name has been used!");
             }
@@ -106,17 +133,38 @@ public class Page1HomePage extends JFrame implements ActionListener{
                     break;
                 }
             }
-            if(RCSAS.whoLogin==null){
+            for(int i=0; i<RCSAS.allStudent.size(); i++){
+                Student c = RCSAS.allStudent.get(i);
+                if(s.equals(c.getName())){
+                    RCSAS.current = c;
+                    break;
+                }
+            }
+            if((RCSAS.current==null)&&(RCSAS.whoLogin==null)){
                 JOptionPane.showMessageDialog(login, "Worng username!");
             } else{
-                s = JOptionPane.showInputDialog("Password:");
-                if(Integer.parseInt(s) != RCSAS.whoLogin.getPin()){
-                    JOptionPane.showMessageDialog(login, "Wrong password!");
-                    RCSAS.whoLogin = null;
-                } else{
-                    setVisible(false);  //same as this.setVisible(false);
-                    RCSAS.SecondPage.setVisible(true);
+                if(RCSAS.whoLogin!=null){
+                    s = JOptionPane.showInputDialog("Password:");
+                    if(Integer.parseInt(s) != RCSAS.whoLogin.getPin()){
+                        JOptionPane.showMessageDialog(login, "Wrong password!");
+                        RCSAS.whoLogin = null;
+                    } else{
+                        setVisible(false);  //same as this.setVisible(false);
+                        RCSAS.AdminSecondPage.setVisible(true);
+                    }
+                }else if(RCSAS.current!=null){
+                    s = JOptionPane.showInputDialog("Password:");
+                    if(Integer.parseInt(s) == RCSAS.current.getPin()){
+                        setVisible(false);  //same as this.setVisible(false);
+                        RCSAS.StudentMainPage.setVisible(true);
+                    } else{
+                        JOptionPane.showMessageDialog(login, Integer.parseInt(s) == RCSAS.current.getPin());
+                        RCSAS.current = null;
+                    }
+                    boolean a = (Integer.parseInt(s) == RCSAS.current.getPin());
+                    System.out.print(a);
                 }
+
             }
         }
     }
