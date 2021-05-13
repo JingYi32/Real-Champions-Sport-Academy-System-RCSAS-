@@ -8,19 +8,34 @@ import java.util.regex.Pattern;
 
 
 public class Page1HomePage extends JFrame implements ActionListener{
+    
+    private Panel y1,y2,y2_1;
     private Button login, signup, exit;
+    private Label system, welcome, describe;
     
     public Page1HomePage(){
+        Font myFont = new Font("Serif", Font.PLAIN, 32);
+
         //Frame Properties
-        setSize(1500,900);
+        setSize(1500,800);
         setLocation(200,100);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(null);
-        
+                
         //Panel Properties
-        JPanel panel = new JPanel();
-        panel.setBounds(0,0,1500,80);
-        panel.setBackground(new java.awt.Color(204, 166, 166));
+        y1 = new Panel();
+        add(y1,BorderLayout.CENTER);
+        
+        y2 = new Panel();
+        y2.setBackground(new java.awt.Color(204, 166, 166));
+        y2.setLayout(new GridLayout(1,2));
+        
+        welcome = new Label("Real Champions Sport Academy",Label.LEFT);
+        welcome.setFont(myFont);
+        y2.add(welcome);
+        
+        y2_1 = new Panel();
+        y2_1.setPreferredSize(new Dimension(1500,100));
+        y2_1.setLayout(new GridBagLayout());
         
         //Creating Button
         login = new Button("Login");
@@ -28,9 +43,12 @@ public class Page1HomePage extends JFrame implements ActionListener{
         exit = new Button("Exit");
         
         //Properties of Button
-        login.setBounds(1240,25,70,25);
-        signup.setBounds(1320, 25, 70, 25);
-        exit.setBounds(1400, 25, 70, 25);
+        login.setPreferredSize(new Dimension(100,40));
+        login.setFont(new Font("Serif", Font.PLAIN, 18));
+        signup.setPreferredSize(new Dimension(100,40));
+        signup.setFont(new Font("Serif", Font.PLAIN, 18));
+        exit.setPreferredSize(new Dimension(100,40));
+        exit.setFont(new Font("Serif", Font.PLAIN, 18));
         
         //Adding Action Listener to Button
         login.addActionListener(this);
@@ -38,10 +56,11 @@ public class Page1HomePage extends JFrame implements ActionListener{
         exit.addActionListener(this);
         
         //Adding item
-        add(login);
-        add(signup);
-        add(exit);
-        add(panel);   
+        y2_1.add(login, new GridBagConstraints());
+        y2_1.add(signup, new GridBagConstraints());
+        y2_1.add(exit, new GridBagConstraints());
+        y2.add(y2_1);
+        add(y2,BorderLayout.NORTH);
         setVisible(true);
     }
     public void actionPerformed(ActionEvent e){
@@ -62,8 +81,10 @@ public class Page1HomePage extends JFrame implements ActionListener{
                         Student st = RCSAS.allStudent.get(i);
                         p.println(st.getName());
                         p.println(st.getPin());
+                        p.println(st.getGender());
                         p.println(st.getPhone());
                         p.println(st.getEmail());
+                        p.println(st.getSport());
                         p.println();
                     } 
                     p.close();
@@ -92,38 +113,8 @@ public class Page1HomePage extends JFrame implements ActionListener{
                 JOptionPane.showMessageDialog(exit,"Wrong password!");
             }
         } else if(e.getSource()==signup){
-            String a = JOptionPane.showInputDialog("Enter name:");
-            boolean flag = true;
-            for(int i=0; i<RCSAS.allStudent.size(); i++){
-                Student st = RCSAS.allStudent.get(i);
-                if(a.equals(st.getName())){
-                    flag = false;
-                    break;
-                }   
-}
-            if(flag){
-                String b1 = JOptionPane.showInputDialog("Pin:");
-                if (Pattern.compile("[1-9]{1}\\d{5,10}").matcher(b1).matches()){
-                    int b = Integer.parseInt(b1);
-                    String c1 = JOptionPane.showInputDialog("Phone Number(60XXXXXXXXX):");
-                    if (Pattern.compile("^\\d{11}$").matcher(c1).matches()){
-                        long c = Long.parseLong(c1);
-                        String d = JOptionPane.showInputDialog("Email Address:");
-                        if(Pattern.compile("^(.+)@(.+)$").matcher(d).matches()){
-                            Student st = new Student(a,b,c,d);
-                            RCSAS.allStudent.add(st);
-                        }else{
-                            JOptionPane.showMessageDialog(null, "Invalid email!");
-                        }
-                    }else{
-                        JOptionPane.showMessageDialog(null, "Invalid phone number!");
-                    }
-                }else{
-                    JOptionPane.showMessageDialog(null,"Invalid pin number! Pin number should match condition below: \n1. Pin number should be numeric. \n2. Length of pin number should be 6-10. \n3. Pin number should not start by 0. \n");
-                }
-            } else{
-                JOptionPane.showMessageDialog(signup, "Name has been used!");
-            }
+            setVisible(false);
+            RCSAS.SignuPage.setVisible(true);
         } else{
             String s = JOptionPane.showInputDialog("Username:");
             for(int i=0; i<RCSAS.allAdmin.size(); i++){
@@ -141,12 +132,12 @@ public class Page1HomePage extends JFrame implements ActionListener{
                 }
             }
             if((RCSAS.current==null)&&(RCSAS.whoLogin==null)){
-                JOptionPane.showMessageDialog(login, "Worng username!");
+                JOptionPane.showMessageDialog(null, "Worng username!");
             } else{
                 if(RCSAS.whoLogin!=null){
                     s = JOptionPane.showInputDialog("Password:");
                     if(Integer.parseInt(s) != RCSAS.whoLogin.getPin()){
-                        JOptionPane.showMessageDialog(login, "Wrong password!");
+                        JOptionPane.showMessageDialog(null, "Wrong password!");
                         RCSAS.whoLogin = null;
                     } else{
                         setVisible(false);  //same as this.setVisible(false);
@@ -158,11 +149,9 @@ public class Page1HomePage extends JFrame implements ActionListener{
                         setVisible(false);  //same as this.setVisible(false);
                         RCSAS.StudentMainPage.setVisible(true);
                     } else{
-                        JOptionPane.showMessageDialog(login, Integer.parseInt(s) == RCSAS.current.getPin());
+                        JOptionPane.showMessageDialog(null, "Wrong password!");
                         RCSAS.current = null;
                     }
-                    boolean a = (Integer.parseInt(s) == RCSAS.current.getPin());
-                    System.out.print(a);
                 }
 
             }

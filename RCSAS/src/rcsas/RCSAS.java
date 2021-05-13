@@ -1,11 +1,11 @@
 package rcsas;
 
 import java.io.File;
-import java.time.LocalDate;
 import java.util.*;
 
 public class RCSAS {
     public static Page1HomePage HomePage = new Page1HomePage();
+    public static RegisterPage SignuPage = new RegisterPage();
     public static Page2SecondPage AdminSecondPage = new Page2SecondPage();
     public static Page2StudentMainPage StudentMainPage = new Page2StudentMainPage();
     public static Student current = null;
@@ -28,10 +28,13 @@ public class RCSAS {
             while(s.hasNext()){
                 String a = s.nextLine();
                 int b = Integer.parseInt(s.nextLine());
-                long c = Long.parseLong(s.nextLine());
-                String d = s.nextLine();
+                String c = s.nextLine();
+                long d = Long.parseLong(s.nextLine());
+                String e = s.nextLine();
+                String f = s.nextLine();
+                
                 s.nextLine();
-                Student st = new Student(a,b,c,d);
+                Student st = new Student(a,b,c,d,e,f);
                 allStudent.add(st);
             }
             // s = new Scanner(new File("booking.txt"));
