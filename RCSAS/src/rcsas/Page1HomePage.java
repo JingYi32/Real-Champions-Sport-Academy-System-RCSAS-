@@ -90,6 +90,7 @@ public class Page1HomePage extends JFrame implements ActionListener{
                         p.println(st.getGender());
                         p.println(st.getPhone());
                         p.println(st.getEmail());
+                        p.println(st.getEm_phone());
                         p.println(st.getSport());
                         p.println();
                     } 
@@ -102,9 +103,9 @@ public class Page1HomePage extends JFrame implements ActionListener{
                         p.println(b.getDate());
                         p.println(b.getSport());
                         p.println(b.getCentre());
-//                        p.println(b.getTimeStarted());
-//                       p.println(b.getDuration());
-//                       p.println(b.getTimeEnded());                      
+                        p.println(b.getTimeStarted());
+                        p.println(b.getDuration());
+                        p.println(b.getTimeEnded());                      
                         p.println(b.getPrice());
                         p.println(b.isPaid());
                         p.println(b.getOwner().getName());

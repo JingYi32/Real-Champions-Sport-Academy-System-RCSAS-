@@ -8,15 +8,17 @@ public class Student {
     private String gender;
     private String phone;
     private String email;
+    private String em_phone;
     private Sport sport;
     private ArrayList<Booking> myBooking = new ArrayList<Booking>();
 
-    public Student(String name, int pin, String gender, String phone, String email, Sport sport) {
+    public Student(String name, int pin, String gender, String phone, String email, String em_phone, Sport sport) {
         this.name = name;
         this.pin = pin;
         this.gender = gender;
         this.phone = phone;
         this.email = email;
+        this.em_phone = em_phone;
         this.sport = sport;
     }
 
@@ -63,6 +65,14 @@ public class Student {
     public void setEmail(String email) {
         this.email = email;
     }    
+
+    public String getEm_phone() {
+        return em_phone;
+    }
+
+    public void setEm_phone(String em_phone) {
+        this.em_phone = em_phone;
+    }
 
     public ArrayList<Booking> getMyBooking() {
         return myBooking;

@@ -33,10 +33,11 @@ public class RCSAS {
                 String c = s.nextLine();                            //gender
                 String d = s.nextLine();                            //phone
                 String e = s.nextLine();                            //email
-                Sport f = Sport.valueOf(s.nextLine());              //sport
+                String f = s.nextLine();                            //emergency contact
+                Sport g = Sport.valueOf(s.nextLine());              //sport
                 
                 s.nextLine();
-                Student st = new Student(a,b,c,d,e,f);
+                Student st = new Student(a,b,c,d,e,f,g);
                 allStudent.add(st);
             }
             s.close();
