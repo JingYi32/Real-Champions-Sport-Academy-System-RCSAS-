@@ -1,6 +1,8 @@
 package rcsas;
 import java.awt.*;
 import java.awt.event.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import javax.swing.*;
 public class Page2SecondPage extends JFrame implements ActionListener{
     private Button book, booking_records, display, pay, logout; //booking records=status //display = coach + sport records
@@ -25,49 +27,71 @@ public class Page2SecondPage extends JFrame implements ActionListener{
         add(logout);
     }
      public void actionPerformed(ActionEvent e){
-         if(e.getSource()==logout){
+        if(e.getSource()==logout){
             setVisible(false);
             RCSAS.HomePage.setVisible(true);
-            RCSAS.whoLogin = null;
-         }  else if(e.getSource()==book){
-            int size = RCSAS.whoLogin.getMyBooking().size();
-            if(size==0 || RCSAS.whoLogin.getMyBooking().get(size-1).isPaid()){
-                try{
-                    String a = JOptionPane.showInputDialog("Hall:");
-                    Hall a1 = Hall.valueOf(a);
-                    String b = JOptionPane.showInputDialog("Day:");
-                    Day b1 = Day.valueOf(b); 
-                    String c = JOptionPane.showInputDialog("Code_Sport:");
-                    Sport c1 = Sport.valueOf(c);
-                    String d = JOptionPane.showInputDialog("Code_Sport_Centre:");
-                    Sport d1 = Sport.valueOf(d);                   
-                    int f = Integer.parseInt(JOptionPane.showInputDialog("Time:"));
-                    if(f<9 || f>23){
-                        throw new Exception();
-                    }
-                     boolean flag = true;
-                    for(int i=0; i<RCSAS.allBooking.size(); i++){
-                        Booking x = RCSAS.allBooking.get(i);
-                        if(x.getHall().toString().equals(a) &&
-                                x.getDay().toString().equals(b) &&
-                                x.getTimeStarted() == f){
-                            JOptionPane.showMessageDialog(book, "Not available!");
-                            flag = false;
-                            break;
-                        }
-                    }
-                    if(flag){
-                        int id = 10001+RCSAS.allBooking.size();
-                        Booking x = new Booking(id,a1,b1,c1,d1,f,false,RCSAS.whoLogin);
-                        RCSAS.whoLogin.getMyBooking().add(x);
-                        RCSAS.allBooking.add(x);
-                        JOptionPane.showMessageDialog(book, "Id: "+id);
-                    } 
-                } catch(Exception ex){
-                    JOptionPane.showMessageDialog(book, "Wrong input!");
+            Student student = null;
+        }  
+        
+        else if(e.getSource()==book){
+            String name = JOptionPane.showInputDialog("Student:");
+            for(int i=0; i<RCSAS.allStudent.size(); i++){
+                Student student = RCSAS.allStudent.get(i);
+                if(name.equals(student.getName())){
+                    RCSAS.current = student;
+                    break;
                 }
-            } else{
-                JOptionPane.showMessageDialog(book,"You have unpaid booking!");
+            }
+            if(RCSAS.current == null){
+                JOptionPane.showMessageDialog(null, "Worng student name!");
+            }
+            else{
+                int size = RCSAS.current.getMyBooking().size();
+                if(size==0 || RCSAS.current.getMyBooking().get(size-1).isPaid()){
+                    try{
+                        String a = JOptionPane.showInputDialog("Hall:");
+                        Hall a1 = Hall.valueOf(a);
+                        String b = JOptionPane.showInputDialog("Date:");
+                        LocalDate b1 = LocalDate.parse(b); 
+                        String c = JOptionPane.showInputDialog("Sport:");
+                        Sport c1 = Sport.valueOf(c);
+                        String d = JOptionPane.showInputDialog("Sport Centre:");
+                        SportCenter d1 = SportCenter.valueOf(d);
+                        String f = JOptionPane.showInputDialog("Time:");
+                        LocalTime f1 = LocalTime.parse(f);
+                        if((f1.compareTo(LocalTime.parse("09:00:00"))<0) || (f1.compareTo(LocalTime.parse("23:00:00"))>0)){
+                            throw new Exception();
+                        }
+                        int g = Integer.parseInt(JOptionPane.showInputDialog("Duration:"));
+                        LocalTime h = f1.plusHours(g);
+                        int i =Integer.parseInt(JOptionPane.showInputDialog("Price:"));
+                        boolean flag = true;
+                        for(int bk=0; bk<RCSAS.allBooking.size(); bk++){
+                            Booking x = RCSAS.allBooking.get(bk);
+                            if(x.getHall().toString().equals(a) && 
+                                    x.getDate().toString().equals(b) &&
+                                    x.getSport().toString().equals(c) &&
+                                    x.getTimeStarted() == f1){
+                                JOptionPane.showMessageDialog(book, "Not available!");
+                                flag = false;
+                                break;
+                            }
+                        }
+                        if(flag){
+                            int id = 10001+RCSAS.allBooking.size();
+                            Booking x = new Booking(id,a1,b1,c1,d1,f1,g,h,i,false,RCSAS.current);
+                            RCSAS.whoLogin.getMyBooking().add(x);
+                            RCSAS.allBooking.add(x);
+                            JOptionPane.showMessageDialog(book, "Id: "+id);
+                        } 
+                    } catch(Exception ex){
+                        JOptionPane.showMessageDialog(book, "Wrong input!");
+                    }
+                }
+            
+                else{
+                    JOptionPane.showMessageDialog(book,"You have unpaid booking!");
+                }
             }
         } else{
             int size = RCSAS.whoLogin.getMyBooking().size();

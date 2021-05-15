@@ -1,6 +1,8 @@
 package rcsas;
 
 import java.io.File;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.*;
 
 public class RCSAS {
@@ -26,37 +28,44 @@ public class RCSAS {
             s.close();
             s = new Scanner(new File("student.txt"));
             while(s.hasNext()){
-                String a = s.nextLine();
-                int b = Integer.parseInt(s.nextLine());
-                String c = s.nextLine();
-                long d = Long.parseLong(s.nextLine());
-                String e = s.nextLine();
-                String f = s.nextLine();
+                String a = s.nextLine();                            //name
+                int b = Integer.parseInt(s.nextLine());             //pin
+                String c = s.nextLine();                            //gender
+                long d = Long.parseLong(s.nextLine());              //phone
+                String e = s.nextLine();                            //email
+                Sport f = Sport.valueOf(s.nextLine());              //sport
                 
                 s.nextLine();
                 Student st = new Student(a,b,c,d,e,f);
                 allStudent.add(st);
             }
-            // s = new Scanner(new File("booking.txt"));
-            //while(s.hasNext()){
-            //    int a = Integer.parseInt(s.nextLine());
-            //    Hall b = Hall.valueOf(s.nextLine());
-            //Date c = Date.valueOf(s.nextLine());
-            //   int d = Integer.parseInt(s.nextLine());
-            //   boolean e = Boolean.parseBoolean(s.nextLine());
-            //  String f = s.nextLine();
-            //  s.nextLine();
-            //  for(int i=0; i<allAdmin.size(); i++){
-            //      Admin x = allAdmin.get(i);
-            //      if(f.equals(x.getName())){
-            //          Booking y = new Booking(a,b,d,e,x);
-            //        x.getMyBooking().add(y);
-            //          allBooking.add(y);                    
-                
-                    
+            s.close();
+            s = new Scanner(new File("booking.txt"));
+            while(s.hasNext()){
+                int a = Integer.parseInt(s.nextLine());             //id
+                Hall b = Hall.valueOf(s.nextLine());                //hall
+                LocalDate c = LocalDate.parse(s.nextLine());        //date
+                Sport d = Sport.valueOf(s.nextLine());              //sport
+                SportCenter e = SportCenter.valueOf(s.nextLine());  //sportcenter
+                LocalTime f = LocalTime.parse(s.nextLine());        //timeStarted
+                int g = Integer.parseInt(s.nextLine());             //duration
+                LocalTime h = LocalTime.parse(s.nextLine());        //timeEnded
+                int i = Integer.parseInt(s.nextLine());             //price
+                boolean j = Boolean.parseBoolean(s.nextLine());     //paid
+                String k = s.nextLine();                            //StudentName
+                s.nextLine();
+                for(int st=0; st<allStudent.size(); st++){
+                    Student x = allStudent.get(st);
+                    if(k.equals(x.getName())){
+                        Booking y = new Booking(a,b,c,d,e,f,g,h,i,j,x);
+                        x.getMyBooking().add(y);
+                        allBooking.add(y);                    
+                    }
+                }
+            }
         } catch(Exception ex){
             System.out.println("Error in read!");
-                }
         }
     }
+}
           

@@ -2,28 +2,32 @@ package rcsas;
 
 //import java.util.Date;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
+
 public class Booking {
     private int id;
     private Hall hall;
-    private Day day;
-    private String code_sp;
-    private String code_sc;
-//    private int timeStarted;
- //   private int duration;
- //   private int timeEnded;
+    private LocalDate date;
+    private Sport sport;
+    private SportCenter centre;
+    private LocalTime timeStarted;
+    private int duration;
+    private LocalTime timeEnded;
     private int price;
     private boolean paid;
     private Student owner;
 
-    public Booking(int id, Hall hall, Day day, String code_sp, String code_sc, int timeStarted, int duration, int timeEnded, int price, boolean paid, Student owner) {
+    public Booking(int id, Hall hall, LocalDate date, Sport sport, SportCenter centre, LocalTime timeStarted, int duration, LocalTime timeEnded, int price, boolean paid, Student owner) {
         this.id = id;
         this.hall = hall;
-        this.day = day;
-        this.code_sp = code_sp;
-        this.code_sc = code_sc;
-//        this.timeStarted = timeStarted;
- //       this.duration = duration;
- //       this.timeEnded = timeEnded;
+        this.date = date;
+        this.sport = sport;
+        this.centre = centre;
+        this.timeStarted = timeStarted;
+        this.duration = duration;
+        this.timeEnded = timeEnded;
         this.price = price;
         this.paid = paid;
         this.owner = owner;
@@ -41,44 +45,51 @@ public class Booking {
     public void setHall(Hall hall) {
         this.hall = hall;
     }
-    public Day getDay() {
-        return day;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setDay(Day day) {
-        this.day = day;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
     
-    public String getCode_sp() {
-        return code_sp;
+    public Sport getSport() {
+        return sport;
     }
-    public void setCode_sp(String code_sp) {
-        this.code_sp = code_sp;
+    public void setSport(Sport code_sp) {
+        this.sport = sport;
     }
-    public String getCode_sc() {
-        return code_sc;
+    public SportCenter getCentre() {
+        return centre;
     }
-    public void setCode_sc(String code_sc) {
-        this.code_sc = code_sc;
+    public void setCentre(SportCenter code_sc) {
+        this.centre = code_sc;
     }
- //   public int getTimeStarted() {
- //       return timeStarted;
-   // }
- //   public void setTimeStarted(int timeStarted) {
- //       this.timeStarted = timeStarted;
-   // }
- //   public int getDuration() {
-  //      return duration;
-  //  }
- //   public void setDuration(int duration) {
-  //      this.duration = duration;
-  //  }
-  //  public int getTimeEnded() {
- //       return timeEnded;
-  //  }
- //   public void setTimeEnded(int timeEnded) {
-  //      this.timeEnded = timeEnded;
-  //  }
+
+    public LocalTime getTimeStarted() {
+        return timeStarted;
+    }
+
+    public void setTimeStarted(LocalTime timeStarted) {
+        this.timeStarted = timeStarted;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    public LocalTime getTimeEnded() {
+        return timeEnded;
+    }
+
+    public void setTimeEnded(LocalTime timeEnded) {
+        this.timeEnded = timeEnded;
+    }
+        
       public int getPrice() {
         return price;
      }

@@ -93,9 +93,9 @@ public class Page1HomePage extends JFrame implements ActionListener{
                         Booking b = RCSAS.allBooking.get(i);
                         p.println(b.getId());
                         p.println(b.getHall());
-                        p.println(b.getDay());
-                        p.println(b.getCode_sp());
-                        p.println(b.getCode_sc());
+                        p.println(b.getDate());
+                        p.println(b.getSport());
+                        p.println(b.getCentre());
 //                        p.println(b.getTimeStarted());
  //                       p.println(b.getDuration());
  //                       p.println(b.getTimeEnded());                      

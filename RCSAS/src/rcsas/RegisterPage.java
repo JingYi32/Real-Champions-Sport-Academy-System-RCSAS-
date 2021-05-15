@@ -123,14 +123,14 @@ public class RegisterPage extends JFrame implements ActionListener {
     
     public void actionPerformed(ActionEvent ev){
         if(ev.getSource() == summit){
-            String a = null;                                //name
-            int b = 0;                                      //pin
-            String c = gd.getSelectedItem().toString();     //gender
-            long d = 0;                                     //contact
+            String a = null;                                            //name
+            int b = 0;                                                  //pin
+            String c = gd.getSelectedItem().toString();                 //gender
+            long d = 0;                                                 //contact
             String d1 = cn.getText();                       
-            String e = null;                                //email
+            String e = null;                                            //email
             String e1 = em.getText();                       
-            String f = s.getSelectedItem().toString();                        //sport
+            Sport f = Sport.valueOf(s.getSelectedItem().toString());    //sport
             String g = fs.getText();
             ArrayList<String> message = new ArrayList<String>();
             //name

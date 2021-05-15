@@ -8,10 +8,10 @@ public class Student {
     private String gender;
     private long phone;
     private String email;
-    private String sport;
+    private Sport sport;
     private ArrayList<Booking> myBooking = new ArrayList<Booking>();
 
-    public Student(String name, int pin, String gender, long phone, String email, String sport) {
+    public Student(String name, int pin, String gender, long phone, String email, Sport sport) {
         this.name = name;
         this.pin = pin;
         this.gender = gender;
@@ -28,11 +28,11 @@ public class Student {
         this.gender = gender;
     }
 
-    public String getSport() {
+    public Sport getSport() {
         return sport;
     }
 
-    public void setSport(String sport) {
+    public void setSport(Sport sport) {
         this.sport = sport;
     }
 
@@ -63,5 +63,13 @@ public class Student {
     public void setEmail(String email) {
         this.email = email;
     }    
+
+    public ArrayList<Booking> getMyBooking() {
+        return myBooking;
+    }
+
+    public void setMyBooking(ArrayList<Booking> myBooking) {
+        this.myBooking = myBooking;
+    }
     
 }

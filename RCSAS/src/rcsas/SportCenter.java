@@ -10,5 +10,5 @@ package rcsas;
  * @author VenusJY
  */
 public enum SportCenter {
-    
+    Puchong, Subang, Cheras, Damansara;
 }
