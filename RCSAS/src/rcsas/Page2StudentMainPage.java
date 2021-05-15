@@ -5,9 +5,11 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class Page2StudentMainPage extends JFrame implements ActionListener{
-    private JLabel title, name, gender, contact, email, eme_contact, studentname, studentgender, studentcontact, studentemail, studenteme_contact;
+    private JLabel title, name, gender, contact, email, eme_contact;
+    public JLabel studentname, studentgender, studentcontact, studentemail, studenteme_contact;
     private Button SearchCoach, ViewRecord, ViewSchedule, Logout;
-    private JPanel a, b, above, label, detail, below;
+    private JPanel a, b, above, label, below;
+    public JPanel detail;
     
     public Page2StudentMainPage(){
         setSize(1500,800);
@@ -44,11 +46,12 @@ public class Page2StudentMainPage extends JFrame implements ActionListener{
         eme_contact = new JLabel("Emergency Contact:");
         
         //Propertly of Labels
-        name.setFont(new Font("Serif", Font.PLAIN, 26));
-        gender.setFont(new Font("Serif", Font.PLAIN, 26));
-        email.setFont(new Font("Serif", Font.PLAIN, 26));
-        contact.setFont(new Font("Serif", Font.PLAIN, 26));
-        eme_contact.setFont(new Font("Serif", Font.PLAIN, 26));
+        name.setFont(new Font("Serif", Font.BOLD, 26));
+        gender.setFont(new Font("Serif", Font.BOLD, 26));
+        email.setFont(new Font("Serif", Font.BOLD, 26));
+        contact.setFont(new Font("Serif", Font.BOLD, 26));
+        eme_contact.setFont(new Font("Serif", Font.BOLD, 26));
+
         
         //Add label into panel
         label.add(name);
@@ -57,18 +60,7 @@ public class Page2StudentMainPage extends JFrame implements ActionListener{
         label.add(contact);
         label.add(eme_contact);
 
-        
-        
-
-
-
-//        studentname = new JLabel(RCSAS.current.getName().toString());
-//        studentname = new JLabel(RCSAS.current.getName().toString());
-//        studentgender = new JLabel(RCSAS.current.getGender().toString());
-//        studentcontact = new JLabel(RCSAS.current.getPhone().toString());
-//        studentemail = new JLabel(RCSAS.current.getEmail().toString());
-//        studenteme_contact = new JLabel();
-
+        //Combine panel 
         above.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         above.add(label,BorderLayout.CENTER);
         above.add(detail, BorderLayout.LINE_END);
@@ -109,9 +101,7 @@ public class Page2StudentMainPage extends JFrame implements ActionListener{
         below.add(Logout, gbc);
         b.add(below,gbc);
         add(b,BorderLayout.CENTER);
-        
-        setVisible(true);
-        
+                
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent e) {
                 setVisible(false);

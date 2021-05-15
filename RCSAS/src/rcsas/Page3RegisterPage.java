@@ -7,14 +7,14 @@ import java.util.*;
 import java.util.regex.Pattern;
 import javax.swing.*;
 
-public class RegisterPage extends JFrame implements ActionListener {
+public class Page3RegisterPage extends JFrame implements ActionListener{
     final private JButton summit,back;
     final private JPanel header, content, footer, left, right, label1, field1, label2, field2;
     final private JLabel title, name, gender, email, contact, eme_contact, sport, program, fee;
     final private JComboBox gd,s,p;
-    final private TextField n, em, cn, ec, fs;
+    final private TextField n, em, cn, ec, fs;    
     
-    public RegisterPage(){
+    public Page3RegisterPage(){
         //Properties
         setSize(1500,800);
         setLocation(200,100);

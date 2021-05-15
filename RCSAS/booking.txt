@@ -1,8 +1,7 @@
 10001
-Hall_swim
+Lane1
 2021-05-16
 Swimming
-Puchong
 15:00
 2
 17:00
@@ -11,14 +10,13 @@ false
 Venus
 
 10002
-Hall_bad
+Lane2
 2021-05-16
-Badminton
-Damansara
-14:30
+Swimming
+15:00
 2
-16:30
-100
+17:00
+140
 false
 Vivian
 
