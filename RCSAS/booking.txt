@@ -1,9 +1,0 @@
-10001
-Hall_swim
-2016-08-16
-Swimming
-Puchong
-150
-false
-Venus
-

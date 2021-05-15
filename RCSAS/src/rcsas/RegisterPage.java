@@ -2,25 +2,23 @@
 package rcsas;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.awt.event.*;
+import java.util.*;
 import java.util.regex.Pattern;
 import javax.swing.*;
 
 public class RegisterPage extends JFrame implements ActionListener {
-    private JButton summit,back;
-    private JPanel header, content, footer, left, right, label1, field1, label2, field2;
-    private JLabel title, name, gender, email, contact, eme_contact, sport, program, fee;
-    private JComboBox gd,s,p;
-    private TextField n, em, cn, ec, fs;
+    final private JButton summit,back;
+    final private JPanel header, content, footer, left, right, label1, field1, label2, field2;
+    final private JLabel title, name, gender, email, contact, eme_contact, sport, program, fee;
+    final private JComboBox gd,s,p;
+    final private TextField n, em, cn, ec, fs;
     
     public RegisterPage(){
         //Properties
         setSize(1500,800);
         setLocation(200,100);
         setDefaultLookAndFeelDecorated(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         header = new JPanel();
         header.setPreferredSize(new Dimension(1500,100));
@@ -39,6 +37,7 @@ public class RegisterPage extends JFrame implements ActionListener {
         back = new JButton("Back");
         back.setFont(new Font("Serif", Font.PLAIN, 26));
         back.setPreferredSize(new Dimension(150,40));
+        back.addActionListener(this);
         footer.add(summit);
         footer.add(back);
         
@@ -61,15 +60,38 @@ public class RegisterPage extends JFrame implements ActionListener {
         program = new JLabel("Program:");
         fee = new JLabel("Fee:");
         
+        //Propertly of labels
+        name.setFont(new Font("Serif", Font.PLAIN, 26));
+        gender.setFont(new Font("Serif", Font.PLAIN, 26));
+        email.setFont(new Font("Serif", Font.PLAIN, 26));
+        contact.setFont(new Font("Serif", Font.PLAIN, 26));
+        eme_contact.setFont(new Font("Serif", Font.PLAIN, 26));
+        sport.setFont(new Font("Serif", Font.PLAIN, 26));
+        program.setFont(new Font("Serif", Font.PLAIN, 26));
+        fee.setFont(new Font("Serif", Font.PLAIN, 26));
+        
         //Create text fields
-        n = new TextField(20);
+        n = new TextField(40);
         gd = new JComboBox();
+        em = new TextField(40);
+        cn = new TextField(40);
+        ec = new TextField(40);
+        s = new JComboBox();
+        p = new JComboBox();
+        fs = new TextField(40);
+        
+        //Properly of Input Fields
+        n.setFont(new Font("Serif", Font.PLAIN, 26));
+        gd.setFont(new Font("Serif", Font.PLAIN, 26));
+        gd.setPreferredSize(new Dimension(350,40));
         gd.addItem("Female");
         gd.addItem("Male");
-        em = new TextField(20);
-        cn = new TextField(20);
-        ec = new TextField(20);
-        s = new JComboBox();
+        gd.setSelectedIndex(-1);
+        em.setFont(new Font("Serif", Font.PLAIN, 26));
+        cn.setFont(new Font("Serif", Font.PLAIN, 26));
+        ec.setFont(new Font("Serif", Font.PLAIN, 26));
+        s.setFont(new Font("Serif", Font.PLAIN, 26));
+        s.setPreferredSize(new Dimension(350,40));
         s.addItem("Swimming");
         s.addItem("Badminton");
         s.addItem("Football");
@@ -79,9 +101,10 @@ public class RegisterPage extends JFrame implements ActionListener {
         s.addItem("Basketball");
         s.addItem("Cricket");
         s.addItem("Tennis");
-        
-        p = new JComboBox();
-        fs = new TextField(20);
+        s.setSelectedIndex(-1);
+        p.setFont(new Font("Serif", Font.PLAIN, 26));
+        p.setPreferredSize(new Dimension(350,40));
+        fs.setFont(new Font("Serif", Font.PLAIN, 26));
         fs.setEditable(false);
         
         //Layout labels in a panel.
@@ -97,16 +120,33 @@ public class RegisterPage extends JFrame implements ActionListener {
         label2.add(fee);
         
         //Layout text fields in a panel.
+        JPanel pn = new JPanel(new GridBagLayout());
+        pn.add(n);
+        JPanel pgd = new JPanel(new GridBagLayout());
+        pgd.add(gd);
+        JPanel pem = new JPanel(new GridBagLayout());
+        pem.add(em);
+        JPanel pcn = new JPanel(new GridBagLayout());
+        pcn.add(cn);
+        JPanel pec = new JPanel(new GridBagLayout());
+        pec.add(ec);
+        JPanel ps = new JPanel(new GridBagLayout());
+        ps.add(s);
+        JPanel pp = new JPanel(new GridBagLayout());
+        pp.add(p);
+        JPanel pfs = new JPanel(new GridBagLayout());
+        pfs.add(fs);
+        
         field1 = new JPanel(new GridLayout(0,1));
-        field1.add(n);
-        field1.add(gd);
-        field1.add(em);
-        field1.add(cn);
-        field1.add(ec);
+        field1.add(pn, new GridBagConstraints());
+        field1.add(pgd);
+        field1.add(pem);
+        field1.add(pcn);
+        field1.add(pec);
         field2 = new JPanel(new GridLayout(0,1));
-        field2.add(s);
-        field2.add(p);
-        field2.add(fs);
+        field2.add(ps);
+        field2.add(pp);
+        field2.add(pfs);
         
         left.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         left.add(label1, BorderLayout.CENTER);
@@ -116,10 +156,27 @@ public class RegisterPage extends JFrame implements ActionListener {
         right.add(field2, BorderLayout.LINE_END);  
         content.add(left);
         content.add(right);
-
-        //setVisible(true);
+        
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                int a = JOptionPane.YES_NO_OPTION;
+                JOptionPane.showConfirmDialog(null, "This action will loss the information key in. \nAre you sure?","WARNING", a);
+                if(a==JOptionPane.YES_OPTION){
+                    setVisible(false);
+                    RCSAS.HomePage.setVisible(true);
+                    RCSAS.current = null;
+                }else{
+                    remove(a);
+                }
+            }
+        });
     }
-    
+    public void windowClosing(WindowEvent e) {
+        int a=JOptionPane.showConfirmDialog(null,"Are you sure?");
+        if(a==JOptionPane.YES_OPTION){
+            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        }
+    }
     
     public void actionPerformed(ActionEvent ev){
         if(ev.getSource() == summit){
@@ -131,7 +188,8 @@ public class RegisterPage extends JFrame implements ActionListener {
             //
             //name
             //
-            String a = n.getText();
+            String a = null;
+            a = n.getText();
             for(int ix=0; ix<RCSAS.allStudent.size(); ix++){
                 Student st = RCSAS.allStudent.get(ix);
                 if(a.equals(st.getName())){
@@ -149,18 +207,21 @@ public class RegisterPage extends JFrame implements ActionListener {
             //
             //gender
             //
-            
-            String c = gd.getSelectedItem().toString();
-            if(gd.getSelectedIndex()==-1){
+            String c = null;
+            try{
+                c = gd.getSelectedItem().toString();
+            }catch(NullPointerException npe){
                 message.add("\nGender box is null!");
                 flag2 = false;
             }
+
             
             //
             //contact
             //
             
-            String d1 = cn.getText();
+            String d1 = null;
+            d1 = cn.getText();
             long d = 0;
             if((d1 != null) && (Pattern.compile("^\\d{11}$").matcher(d1).matches())){
                 d = Long.parseLong(d1);
@@ -172,8 +233,8 @@ public class RegisterPage extends JFrame implements ActionListener {
             //
             //email
             //
-            
-            String e = em.getText();
+            String e = null;
+            e = em.getText();
             if(!Pattern.compile("^(.+)@(.+)$").matcher(e).matches()){
                 message.add("\nInvalid email!");
                 flag2 = false;
@@ -182,8 +243,10 @@ public class RegisterPage extends JFrame implements ActionListener {
             //
             //sport
             //
-            Sport f = Sport.valueOf(s.getSelectedItem().toString());
-            if(s.getSelectedIndex() == -1){
+            Sport f = null;
+            try{
+                f = Sport.valueOf(s.getSelectedItem().toString());
+            }catch(NullPointerException npe){
                 message.add("\nSport box is null!");
                 flag2 = false;
             }
@@ -214,6 +277,15 @@ public class RegisterPage extends JFrame implements ActionListener {
             }else{
                 JOptionPane.showMessageDialog(null,"There are error in the information:"+message+"\nKindly replace the invalid information!");
             }
+        }
+        
+        else if(ev.getSource() == back){
+            int a = JOptionPane.showConfirmDialog(this,"Are you sure?");
+            if ( a == JOptionPane.YES_OPTION){
+                setVisible(false);
+                RCSAS.HomePage.setVisible(true);
+            }
+
         }
     }
 }
