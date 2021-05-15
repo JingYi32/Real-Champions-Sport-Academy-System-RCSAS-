@@ -5,14 +5,42 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class Page2StudentMainPage extends JFrame implements ActionListener{
-    private Button SearchCoach, ViewRecord, ViewSchedule, Logout;
-    private JPanel a;
+    final private JLabel title, name, gender, contact, email, eme_contact, studentname, studentgender, studentcontact, studentemail, studenteme_contact;
+    final private Button SearchCoach, ViewRecord, ViewSchedule, Logout;
+    final private JPanel a, b, above, label, detail, below;
     
     public Page2StudentMainPage(){
         setSize(500,500);
         setLocation(700,300);
-        setLayout(new GridBagLayout());
+        setLayout(new BorderLayout());
         
+        //
+        //header
+        //
+        a = new JPanel(new GridBagLayout());
+        title = new JLabel("Profile");
+        a.add(title);
+        
+        //
+        //content
+        ///
+        b = new JPanel(new GridLayout(2,1));
+        above = new JPanel(new GridLayout(0,1));
+        label = new JPanel(new GridLayout(0,1));
+        name = new JLabel("Name:");
+        gender = new JLabel("Gender:");
+        email = new JLabel("Email:");
+        contact = new JLabel("Contact:");
+        eme_contact = new JLabel("Emergency Contact:");
+        
+        
+        detail = new JPanel(new GridLayout(0,1));
+        
+        studentname = new JLabel(RCSAS.current.getName());
+        studentgender = new JLabel(RCSAS.current.getGender());
+        studentcontact = new JLabel(RCSAS.current.getPhone());
+        studentemail = new JLabel(RCSAS.current.getEmail());
+        studenteme_contact = new JLabel();
         SearchCoach = new Button("Search Coach Detials");
         SearchCoach.setPreferredSize(new Dimension(350,40));
         SearchCoach.setFont(new Font("Serif", Font.PLAIN, 32));
@@ -37,14 +65,16 @@ public class Page2StudentMainPage extends JFrame implements ActionListener{
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.weighty = 5.0;
         
-        a = new JPanel(new GridBagLayout());
-        a.add(SearchCoach, gbc);
-        a.add(ViewRecord, gbc);
-        a.add(ViewSchedule, gbc);
-        a.add(Logout, gbc);
-        add(a,gbc);
+        below = new JPanel(new GridBagLayout());
+        below.add(SearchCoach, gbc);
+        below.add(ViewRecord, gbc);
+        below.add(ViewSchedule, gbc);
+        below.add(Logout, gbc);
+        b.add(below,gbc);
+        add(b,BorderLayout.CENTER);
         
         addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
             public void windowClosing(java.awt.event.WindowEvent e) {
                 setVisible(false);
                 RCSAS.HomePage.setVisible(true);
@@ -53,6 +83,7 @@ public class Page2StudentMainPage extends JFrame implements ActionListener{
         });
     }
     
+    @Override
     public void actionPerformed(ActionEvent e){
         
         if(e.getSource()==Logout){

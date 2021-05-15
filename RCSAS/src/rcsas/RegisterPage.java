@@ -18,7 +18,6 @@ public class RegisterPage extends JFrame implements ActionListener {
         //Properties
         setSize(1500,800);
         setLocation(200,100);
-        setDefaultLookAndFeelDecorated(true);
         
         header = new JPanel();
         header.setPreferredSize(new Dimension(1500,100));
@@ -111,8 +110,8 @@ public class RegisterPage extends JFrame implements ActionListener {
         label1 = new JPanel(new GridLayout(0,1));
         label1.add(name);
         label1.add(gender);
-        label1.add(email);
         label1.add(contact);
+        label1.add(email);
         label1.add(eme_contact);
         label2 = new JPanel(new GridLayout(0,1));
         label2.add(sport);
@@ -158,6 +157,7 @@ public class RegisterPage extends JFrame implements ActionListener {
         content.add(right);
         
         addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
             public void windowClosing(java.awt.event.WindowEvent e) {
                 int a = JOptionPane.YES_NO_OPTION;
                 JOptionPane.showConfirmDialog(null, "This action will loss the information key in. \nAre you sure?","WARNING", a);
@@ -178,9 +178,10 @@ public class RegisterPage extends JFrame implements ActionListener {
         }
     }
     
+    @Override
     public void actionPerformed(ActionEvent ev){
         if(ev.getSource() == summit){
-            ArrayList<String> message = new ArrayList<String>();
+            ArrayList<String> message = new ArrayList<>();
             
             boolean flag = true;
             boolean flag2 = true;
@@ -189,19 +190,21 @@ public class RegisterPage extends JFrame implements ActionListener {
             //name
             //
             String a = null;
-            a = n.getText();
-            for(int ix=0; ix<RCSAS.allStudent.size(); ix++){
-                Student st = RCSAS.allStudent.get(ix);
-                if(a.equals(st.getName())){
-                    flag = false;
-                    break;
-                }   
+            if(n.getText() == null){
+                message.add("\nName field cannot be blank!");
+            }else{
+                a = n.getText();
+                for(int ix=0; ix<RCSAS.allStudent.size(); ix++){
+                    Student st = RCSAS.allStudent.get(ix);
+                    if(a.equals(st.getName())){
+                        flag = false;
+                        break;
+                    }   
+                }
             }
             if(!flag){
                 message.add("\nName has been used!");
                 flag2 = false;
-            }else{
-                
             }
             
             //
@@ -220,11 +223,10 @@ public class RegisterPage extends JFrame implements ActionListener {
             //contact
             //
             
-            String d1 = null;
-            d1 = cn.getText();
-            long d = 0;
-            if((d1 != null) && (Pattern.compile("^\\d{11}$").matcher(d1).matches())){
-                d = Long.parseLong(d1);
+            String d1 = cn.getText();
+            String d = null;
+            if((cn.getText() != null) && (Pattern.compile("^\\d{11}$").matcher(d1).matches())){
+                d = d1;
             }else{
                 message.add("\nInvalid phone number!");
                 flag2 = false;
@@ -280,12 +282,15 @@ public class RegisterPage extends JFrame implements ActionListener {
         }
         
         else if(ev.getSource() == back){
-            int a = JOptionPane.showConfirmDialog(this,"Are you sure?");
-            if ( a == JOptionPane.YES_OPTION){
+            int a = JOptionPane.YES_NO_OPTION;
+            JOptionPane.showConfirmDialog(null, "This action will loss the information key in. \nAre you sure?","WARNING", a);
+            if(a==JOptionPane.YES_OPTION){
                 setVisible(false);
                 RCSAS.HomePage.setVisible(true);
+                RCSAS.current = null;
+            }else{
+                remove(a);
             }
-
         }
     }
 }

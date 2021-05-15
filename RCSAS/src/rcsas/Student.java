@@ -6,12 +6,12 @@ public class Student {
     private String name;
     private int pin;
     private String gender;
-    private long phone;
+    private String phone;
     private String email;
     private Sport sport;
     private ArrayList<Booking> myBooking = new ArrayList<Booking>();
 
-    public Student(String name, int pin, String gender, long phone, String email, Sport sport) {
+    public Student(String name, int pin, String gender, String phone, String email, Sport sport) {
         this.name = name;
         this.pin = pin;
         this.gender = gender;
@@ -50,10 +50,10 @@ public class Student {
         this.pin = pin;
     }
 
-    public long getPhone() {
+    public String getPhone() {
         return phone;
     }
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 

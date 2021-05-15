@@ -31,7 +31,7 @@ public class RCSAS {
                 String a = s.nextLine();                            //name
                 int b = Integer.parseInt(s.nextLine());             //pin
                 String c = s.nextLine();                            //gender
-                long d = Long.parseLong(s.nextLine());              //phone
+                String d = s.nextLine();                            //phone
                 String e = s.nextLine();                            //email
                 Sport f = Sport.valueOf(s.nextLine());              //sport
                 
