@@ -40,7 +40,7 @@ public class Page2SecondPage extends JFrame implements ActionListener{
                     String c = JOptionPane.showInputDialog("Code_Sport:");
                     Sport c1 = Sport.valueOf(c);
                     String d = JOptionPane.showInputDialog("Code_Sport_Centre:");
-                    Sport d1 = Sport.valueOf(d);
+                    Sport d1 = Sport.valueOf(d);                   
                     int f = Integer.parseInt(JOptionPane.showInputDialog("Time:"));
                     if(f<9 || f>23){
                         throw new Exception();
@@ -49,7 +49,7 @@ public class Page2SecondPage extends JFrame implements ActionListener{
                     for(int i=0; i<RCSAS.allBooking.size(); i++){
                         Booking x = RCSAS.allBooking.get(i);
                         if(x.getHall().toString().equals(a) &&
-                                x.getDate().toString().equals(b) &&
+                                x.getDay().toString().equals(b) &&
                                 x.getTimeStarted() == f){
                             JOptionPane.showMessageDialog(book, "Not available!");
                             flag = false;
