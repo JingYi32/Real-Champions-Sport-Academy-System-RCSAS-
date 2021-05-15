@@ -123,57 +123,88 @@ public class RegisterPage extends JFrame implements ActionListener {
     
     public void actionPerformed(ActionEvent ev){
         if(ev.getSource() == summit){
-            String a = null;                                            //name
-            int b = 0;                                                  //pin
-            String c = gd.getSelectedItem().toString();                 //gender
-            long d = 0;                                                 //contact
-            String d1 = cn.getText();                       
-            String e = null;                                            //email
-            String e1 = em.getText();                       
-            Sport f = Sport.valueOf(s.getSelectedItem().toString());    //sport
-            String g = fs.getText();
             ArrayList<String> message = new ArrayList<String>();
-            //name
+            
             boolean flag = true;
-            boolean flag2 = false;
+            boolean flag2 = true;
+            
+            //
+            //name
+            //
+            String a = n.getText();
             for(int ix=0; ix<RCSAS.allStudent.size(); ix++){
                 Student st = RCSAS.allStudent.get(ix);
-                if(n.getText().equals(st.getName())){
+                if(a.equals(st.getName())){
                     flag = false;
                     break;
                 }   
             }
-            if(flag){
-                if(gd.getSelectedIndex()!= 0){
-                    //Contact
-                    a = n.getText();
-                    if ((d1 != null) && (Pattern.compile("^\\d{11}$").matcher(d1).matches())){
-                        d = Long.parseLong(d1);
-                        //Email
-                        if(Pattern.compile("^(.+)@(.+)$").matcher(e1).matches()){
-                            e = e1;
-                            if(s.getSelectedIndex()!= 0){
-                                flag2 = true;
-                            }
-                        }else{
-
-                            message.add("\nInvalid email!");
-                        }
-                    }else{
-                        message.add("\nInvalid phone number!");
-                }
-                }else{
-                    message.add("\nGender box is null!");
-                }
-
-            }else{
+            if(!flag){
                 message.add("\nName has been used!");
-                }
-                        
+                flag2 = false;
+            }else{
+                
+            }
+            
+            //
+            //gender
+            //
+            
+            String c = gd.getSelectedItem().toString();
+            if(gd.getSelectedIndex()==-1){
+                message.add("\nGender box is null!");
+                flag2 = false;
+            }
+            
+            //
+            //contact
+            //
+            
+            String d1 = cn.getText();
+            long d = 0;
+            if((d1 != null) && (Pattern.compile("^\\d{11}$").matcher(d1).matches())){
+                d = Long.parseLong(d1);
+            }else{
+                message.add("\nInvalid phone number!");
+                flag2 = false;
+            }
+            
+            //
+            //email
+            //
+            
+            String e = em.getText();
+            if(!Pattern.compile("^(.+)@(.+)$").matcher(e).matches()){
+                message.add("\nInvalid email!");
+                flag2 = false;
+            }
+            
+            //
+            //sport
+            //
+            Sport f = Sport.valueOf(s.getSelectedItem().toString());
+            if(s.getSelectedIndex() == -1){
+                message.add("\nSport box is null!");
+                flag2 = false;
+            }
+            
+            //
+            //program
+            //
+            
+            //
+            //Location
+            //
+            
+            //
+            //Fee
+            //
+            
+            
             if(flag2){
                 String b1 = JOptionPane.showInputDialog("There is no error in the information keyin. \nKindly create a pin number for login.\nPin:");
                 if (Pattern.compile("[1-9]{1}\\d{5,10}").matcher(b1).matches()){
-                    b = Integer.parseInt(b1);
+                    int b = Integer.parseInt(b1);
                     Student st = new Student(a,b,c,d,e,f);
                     RCSAS.allStudent.add(st);
                     RCSAS.HomePage.setVisible(true);
