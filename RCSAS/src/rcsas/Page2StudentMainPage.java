@@ -5,9 +5,9 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class Page2StudentMainPage extends JFrame implements ActionListener{
-    final private JLabel title, name, gender, contact, email, eme_contact, studentname, studentgender, studentcontact, studentemail, studenteme_contact;
-    final private Button SearchCoach, ViewRecord, ViewSchedule, Logout;
-    final private JPanel a, b, above, label, detail, below;
+    private JLabel title, name, gender, contact, email, eme_contact, studentname, studentgender, studentcontact, studentemail, studenteme_contact;
+    private Button SearchCoach, ViewRecord, ViewSchedule, Logout;
+    private JPanel a, b, above, label, detail, below;
     
     public Page2StudentMainPage(){
         setSize(500,500);
@@ -36,10 +36,10 @@ public class Page2StudentMainPage extends JFrame implements ActionListener{
         
         detail = new JPanel(new GridLayout(0,1));
         
-        studentname = new JLabel(RCSAS.current.getName());
-        studentgender = new JLabel(RCSAS.current.getGender());
-        studentcontact = new JLabel(RCSAS.current.getPhone());
-        studentemail = new JLabel(RCSAS.current.getEmail());
+//        studentname = new JLabel(RCSAS.current.getName());
+//        studentgender = new JLabel(RCSAS.current.getGender());
+//        studentcontact = new JLabel(RCSAS.current.getPhone());
+//        studentemail = new JLabel(RCSAS.current.getEmail());
         studenteme_contact = new JLabel();
         SearchCoach = new Button("Search Coach Detials");
         SearchCoach.setPreferredSize(new Dimension(350,40));
@@ -74,7 +74,6 @@ public class Page2StudentMainPage extends JFrame implements ActionListener{
         add(b,BorderLayout.CENTER);
         
         addWindowListener(new java.awt.event.WindowAdapter() {
-            @Override
             public void windowClosing(java.awt.event.WindowEvent e) {
                 setVisible(false);
                 RCSAS.HomePage.setVisible(true);
@@ -83,7 +82,6 @@ public class Page2StudentMainPage extends JFrame implements ActionListener{
         });
     }
     
-    @Override
     public void actionPerformed(ActionEvent e){
         
         if(e.getSource()==Logout){

@@ -4,12 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.PrintWriter;
-import java.util.regex.Pattern;
 
 
 public class Page1HomePage extends JFrame implements ActionListener{
     
-    private Panel y1,y2,y2_1;
+    private Panel y1,y2,y2_1, w, content;
     private Button login, signup, exit;
     private Label system, welcome, describe;
     
@@ -22,20 +21,26 @@ public class Page1HomePage extends JFrame implements ActionListener{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 
         //Panel Properties
-        y1 = new Panel();
+        y1 = new Panel(new GridLayout(1,2));
         add(y1,BorderLayout.CENTER);
+        
+        w = new Panel(new GridBagLayout());
+        welcome = new Label("Welcome to the RCSAS!");
+        w.add(welcome);
+        content = new Panel(new GridBagLayout());
+        describe = new Label("");
+        content.add(describe);
         
         y2 = new Panel();
         y2.setBackground(new java.awt.Color(204, 166, 166));
         y2.setLayout(new GridLayout(1,2));
         
-        welcome = new Label("Real Champions Sport Academy",Label.LEFT);
-        welcome.setFont(myFont);
-        y2.add(welcome);
+        system = new Label("Real Champions Sport Academy",Label.LEFT);
+        system.setFont(myFont);
+        y2.add(system);
         
-        y2_1 = new Panel();
+        y2_1 = new Panel(new GridBagLayout());
         y2_1.setPreferredSize(new Dimension(1500,100));
-        y2_1.setLayout(new GridBagLayout());
         
         //Creating Button
         login = new Button("Login");
@@ -63,6 +68,7 @@ public class Page1HomePage extends JFrame implements ActionListener{
         add(y2,BorderLayout.NORTH);
         setVisible(true);
     }
+    
     public void actionPerformed(ActionEvent e){
        if(e.getSource()==exit){
             String input = JOptionPane.showInputDialog("Password:");
@@ -97,8 +103,8 @@ public class Page1HomePage extends JFrame implements ActionListener{
                         p.println(b.getSport());
                         p.println(b.getCentre());
 //                        p.println(b.getTimeStarted());
- //                       p.println(b.getDuration());
- //                       p.println(b.getTimeEnded());                      
+//                       p.println(b.getDuration());
+//                       p.println(b.getTimeEnded());                      
                         p.println(b.getPrice());
                         p.println(b.isPaid());
                         p.println(b.getOwner().getName());
@@ -107,7 +113,7 @@ public class Page1HomePage extends JFrame implements ActionListener{
                     p.close();      
                     System.exit(0);
                     } catch(Exception ex){
-                    System.out.println("Error in stop!");
+                        System.out.println("Error in stop!");
                 }
             } else{
                 JOptionPane.showMessageDialog(exit,"Wrong password!");
