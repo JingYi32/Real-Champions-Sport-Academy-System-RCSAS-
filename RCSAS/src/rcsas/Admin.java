@@ -4,9 +4,7 @@ import java.util.ArrayList;
 
 public class Admin {
     private String name;
-    private int pin;
-    private ArrayList<Booking> myBooking = new ArrayList<Booking>();
-    
+    private int pin;    
    
     public Admin(String name, int pin) {
         this.name = name;
@@ -24,10 +22,4 @@ public class Admin {
     public void setPin(int pin) {
         this.pin = pin;
     }
-    public ArrayList<Booking> getMyBooking() {
-        return myBooking;
-    }
-    public void setMyBooking(ArrayList<Booking> myBooking) {
-        this.myBooking = myBooking;  
-}
 }

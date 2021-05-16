@@ -4,7 +4,6 @@ Female
 60123456789
 someone@outlook.com
 60000000000
-Football
 
 Soon
 123456
@@ -12,7 +11,6 @@ Female
 60123456789
 someone@outlook.com
 60000000000
-Archery
 
 Vivian
 123456
@@ -20,5 +18,4 @@ Female
 60123456789
 someone@outlook.com
 60000000000
-Volleyball
 

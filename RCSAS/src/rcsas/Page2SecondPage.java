@@ -46,8 +46,8 @@ public class Page2SecondPage extends JFrame implements ActionListener{
                 JOptionPane.showMessageDialog(null, "Worng student name!");
             }
             else{
-                int size = RCSAS.current.getMyBooking().size();
-                if(size==0 || RCSAS.current.getMyBooking().get(size-1).isPaid()){
+                int size = RCSAS.current.getMyClasses().size();
+                if(size==0 || (RCSAS.current.getMyClasses().get(size-1).isIsPaid() && (!RCSAS.current.getMyClasses().get(size-2).isIsAssign()))){
                     boolean flag = true;
                     String a = null;
                     LocalDate b1 = null;
@@ -67,8 +67,6 @@ public class Page2SecondPage extends JFrame implements ActionListener{
                             throw new Exception();
                         }
                         f = Integer.parseInt(JOptionPane.showInputDialog("Duration:"));
-                        g = d1.plusHours(f);
-                        h =Integer.parseInt(JOptionPane.showInputDialog("Price:"));
                         for(int bk=0; bk<RCSAS.allBooking.size(); bk++){
                             Booking x = RCSAS.allBooking.get(bk);
                             for(int no_hall=1; no_hall<=c1.getNo_hall(); no_hall++){
@@ -89,8 +87,8 @@ public class Page2SecondPage extends JFrame implements ActionListener{
                     
                     if(flag){
                         int id = 10001+RCSAS.allBooking.size();
-                        Booking x = new Booking(id,a,b1,c1,d1,f,g,h,false,RCSAS.current);
-                        RCSAS.whoLogin.getMyBooking().add(x);
+                        Booking x = new Booking(id,a,b1,c1,d1,f,RCSAS.current);
+                        RCSAS.current.getMyBooking().add(x);
                         RCSAS.allBooking.add(x);
                         JOptionPane.showMessageDialog(null, "Id: "+id);
                     }else{
@@ -103,8 +101,8 @@ public class Page2SecondPage extends JFrame implements ActionListener{
                 }
             }
         } else{
-            int size = RCSAS.whoLogin.getMyBooking().size();
-            if(size==0 || RCSAS.whoLogin.getMyBooking().get(size-1).isPaid()){
+            int size = RCSAS.current.getMyClasses().size();
+            if(size==0 || RCSAS.current.getMyClasses().get(size-1).isIsPaid()){
                 JOptionPane.showMessageDialog(null,"You have no unpaid bookings!");
             //} else{
               //  int id = RCSAS.whoLogin.getMyBooking().get(size-1).getId();
