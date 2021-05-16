@@ -4,8 +4,9 @@ import java.awt.event.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import javax.swing.*;
+
 public class Page2SecondPage extends JFrame implements ActionListener{
-    private Button book, booking_records, display, pay, logout; //booking records=status //display = coach + sport records
+    private Button book, booking_records, display, pay, logout; //booking records=status //display = coach + sport records   
     public Page2SecondPage(){
         setSize(250,100);
         setLocation(1000,300);
@@ -14,12 +15,12 @@ public class Page2SecondPage extends JFrame implements ActionListener{
         booking_records = new Button("Booking Records");
         display = new Button("Display");
         pay = new Button("Pay");
-        logout = new Button("Logout");
+        logout = new Button("Logout");  
         book.addActionListener(this);
         booking_records.addActionListener(this);
         display.addActionListener(this);
         pay.addActionListener(this);
-        logout.addActionListener(this);
+        logout.addActionListener(this);        
         add(book);
         add(booking_records);
         add(display);
