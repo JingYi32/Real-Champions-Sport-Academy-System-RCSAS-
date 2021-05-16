@@ -6,6 +6,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
@@ -114,3 +115,19 @@
     </open-files>
 </project-private>
 >>>>>>> parent of 6f7245d (20210514)
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/VenusJY/Documents/GitHub/2021-OODJ-Assignment/RCSAS/src/rcsas/Admin.java</file>
+            <file>file:/C:/Users/VenusJY/Documents/GitHub/2021-OODJ-Assignment/RCSAS/src/rcsas/RCSAS.java</file>
+            <file>file:/C:/Users/VenusJY/Documents/GitHub/2021-OODJ-Assignment/RCSAS/src/rcsas/RegisterPage.java</file>
+            <file>file:/C:/Users/VenusJY/Documents/GitHub/2021-OODJ-Assignment/RCSAS/src/rcsas/Page1HomePage.java</file>
+            <file>file:/C:/Users/VenusJY/Documents/GitHub/2021-OODJ-Assignment/RCSAS/src/rcsas/Student.java</file>
+            <file>file:/C:/Users/VenusJY/Documents/GitHub/2021-OODJ-Assignment/RCSAS/student.txt</file>
+        </group>
+    </open-files>
+</project-private>
+>>>>>>> parent of 17e5784 (20210515)
