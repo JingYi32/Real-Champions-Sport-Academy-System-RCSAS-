@@ -135,7 +135,7 @@ public class Page1HomePage extends JFrame implements ActionListener{
                     }
                 }            
                 if(RCSAS.whoLogin==null){
-                    JOptionPane.showMessageDialog(null, "Worng username!");
+                    JOptionPane.showMessageDialog(null, "Wrong username!");
                 }else{
                     s = JOptionPane.showInputDialog("Password:");
                     if(Integer.parseInt(s) != RCSAS.whoLogin.getPin()){
@@ -160,7 +160,7 @@ public class Page1HomePage extends JFrame implements ActionListener{
                 }
                 
                 if(RCSAS.current==null){
-                    JOptionPane.showMessageDialog(null, "Worng username!");
+                    JOptionPane.showMessageDialog(null, "Wrong username!");
                 }else{
                     s = JOptionPane.showInputDialog("Password:");
                     if(Integer.parseInt(s) == RCSAS.current.getPin()){
