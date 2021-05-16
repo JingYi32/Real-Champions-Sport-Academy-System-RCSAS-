@@ -4,12 +4,20 @@ import java.util.Date;
 public class Student {
     private String name;
     private int pin;
+<<<<<<< HEAD
     private int phone;
+=======
+    private long phone;
+>>>>>>> parent of e0fa173 (20210512)
     private String address;
     private String email;
     private Date dob;
 
+<<<<<<< HEAD
     public Student(String name, int pin, int phone, String address, String email, Date dob) {
+=======
+    public Student(String name, int pin, long phone, String address, String email, Date dob) {
+>>>>>>> parent of e0fa173 (20210512)
         this.name = name;
         this.pin = pin;
         this.phone = phone;

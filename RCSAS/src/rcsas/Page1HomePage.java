@@ -2,9 +2,14 @@ package rcsas;
 import java.awt.*;
 import java.awt.event.*;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import javax.swing.*;
 =======
 >>>>>>> parent of feee75e (RCSAS)
+=======
+import java.io.PrintWriter;
+
+>>>>>>> parent of e0fa173 (20210512)
 
 public class Page1HomePage extends JFrame implements ActionListener{
     private Button login, signup, exit;
@@ -119,7 +124,11 @@ public class Page1HomePage extends JFrame implements ActionListener{
                     RCSAS.whoLogin = null;
                 } else{
                     setVisible(false);  //same as this.setVisible(false);
+<<<<<<< HEAD
                    // RCSAS.second.setVisible(true);
+=======
+                    RCSAS.SecondPage.setVisible(true);
+>>>>>>> parent of e0fa173 (20210512)
                 }
             }
         }
