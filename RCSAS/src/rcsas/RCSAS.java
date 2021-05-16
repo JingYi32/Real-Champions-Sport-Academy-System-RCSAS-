@@ -7,9 +7,9 @@ import java.util.*;
 
 public class RCSAS {
     public static Page1HomePage HomePage = new Page1HomePage();
+    public static RegisterPage SignuPage = new RegisterPage();
     public static Page2SecondPage AdminSecondPage = new Page2SecondPage();
     public static Page2StudentMainPage StudentMainPage = new Page2StudentMainPage();
-    public static Page3RegisterPage SignuPage = new Page3RegisterPage();
     public static Student current = null;
     public static Admin whoLogin = null;
     public static ArrayList<Student> allStudent = new ArrayList<Student>();
@@ -44,9 +44,10 @@ public class RCSAS {
             s = new Scanner(new File("booking.txt"));
             while(s.hasNext()){
                 int a = Integer.parseInt(s.nextLine());             //id
-                String b = s.nextLine();                            //hall
+                Hall b = Hall.valueOf(s.nextLine());                //hall
                 LocalDate c = LocalDate.parse(s.nextLine());        //date
                 Sport d = Sport.valueOf(s.nextLine());              //sport
+                SportCenter e = SportCenter.valueOf(s.nextLine());  //sportcenter
                 LocalTime f = LocalTime.parse(s.nextLine());        //timeStarted
                 int g = Integer.parseInt(s.nextLine());             //duration
                 LocalTime h = LocalTime.parse(s.nextLine());        //timeEnded
@@ -57,7 +58,7 @@ public class RCSAS {
                 for(int st=0; st<allStudent.size(); st++){
                     Student x = allStudent.get(st);
                     if(k.equals(x.getName())){
-                        Booking y = new Booking(a,b,c,d,f,g,h,i,j,x);
+                        Booking y = new Booking(a,b,c,d,e,f,g,h,i,j,x);
                         x.getMyBooking().add(y);
                         allBooking.add(y);                    
                     }

@@ -99,9 +99,10 @@ public class Page1HomePage extends JFrame implements ActionListener{
                     for(int i=0; i<RCSAS.allBooking.size(); i++){
                         Booking b = RCSAS.allBooking.get(i);
                         p.println(b.getId());
-                        p.println(b.getVenue());
+                        p.println(b.getHall());
                         p.println(b.getDate());
                         p.println(b.getSport());
+                        p.println(b.getCentre());
                         p.println(b.getTimeStarted());
                         p.println(b.getDuration());
                         p.println(b.getTimeEnded());                      
@@ -122,80 +123,45 @@ public class Page1HomePage extends JFrame implements ActionListener{
             setVisible(false);
             RCSAS.SignuPage.setVisible(true);
         } else{
-            String[] options = {"Admin", "Student"};
-            int op = JOptionPane.showOptionDialog(null, "Please select your role:","Role for Login",JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
-            //Admin
-            if(op == 0){
-                String s = JOptionPane.showInputDialog("Username:");
-                for(int i=0; i<RCSAS.allAdmin.size(); i++){
-                    Admin c = RCSAS.allAdmin.get(i);
-                    if(s.equals(c.getName())){
-                        RCSAS.whoLogin = c;
-                        break;
-                    }
-                }            
-                if(RCSAS.whoLogin==null){
-                    JOptionPane.showMessageDialog(null, "Worng username!");
-                }else{
+            String s = JOptionPane.showInputDialog("Username:");
+            for(int i=0; i<RCSAS.allAdmin.size(); i++){
+                Admin c = RCSAS.allAdmin.get(i);
+                if(s.equals(c.getName())){
+                    RCSAS.whoLogin = c;
+                    break;
+                }
+            }
+            for(int i=0; i<RCSAS.allStudent.size(); i++){
+                Student c = RCSAS.allStudent.get(i);
+                if(s.equals(c.getName())){
+                    RCSAS.current = c;
+                    break;
+                }
+            }
+            if((RCSAS.current==null)&&(RCSAS.whoLogin==null)){
+                JOptionPane.showMessageDialog(null, "Worng username!");
+            } else{
+                if(RCSAS.whoLogin!=null){
                     s = JOptionPane.showInputDialog("Password:");
                     if(Integer.parseInt(s) != RCSAS.whoLogin.getPin()){
                         JOptionPane.showMessageDialog(null, "Wrong password!");
                         RCSAS.whoLogin = null;
                     } else{
-                        setVisible(false);
+                        setVisible(false);  //same as this.setVisible(false);
                         RCSAS.AdminSecondPage.setVisible(true);
                     }
-                }
-            }
-            
-            //Student
-            else if(op == 1){
-                String s = JOptionPane.showInputDialog("Username:");
-                for(int i=0; i<RCSAS.allStudent.size(); i++){
-                    Student c = RCSAS.allStudent.get(i);
-                    if(s.equals(c.getName())){
-                        RCSAS.current = c;
-                        break;
-                    }
-                }
-                
-                if(RCSAS.current==null){
-                    JOptionPane.showMessageDialog(null, "Worng username!");
-                }else{
+                }else if(RCSAS.current!=null){
                     s = JOptionPane.showInputDialog("Password:");
                     if(Integer.parseInt(s) == RCSAS.current.getPin()){
-                        setVisible(false);
-                        SettingStudentMainPage();
+                        setVisible(false);  //same as this.setVisible(false);
                         RCSAS.StudentMainPage.setVisible(true);
                     } else{
                         JOptionPane.showMessageDialog(null, "Wrong password!");
                         RCSAS.current = null;
                     }
                 }
-            }
-            //Error
-            else{
-                System.out.println("Error");
+
             }
         }
-    }
-    private void SettingStudentMainPage(){
-        RCSAS.StudentMainPage.studentname = new JLabel(RCSAS.current.getName());
-        RCSAS.StudentMainPage.studentgender = new JLabel(RCSAS.current.getGender());
-        RCSAS.StudentMainPage.studentcontact = new JLabel(RCSAS.current.getPhone());
-        RCSAS.StudentMainPage.studentemail = new JLabel(RCSAS.current.getEmail());
-        RCSAS.StudentMainPage.studenteme_contact = new JLabel(RCSAS.current.getEm_phone());
-        
-        RCSAS.StudentMainPage.studentname.setFont(new Font("Serif", Font.PLAIN, 26));
-        RCSAS.StudentMainPage.studentgender.setFont(new Font("Serif", Font.PLAIN, 26));
-        RCSAS.StudentMainPage.studentcontact.setFont(new Font("Serif", Font.PLAIN, 26));
-        RCSAS.StudentMainPage.studentemail.setFont(new Font("Serif", Font.PLAIN, 26));
-        RCSAS.StudentMainPage.studenteme_contact.setFont(new Font("Serif", Font.PLAIN, 26));
-        
-        RCSAS.StudentMainPage.detail.add(RCSAS.StudentMainPage.studentname);
-        RCSAS.StudentMainPage.detail.add(RCSAS.StudentMainPage.studentgender);
-        RCSAS.StudentMainPage.detail.add(RCSAS.StudentMainPage.studentcontact);
-        RCSAS.StudentMainPage.detail.add(RCSAS.StudentMainPage.studentemail);
-        RCSAS.StudentMainPage.detail.add(RCSAS.StudentMainPage.studenteme_contact);
     }
 }

@@ -8,9 +8,10 @@ import java.time.LocalTime;
 
 public class Booking {
     private int id;
-    private String venue;
+    private Hall hall;
     private LocalDate date;
     private Sport sport;
+    private SportCenter centre;
     private LocalTime timeStarted;
     private int duration;
     private LocalTime timeEnded;
@@ -18,11 +19,12 @@ public class Booking {
     private boolean paid;
     private Student owner;
 
-    public Booking(int id, String venue, LocalDate date, Sport sport, LocalTime timeStarted, int duration, LocalTime timeEnded, int price, boolean paid, Student owner) {
+    public Booking(int id, Hall hall, LocalDate date, Sport sport, SportCenter centre, LocalTime timeStarted, int duration, LocalTime timeEnded, int price, boolean paid, Student owner) {
         this.id = id;
-        this.venue = venue;
+        this.hall = hall;
         this.date = date;
         this.sport = sport;
+        this.centre = centre;
         this.timeStarted = timeStarted;
         this.duration = duration;
         this.timeEnded = timeEnded;
@@ -37,11 +39,11 @@ public class Booking {
     public void setId(int id) {
         this.id = id;
     }
-    public String getVenue() {
-        return venue;
+    public Hall getHall() {
+        return hall;
     }
-    public void setVenue(String hall) {
-        this.venue = venue;
+    public void setHall(Hall hall) {
+        this.hall = hall;
     }
     public LocalDate getDate() {
         return date;
@@ -56,6 +58,12 @@ public class Booking {
     }
     public void setSport(Sport code_sp) {
         this.sport = sport;
+    }
+    public SportCenter getCentre() {
+        return centre;
+    }
+    public void setCentre(SportCenter code_sc) {
+        this.centre = code_sc;
     }
 
     public LocalTime getTimeStarted() {
