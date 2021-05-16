@@ -40,17 +40,20 @@ public class RegisterPage extends JFrame implements ActionListener {
         footer.add(summit);
         footer.add(back);
         
-        content = new JPanel(new GridLayout(1,2));
+        content = new JPanel(new BorderLayout());
         add(content, BorderLayout.CENTER);
+        content.setLayout(new GridLayout(1,2));
         
-        left = new JPanel(new GridLayout(1,2));
-        right = new JPanel(new GridLayout(1,2));
+        left = new JPanel(new BorderLayout());
+        left.setLayout(new GridLayout(1,2));
+        right = new JPanel(new BorderLayout());
+        right.setLayout(new GridLayout(1,2));
         
         //Create labels
         name = new JLabel("Name:");
         gender = new JLabel("Gender:");
         email = new JLabel("Email:");
-        contact = new JLabel("Contact(60XXXXXXXXX):");
+        contact = new JLabel("Contact:");
         eme_contact = new JLabel("Emergency Contact:");
         sport = new JLabel("Sport interest:");
         program = new JLabel("Program:");
@@ -69,8 +72,8 @@ public class RegisterPage extends JFrame implements ActionListener {
         //Create text fields
         n = new TextField(40);
         gd = new JComboBox();
-        cn = new TextField(40);
         em = new TextField(40);
+        cn = new TextField(40);
         ec = new TextField(40);
         s = new JComboBox();
         p = new JComboBox();
@@ -120,10 +123,10 @@ public class RegisterPage extends JFrame implements ActionListener {
         pn.add(n);
         JPanel pgd = new JPanel(new GridBagLayout());
         pgd.add(gd);
-        JPanel pcn = new JPanel(new GridBagLayout());
-        pcn.add(cn);
         JPanel pem = new JPanel(new GridBagLayout());
         pem.add(em);
+        JPanel pcn = new JPanel(new GridBagLayout());
+        pcn.add(cn);
         JPanel pec = new JPanel(new GridBagLayout());
         pec.add(ec);
         JPanel ps = new JPanel(new GridBagLayout());
@@ -136,8 +139,8 @@ public class RegisterPage extends JFrame implements ActionListener {
         field1 = new JPanel(new GridLayout(0,1));
         field1.add(pn, new GridBagConstraints());
         field1.add(pgd);
-        field1.add(pcn);
         field1.add(pem);
+        field1.add(pcn);
         field1.add(pec);
         field2 = new JPanel(new GridLayout(0,1));
         field2.add(ps);
@@ -198,13 +201,6 @@ public class RegisterPage extends JFrame implements ActionListener {
                         break;
                     }   
                 }
-                for(int ix=0; ix<RCSAS.allAdmin.size(); ix++){
-                    Admin ad = RCSAS.allAdmin.get(ix);
-                    if(a.equals(ad.getName())){
-                        flag = false;
-                        break;
-                    }   
-                }
             }
             if(!flag){
                 message.add("\nName has been used!");
@@ -229,7 +225,7 @@ public class RegisterPage extends JFrame implements ActionListener {
             
             String d1 = cn.getText();
             String d = null;
-            if(Pattern.compile("^\\d{11}$").matcher(d1).matches()){
+            if((cn.getText() != null) && (Pattern.compile("^\\d{11}$").matcher(d1).matches())){
                 d = d1;
             }else{
                 message.add("\nInvalid phone number!");
@@ -239,27 +235,19 @@ public class RegisterPage extends JFrame implements ActionListener {
             //
             //email
             //
-            String e = em.getText();
+            String e = null;
+            e = em.getText();
             if(!Pattern.compile("^(.+)@(.+)$").matcher(e).matches()){
                 message.add("\nInvalid email!");
                 flag2 = false;
             }
             
             //
-            //Emergency Contact
-            //
-            String f = ec.getText();
-            if(!Pattern.compile("^\\d{11}$").matcher(d1).matches()){
-                message.add("\nInvalid emergency contact!!");
-                flag2 = false;
-            }
-            
-            
             //sport
             //
-            Sport g = null;
+            Sport f = null;
             try{
-                g = Sport.valueOf(s.getSelectedItem().toString());
+                f = Sport.valueOf(s.getSelectedItem().toString());
             }catch(NullPointerException npe){
                 message.add("\nSport box is null!");
                 flag2 = false;
@@ -282,9 +270,8 @@ public class RegisterPage extends JFrame implements ActionListener {
                 String b1 = JOptionPane.showInputDialog("There is no error in the information keyin. \nKindly create a pin number for login.\nPin:");
                 if (Pattern.compile("[1-9]{1}\\d{5,10}").matcher(b1).matches()){
                     int b = Integer.parseInt(b1);
-                    Student st = new Student(a,b,c,d,e,f,g);
+                    Student st = new Student(a,b,c,d,e,f);
                     RCSAS.allStudent.add(st);
-                    setVisible(false);
                     RCSAS.HomePage.setVisible(true);
                 }else{
                     JOptionPane.showMessageDialog(null,"Invalid pin number! Pin number should match condition below: \n1. Pin number should be numeric. \n2. Length of pin number should be 6-10. \n3. Pin number should not start by 0. \n");

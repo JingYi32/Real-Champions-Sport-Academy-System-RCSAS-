@@ -10,8 +10,8 @@ public class Page2StudentMainPage extends JFrame implements ActionListener{
     private JPanel a, b, above, label, detail, below;
     
     public Page2StudentMainPage(){
-        setSize(1500,800);
-        setLocation(200,100);
+        setSize(500,500);
+        setLocation(700,300);
         setLayout(new BorderLayout());
         
         //
@@ -20,64 +20,27 @@ public class Page2StudentMainPage extends JFrame implements ActionListener{
         a = new JPanel(new GridBagLayout());
         title = new JLabel("Profile");
         a.add(title);
-        title.setFont(new Font("Serif", Font.PLAIN, 32));
-        add(a, BorderLayout.NORTH);
         
         //
         //content
         ///
         b = new JPanel(new GridLayout(2,1));
-        
-        //
-        //Details above
-        //
-        above = new JPanel(new BorderLayout());
-        b.add(above);
+        above = new JPanel(new GridLayout(0,1));
         label = new JPanel(new GridLayout(0,1));
-        detail = new JPanel(new GridLayout(0,1));
-        
-        //Create Labels
         name = new JLabel("Name:");
         gender = new JLabel("Gender:");
         email = new JLabel("Email:");
         contact = new JLabel("Contact:");
         eme_contact = new JLabel("Emergency Contact:");
         
-        //Propertly of Labels
-        name.setFont(new Font("Serif", Font.PLAIN, 26));
-        gender.setFont(new Font("Serif", Font.PLAIN, 26));
-        email.setFont(new Font("Serif", Font.PLAIN, 26));
-        contact.setFont(new Font("Serif", Font.PLAIN, 26));
-        eme_contact.setFont(new Font("Serif", Font.PLAIN, 26));
         
-        //Add label into panel
-        label.add(name);
-        label.add(gender);
-        label.add(email);
-        label.add(contact);
-        label.add(eme_contact);
-
+        detail = new JPanel(new GridLayout(0,1));
         
-        
-
-
-
-//        studentname = new JLabel(RCSAS.current.getName().toString());
-//        studentname = new JLabel(RCSAS.current.getName().toString());
-//        studentgender = new JLabel(RCSAS.current.getGender().toString());
-//        studentcontact = new JLabel(RCSAS.current.getPhone().toString());
-//        studentemail = new JLabel(RCSAS.current.getEmail().toString());
-//        studenteme_contact = new JLabel();
-
-        above.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        above.add(label,BorderLayout.CENTER);
-        above.add(detail, BorderLayout.LINE_END);
-
-
-
-        //
-        //Button Below
-        //
+//        studentname = new JLabel(RCSAS.current.getName());
+//        studentgender = new JLabel(RCSAS.current.getGender());
+//        studentcontact = new JLabel(RCSAS.current.getPhone());
+//        studentemail = new JLabel(RCSAS.current.getEmail());
+        studenteme_contact = new JLabel();
         SearchCoach = new Button("Search Coach Detials");
         SearchCoach.setPreferredSize(new Dimension(350,40));
         SearchCoach.setFont(new Font("Serif", Font.PLAIN, 32));
@@ -109,8 +72,6 @@ public class Page2StudentMainPage extends JFrame implements ActionListener{
         below.add(Logout, gbc);
         b.add(below,gbc);
         add(b,BorderLayout.CENTER);
-        
-        setVisible(true);
         
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent e) {

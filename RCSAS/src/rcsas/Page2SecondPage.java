@@ -51,13 +51,13 @@ public class Page2SecondPage extends JFrame implements ActionListener{
                     try{
                         String a = JOptionPane.showInputDialog("Hall:");
                         Hall a1 = Hall.valueOf(a);
-                        String b = JOptionPane.showInputDialog("Date(YYYY-MM-DD):");
+                        String b = JOptionPane.showInputDialog("Date:");
                         LocalDate b1 = LocalDate.parse(b); 
                         String c = JOptionPane.showInputDialog("Sport:");
                         Sport c1 = Sport.valueOf(c);
                         String d = JOptionPane.showInputDialog("Sport Centre:");
                         SportCenter d1 = SportCenter.valueOf(d);
-                        String f = JOptionPane.showInputDialog("Time(HH:MM):");
+                        String f = JOptionPane.showInputDialog("Time:");
                         LocalTime f1 = LocalTime.parse(f);
                         if((f1.compareTo(LocalTime.parse("09:00:00"))<0) || (f1.compareTo(LocalTime.parse("23:00:00"))>0)){
                             throw new Exception();
