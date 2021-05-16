@@ -1,7 +1,10 @@
 package rcsas;
 import java.awt.*;
 import java.awt.event.*;
+<<<<<<< HEAD
 import javax.swing.*;
+=======
+>>>>>>> parent of feee75e (RCSAS)
 
 public class Page1HomePage extends JFrame implements ActionListener{
     private Button login, signup, exit;

@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 package rcsas;
 
@@ -34,3 +35,16 @@ public class RCSAS {
    
 }
 >>>>>>> parent of 354f68d (HomePage)
+=======
+
+package rcsas;
+
+public class RCSAS {
+    public static Page1HomePage HomePage = new Page1HomePage();
+
+    public static void main(String[] args) {
+        
+    }
+   
+}
+>>>>>>> parent of feee75e (RCSAS)
