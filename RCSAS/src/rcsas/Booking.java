@@ -14,20 +14,15 @@ public class Booking {
     private LocalTime timeStarted;
     private int duration;
     private LocalTime timeEnded;
-    private int price;
-    private boolean paid;
     private Student owner;
 
-    public Booking(int id, String venue, LocalDate date, Sport sport, LocalTime timeStarted, int duration, LocalTime timeEnded, int price, boolean paid, Student owner) {
+    public Booking(int id, String venue, LocalDate date, Sport sport, LocalTime timeStarted, int duration, Student owner) {
         this.id = id;
         this.venue = venue;
         this.date = date;
         this.sport = sport;
         this.timeStarted = timeStarted;
         this.duration = duration;
-        this.timeEnded = timeEnded;
-        this.price = price;
-        this.paid = paid;
         this.owner = owner;
     }
 
@@ -79,21 +74,9 @@ public class Booking {
     }
 
     public void setTimeEnded(LocalTime timeEnded) {
+        timeEnded = timeStarted.plusHours(duration);
         this.timeEnded = timeEnded;
     }
-        
-      public int getPrice() {
-        return price;
-     }
-      public void setPrice(int price) {
-        this.price = price;
-        }
-      public boolean isPaid() {
-        return paid;
-     }
-     public void setPaid(boolean paid) {
-       this.paid = paid;
-     }
      public Student getOwner() {
         return owner;
      }

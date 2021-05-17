@@ -282,8 +282,10 @@ public class Page3RegisterPage extends JFrame implements ActionListener{
                 String b1 = JOptionPane.showInputDialog("There is no error in the information keyin. \nKindly create a pin number for login.\nPin:");
                 if (Pattern.compile("[1-9]{1}\\d{5,10}").matcher(b1).matches()){
                     int b = Integer.parseInt(b1);
-                    Student st = new Student(a,b,c,d,e,f,g);
+                    Student st = new Student(a,b,c,d,e,f);
+                    RegisteredClasses cl = new RegisteredClasses(st, g,0,0,false, false);
                     RCSAS.allStudent.add(st);
+                    RCSAS.allClasses.add(cl);
                     setVisible(false);
                     RCSAS.HomePage.setVisible(true);
                 }else{
@@ -295,14 +297,14 @@ public class Page3RegisterPage extends JFrame implements ActionListener{
         }
         
         else if(ev.getSource() == back){
-            int a = JOptionPane.YES_NO_OPTION;
-            JOptionPane.showConfirmDialog(null, "This action will loss the information key in. \nAre you sure?","WARNING", a);
-            if(a==JOptionPane.YES_OPTION){
-                setVisible(false);
-                RCSAS.HomePage.setVisible(true);
-                RCSAS.current = null;
-            }else{
-                remove(a);
+            int a = JOptionPane.showConfirmDialog(null, "This action will loss the information key in. \nAre you sure?");
+            switch(a){
+                case JOptionPane.YES_OPTION:
+                    setVisible(false);
+                    RCSAS.HomePage.setVisible(true);
+                    RCSAS.current = null;
+                default:
+                    
             }
         }
     }
