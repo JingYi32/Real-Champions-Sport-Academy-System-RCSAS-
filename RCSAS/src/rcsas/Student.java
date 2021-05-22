@@ -1,10 +1,7 @@
 package rcsas;
-import java.time.LocalDate;
 import java.util.*;
 
-public class Student {
-    private String name;
-    private int pin;
+public class Student extends Role{
     private String gender;
     private String phone;
     private String email;
@@ -13,7 +10,8 @@ public class Student {
     private ArrayList<RegisteredClasses> myClasses = new ArrayList<>();
     private ArrayList<Booking> myBooking = new ArrayList<>();
 
-    public Student(String name, int pin, String gender, String phone, String email, String em_phone) {
+    public Student(String id, String name, int pin, String gender, String phone, String email, String em_phone) {
+        this.id = id;
         this.name = name;
         this.pin = pin;
         this.gender = gender;
@@ -22,14 +20,10 @@ public class Student {
         this.em_phone = em_phone;
     }
 
-    public String getGender() {
-        return gender;
+    public String getId() {
+        return id;
     }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
+    
     public String getName() {
         return name;
     }
@@ -44,6 +38,13 @@ public class Student {
         this.pin = pin;
     }
 
+    public String getGender() {
+        return gender;
+    }
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+    
     public String getPhone() {
         return phone;
     }
@@ -64,6 +65,14 @@ public class Student {
 
     public void setEm_phone(String em_phone) {
         this.em_phone = em_phone;
+    }
+
+    public ArrayList<Sport> getMysport() {
+        return mysport;
+    }
+
+    public void setMysport(ArrayList<Sport> mysport) {
+        this.mysport = mysport;
     }
 
     public ArrayList<RegisteredClasses> getMyClasses() {

@@ -214,14 +214,58 @@ public class Page3RegisterPage extends JFrame implements ActionListener{
                 if(a==JOptionPane.YES_OPTION){
                     setVisible(false);
                     RCSAS.HomePage.setVisible(true);
-                    RCSAS.current = null;
+                    RCSAS.currentStudent = null;
                 }else if (a == JOptionPane.NO_OPTION){
                     setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
                 }
             }
         });
     }
-
+    
+    @Override
+    public void actionPerformed(ActionEvent ev){
+        if (ev.getSource() == back){
+            int a = JOptionPane.showConfirmDialog(null, "This action will loss the information key in. \nAre you sure?");
+            if(a==JOptionPane.YES_OPTION){
+                setVisible(false);
+                RCSAS.HomePage.setVisible(true);
+                RCSAS.currentStudent = null;
+            }else if (a == JOptionPane.NO_OPTION){
+                setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+            }
+        }
+        
+        else if (ev.getSource() == submit){
+            if(!error){
+                String a = n.getText();
+                String c = gd.getSelectedItem().toString();
+                String d = cn.getText();
+                String e = em.getText();
+                String f = ec.getText();
+                Sport g = Sport.valueOf(s.getSelectedItem().toString());
+                String b1 = JOptionPane.showInputDialog("There is no error in the information keyin. \nKindly create a pin number for login.\nPin:");
+                if (Pattern.compile("[1-9]{1}\\d{5,10}").matcher(b1).matches()){
+                    int b = Integer.parseInt(b1);
+                    int idno = 10001+RCSAS.allStudent.size();
+                    String id = "ST" + idno;
+                    Student st = new Student(id,a,b,c,d,e,f);
+                    int idnoc = 1000001+RCSAS.allClasses.size();
+                    String cid = "C" + idnoc;
+                    RegisteredClasses cl = new RegisteredClasses(cid,st, g,0,0,false, false);
+                    RCSAS.allStudent.add(st);
+                    RCSAS.allClasses.add(cl);
+                    setVisible(false);
+                    RCSAS.HomePage.setVisible(true);
+                }else{
+                    JOptionPane.showMessageDialog(null,"Invalid pin number! Pin number should match condition below: \n1. Pin number should be numeric. \n2. Length of pin number should be 6-10. \n3. Pin number should not start by 0. \n");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null,"There is null box!");
+            }
+        }
+    }
+    
+    
     private void ValidateName(){
         boolean flag = true;
         for(int ix=0; ix<RCSAS.allStudent.size(); ix++){
@@ -321,45 +365,6 @@ public class Page3RegisterPage extends JFrame implements ActionListener{
         }else{
             errorprogram.setText("OK! Ready to use!");
             error = false;
-        }
-    }
-    
-    @Override
-    public void actionPerformed(ActionEvent ev){
-        if (ev.getSource() == back){
-            int a = JOptionPane.showConfirmDialog(null, "This action will loss the information key in. \nAre you sure?");
-            if(a==JOptionPane.YES_OPTION){
-                setVisible(false);
-                RCSAS.HomePage.setVisible(true);
-                RCSAS.current = null;
-            }else if (a == JOptionPane.NO_OPTION){
-                setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-            }
-        }
-        
-        else if (ev.getSource() == submit){
-            if(!error){
-                String a = n.getText();
-                String c = gd.getSelectedItem().toString();
-                String d = cn.getText();
-                String e = em.getText();
-                String f = em.getText();
-                Sport g = Sport.valueOf(s.getSelectedItem().toString());
-                String b1 = JOptionPane.showInputDialog("There is no error in the information keyin. \nKindly create a pin number for login.\nPin:");
-                if (Pattern.compile("[1-9]{1}\\d{5,10}").matcher(b1).matches()){
-                    int b = Integer.parseInt(b1);
-                    Student st = new Student(a,b,c,d,e,f);
-                    RegisteredClasses cl = new RegisteredClasses(st, g,0,0,false, false);
-                    RCSAS.allStudent.add(st);
-                    RCSAS.allClasses.add(cl);
-                    setVisible(false);
-                    RCSAS.HomePage.setVisible(true);
-                }else{
-                    JOptionPane.showMessageDialog(null,"Invalid pin number! Pin number should match condition below: \n1. Pin number should be numeric. \n2. Length of pin number should be 6-10. \n3. Pin number should not start by 0. \n");
-                }
-            } else {
-                JOptionPane.showMessageDialog(null,"There is null box!");
-            }
         }
     }
 }

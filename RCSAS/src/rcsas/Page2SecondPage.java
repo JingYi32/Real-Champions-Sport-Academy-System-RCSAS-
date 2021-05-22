@@ -26,6 +26,7 @@ public class Page2SecondPage extends JFrame implements ActionListener{
         add(pay);
         add(logout);
     }
+    @Override
      public void actionPerformed(ActionEvent e){
         if(e.getSource()==logout){
             setVisible(false);
@@ -38,16 +39,16 @@ public class Page2SecondPage extends JFrame implements ActionListener{
             for(int i=0; i<RCSAS.allStudent.size(); i++){
                 Student student = RCSAS.allStudent.get(i);
                 if(name.equals(student.getName())){
-                    RCSAS.current = student;
+                    RCSAS.currentStudent = student;
                     break;
                 }
             }
-            if(RCSAS.current == null){
+            if(RCSAS.currentStudent == null){
                 JOptionPane.showMessageDialog(null, "Worng student name!");
             }
             else{
-                int size = RCSAS.current.getMyClasses().size();
-                if(size==0 || (RCSAS.current.getMyClasses().get(size-1).isIsPaid() && (!RCSAS.current.getMyClasses().get(size-2).isIsAssign()))){
+                int size = RCSAS.currentStudent.getMyClasses().size();
+                if(size==0 || (RCSAS.currentStudent.getMyClasses().get(size-1).isPaid() && (!RCSAS.currentStudent.getMyClasses().get(size-2).isFinish()))){
                     boolean flag = true;
                     String a = null;
                     LocalDate b1 = null;
@@ -72,7 +73,7 @@ public class Page2SecondPage extends JFrame implements ActionListener{
                             for(int no_hall=1; no_hall<=c1.getNo_hall(); no_hall++){
                                 a = c1.getVenue()+no_hall;
                                 System.out.println(a);
-                                if (x.getVenue().toString().equals(a) && x.getDate().toString().equals(b) &&  x.getSport().toString().equals(c) && x.getTimeStarted() == d1){
+                                if (a.equals(x.getVenue()) && x.getDate()==b1 &&  x.getSport()==c1 && x.getTimeStarted()==d1){
                                     flag = false;
                                 }else{
                                     flag = true;
@@ -87,8 +88,8 @@ public class Page2SecondPage extends JFrame implements ActionListener{
                     
                     if(flag){
                         int id = 10001+RCSAS.allBooking.size();
-                        Booking x = new Booking(id,a,b1,c1,d1,f,RCSAS.current);
-                        RCSAS.current.getMyBooking().add(x);
+                        Booking x = new Booking(id,a,b1,c1,d1,f,RCSAS.currentStudent);
+                        RCSAS.currentStudent.getMyBooking().add(x);
                         RCSAS.allBooking.add(x);
                         JOptionPane.showMessageDialog(null, "Id: "+id);
                     }else{
@@ -101,8 +102,8 @@ public class Page2SecondPage extends JFrame implements ActionListener{
                 }
             }
         } else{
-            int size = RCSAS.current.getMyClasses().size();
-            if(size==0 || RCSAS.current.getMyClasses().get(size-1).isIsPaid()){
+            int size = RCSAS.currentStudent.getMyClasses().size();
+            if(size==0 || RCSAS.currentStudent.getMyClasses().get(size-1).isPaid()){
                 JOptionPane.showMessageDialog(null,"You have no unpaid bookings!");
             //} else{
               //  int id = RCSAS.whoLogin.getMyBooking().get(size-1).getId();

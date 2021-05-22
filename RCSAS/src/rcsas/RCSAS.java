@@ -10,15 +10,16 @@ public class RCSAS {
     //Page
     public static Page1HomePage HomePage = new Page1HomePage();
     public static Page2SecondPage AdminSecondPage = new Page2SecondPage();
-    public static Page2StudentMainPage StudentMainPage = new Page2StudentMainPage();
-    public static Page3RegisterPage SignuPage = new Page3RegisterPage();
+    public static Page3RegisterPage SignupPage = new Page3RegisterPage();
     //Person
-    public static Admin whoLogin = null;
-    public static Student current = null;
+    public static Role currentLogin = null;
+    public static Admin currentAdmin = null;
+    public static Student currentStudent = null;
     public static Coach currentCoach = null;
     //ArrayList
     public static ArrayList<Admin> allAdmin = new ArrayList<Admin>();
     public static ArrayList<Coach> allCoach = new ArrayList<Coach>();
+    public static ArrayList<String> allCoachName = new ArrayList<String>();
     public static ArrayList<Student> allStudent = new ArrayList<Student>();
     public static ArrayList<RegisteredClasses> allClasses = new ArrayList<RegisteredClasses>();
     public static ArrayList<Booking> allBooking = new ArrayList<Booking>();
@@ -35,11 +36,12 @@ public class RCSAS {
             //
             Scanner s = new Scanner(new File("admin.txt"));
             while(s.hasNext()){
+                String id = s.nextLine();
                 String a = s.nextLine();                            //name
                 int b = Integer.parseInt(s.nextLine());             //pin
                 s.nextLine();
                 
-                Admin c = new Admin(a,b);
+                Admin c = new Admin(id,a,b);
                 allAdmin.add(c);
             } s.close();
             
@@ -61,6 +63,7 @@ public class RCSAS {
                 
                 Coach ch = new Coach(a,b,c,d,e,f,g,h,i);
                 allCoach.add(ch);
+                allCoachName.add(a);
             } s.close();
             
             //
@@ -68,7 +71,7 @@ public class RCSAS {
             //
             s = new Scanner(new File("student.txt"));
             while(s.hasNext()){
-//                String id = s.nextLine();                           //id
+                String id = s.nextLine();                           //id
                 String a = s.nextLine();                            //name
                 int b = Integer.parseInt(s.nextLine());             //pin
                 String c = s.nextLine();                            //gender
@@ -77,7 +80,7 @@ public class RCSAS {
                 String f = s.nextLine();                            //emergency contact
                 
                 s.nextLine();
-                Student st = new Student(a,b,c,d,e,f);
+                Student st = new Student(id,a,b,c,d,e,f);
                 allStudent.add(st);
             } s.close();
             
@@ -86,6 +89,7 @@ public class RCSAS {
             //
             s = new Scanner(new File("classes.txt"));
             while(s.hasNext()){
+                String id = s.nextLine();
                 String a = s.nextLine();                            //StudentName
                 Sport b = Sport.valueOf(s.nextLine());              //Sport
                 int c = Integer.parseInt(s.nextLine());             //hourdone
@@ -97,7 +101,7 @@ public class RCSAS {
                 for(int st=0; st<allStudent.size(); st++){
                     Student x = allStudent.get(st);
                     if(a.equals(x.getName())){
-                        RegisteredClasses cl = new RegisteredClasses(x,b,c,d,e,f);
+                        RegisteredClasses cl = new RegisteredClasses(id,x,b,c,d,e,f);
                         x.getMyClasses().add(cl);
                         allClasses.add(cl);                    
                     }

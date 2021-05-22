@@ -96,7 +96,7 @@ public class Page1HomePage extends JFrame implements ActionListener{
            Save();
         } else if(e.getSource()==signup){
             setVisible(false);
-            RCSAS.SignuPage.setVisible(true);
+            RCSAS.SignupPage.setVisible(true);
         } else{
             String[] options = {"Admin", "Student"};
             int op = JOptionPane.showOptionDialog(null, "Please select your role:","Role for Login",JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
@@ -106,18 +106,19 @@ public class Page1HomePage extends JFrame implements ActionListener{
                 for(int i=0; i<RCSAS.allAdmin.size(); i++){
                     Admin c = RCSAS.allAdmin.get(i);
                     if(s.equals(c.getName())){
-                        RCSAS.whoLogin = c;
+                        RCSAS.currentAdmin = c;
                         break;
                     }
                 }            
-                if(RCSAS.whoLogin==null){
+                if(RCSAS.currentAdmin==null){
                     JOptionPane.showMessageDialog(null, "Wrong username!");
                 }else{
                     s = JOptionPane.showInputDialog("Password:");
-                    if(Integer.parseInt(s) != RCSAS.whoLogin.getPin()){
+                    if(Integer.parseInt(s) != RCSAS.currentAdmin.getPin()){
                         JOptionPane.showMessageDialog(null, "Wrong password!");
-                        RCSAS.whoLogin = null;
+                        RCSAS.currentAdmin = null;
                     } else{
+                        RCSAS.currentLogin = RCSAS.currentAdmin;
                         setVisible(false);
                         RCSAS.AdminSecondPage.setVisible(true);
                     }
@@ -130,22 +131,23 @@ public class Page1HomePage extends JFrame implements ActionListener{
                 for(int i=0; i<RCSAS.allStudent.size(); i++){
                     Student c = RCSAS.allStudent.get(i);
                     if(s.equals(c.getName())){
-                        RCSAS.current = c;
+                        RCSAS.currentStudent = c;
                         break;
                     }
                 }
                 
-                if(RCSAS.current==null){
+                if(RCSAS.currentStudent==null){
                     JOptionPane.showMessageDialog(null, "Wrong username!");
                 }else{
                     s = JOptionPane.showInputDialog("Password:");
-                    if(Integer.parseInt(s) == RCSAS.current.getPin()){
+                    if(Integer.parseInt(s) == RCSAS.currentStudent.getPin()){
+                        RCSAS.currentLogin = RCSAS.currentStudent;
                         setVisible(false);
-                        SettingStudentMainPage();
-                        RCSAS.StudentMainPage.setVisible(true);
+                        Page2StudentMainPage smp = new Page2StudentMainPage();
+                        smp.setVisible(true);
                     } else{
                         JOptionPane.showMessageDialog(null, "Wrong password!");
-                        RCSAS.current = null;
+                        RCSAS.currentStudent = null;
                     }
                 }
             }
@@ -167,6 +169,7 @@ public class Page1HomePage extends JFrame implements ActionListener{
                     PrintWriter p = new PrintWriter("admin.txt");
                     for(int i=0; i<RCSAS.allAdmin.size(); i++){
                         Admin c = RCSAS.allAdmin.get(i);
+                        p.println(c.getId());
                         p.println(c.getName());
                         p.println(c.getPin());
                         p.println();
@@ -194,6 +197,7 @@ public class Page1HomePage extends JFrame implements ActionListener{
                     p = new PrintWriter("student.txt");
                     for(int i=0; i<RCSAS.allStudent.size(); i++){
                         Student st = RCSAS.allStudent.get(i);
+                        p.println(st.getId());
                         p.println(st.getName());
                         p.println(st.getPin());
                         p.println(st.getGender());
@@ -208,12 +212,13 @@ public class Page1HomePage extends JFrame implements ActionListener{
                     p = new PrintWriter("classes.txt");
                     for(int i=0; i<RCSAS.allClasses.size(); i++){
                         RegisteredClasses b = RCSAS.allClasses.get(i);
+                        p.println(b.getId());
                         p.println(b.getStudent().getName());
                         p.println(b.getSport());
                         p.println(b.getHourdone());
                         p.println(b.getHasPaid());
-                        p.println(b.isIsAssign());
-                        p.println(b.isIsPaid());
+                        p.println(b.isFinish());
+                        p.println(b.isPaid());
                         p.println();
                     }
                     p.close();
@@ -256,24 +261,5 @@ public class Page1HomePage extends JFrame implements ActionListener{
                 JOptionPane.showMessageDialog(null,"Wrong password!");
                 break;
         }
-    }
-    private void SettingStudentMainPage(){
-        RCSAS.StudentMainPage.studentname = new JLabel(RCSAS.current.getName());
-        RCSAS.StudentMainPage.studentgender = new JLabel(RCSAS.current.getGender());
-        RCSAS.StudentMainPage.studentcontact = new JLabel(RCSAS.current.getPhone());
-        RCSAS.StudentMainPage.studentemail = new JLabel(RCSAS.current.getEmail());
-        RCSAS.StudentMainPage.studenteme_contact = new JLabel(RCSAS.current.getEm_phone());
-        
-        RCSAS.StudentMainPage.studentname.setFont(new Font("Serif", Font.PLAIN, 26));
-        RCSAS.StudentMainPage.studentgender.setFont(new Font("Serif", Font.PLAIN, 26));
-        RCSAS.StudentMainPage.studentcontact.setFont(new Font("Serif", Font.PLAIN, 26));
-        RCSAS.StudentMainPage.studentemail.setFont(new Font("Serif", Font.PLAIN, 26));
-        RCSAS.StudentMainPage.studenteme_contact.setFont(new Font("Serif", Font.PLAIN, 26));
-        
-        RCSAS.StudentMainPage.detail.add(RCSAS.StudentMainPage.studentname);
-        RCSAS.StudentMainPage.detail.add(RCSAS.StudentMainPage.studentgender);
-        RCSAS.StudentMainPage.detail.add(RCSAS.StudentMainPage.studentcontact);
-        RCSAS.StudentMainPage.detail.add(RCSAS.StudentMainPage.studentemail);
-        RCSAS.StudentMainPage.detail.add(RCSAS.StudentMainPage.studenteme_contact);
     }
 }

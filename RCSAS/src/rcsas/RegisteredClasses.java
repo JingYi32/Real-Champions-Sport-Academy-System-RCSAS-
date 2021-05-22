@@ -2,20 +2,29 @@
 package rcsas;
 
 public class RegisteredClasses {
+    private String id;
     private Student student;
     private Sport sport;
     private int hourdone;
     private int hasPaid;
-    private boolean isAssign;
-    private boolean isPaid;
+    private boolean Finish;
+    private boolean Paid;
 
-    public RegisteredClasses(Student student, Sport sport, int hourdone, int hasPaid, boolean isAssign, boolean isPaid) {
+    public RegisteredClasses(String id, Student student, Sport sport, int hourdone, int hasPaid, boolean Finish, boolean Paid) {
+        this.id = id;
         this.student = student;
         this.sport = sport;
         this.hourdone = hourdone;
         this.hasPaid = hasPaid;
-        this.isAssign = isAssign;
-        this.isPaid = isPaid;
+        this.Finish = Finish;
+        this.Paid = Paid;
+    }
+
+    public String getId() {
+        return id;
+    }
+    public void setId(String id) {
+        this.id = id;
     }
 
     public Student getStudent() {
@@ -50,22 +59,20 @@ public class RegisteredClasses {
         this.hasPaid = hasPaid;
     }
 
-    public boolean isIsAssign() {
-        return isAssign;
+    public boolean isFinish() {
+        return Finish;
     }
 
-    public void setIsAssign(boolean isAssign) {
-        this.isAssign = isAssign;
+    public void setFinish(boolean isAssign) {
+        this.Finish = isAssign;
     }
 
-    public boolean isIsPaid() {
-        return isPaid;
+    public boolean isPaid() {
+        return Paid;
     }
 
-    public void setIsPaid(boolean isPaid) {
-        this.isPaid = isPaid;
+    public void setPaid(boolean isPaid) {
+        this.Paid = Paid;
     }
-    
-    
 }
 

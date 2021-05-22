@@ -5,8 +5,8 @@ import java.util.*;
 public class Coach {
     private String id;
     private String name;
-    private String phone;
     private String gender;
+    private String phone;
     private String address;
     private String econtact;        //Emergency contact
     private Sport sport;
@@ -17,11 +17,11 @@ public class Coach {
     private ArrayList<Feedback> myfeedback = new ArrayList<>();
     private int Rating;
 
-    public Coach(String id, String name, String phone, String gender, String address, String econtact, Sport sport, LocalDate joined, int duration) {
+    public Coach(String id, String name, String gender, String phone, String address, String econtact, Sport sport, LocalDate joined, int duration) {
         this.id = id;
         this.name = name;
-        this.phone = phone;
         this.gender = gender;
+        this.phone = phone;
         this.address = address;
         this.econtact = econtact;
         this.sport = sport;
@@ -45,20 +45,20 @@ public class Coach {
         this.name = name;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
     public String getGender() {
         return gender;
     }
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+    
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getAddress() {
@@ -106,6 +106,7 @@ public class Coach {
     }
 
     public void setTerminated(LocalDate terminated) {
+        terminated = joined.plusYears(duration);
         this.terminated = terminated;
     }
 
@@ -114,6 +115,7 @@ public class Coach {
     }
 
     public void setHourrate(int hourrate) {
+        hourrate = sport.getPrice();
         this.hourrate = hourrate;
     }
 
