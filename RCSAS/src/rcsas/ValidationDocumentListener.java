@@ -12,7 +12,7 @@ import javax.swing.event.DocumentListener;
  *
  * @author VenusJY
  */
-public interface SimpleDocumentListener extends DocumentListener {
+public interface ValidationDocumentListener extends DocumentListener {
     void update(DocumentEvent e);
 
     @Override

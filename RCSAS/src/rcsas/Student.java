@@ -7,7 +7,7 @@ public class Student extends Role{
     private String email;
     private String em_phone;
     private ArrayList<Sport> mysport = new ArrayList<>();
-    private ArrayList<RegisteredClasses> myClasses = new ArrayList<>();
+    private ArrayList<Classes> myClasses = new ArrayList<>();
     private ArrayList<Booking> myBooking = new ArrayList<>();
 
     public Student(String id, String name, int pin, String gender, String phone, String email, String em_phone) {
@@ -75,11 +75,11 @@ public class Student extends Role{
         this.mysport = mysport;
     }
 
-    public ArrayList<RegisteredClasses> getMyClasses() {
+    public ArrayList<Classes> getMyClasses() {
         return myClasses;
     }
 
-    public void setMyClasses(ArrayList<RegisteredClasses> myClasses) {
+    public void setMyClasses(ArrayList<Classes> myClasses) {
         this.myClasses = myClasses;
     }
 

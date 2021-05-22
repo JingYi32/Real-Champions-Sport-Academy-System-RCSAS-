@@ -8,8 +8,8 @@ import java.io.PrintWriter;
 
 public class Page1HomePage extends JFrame implements ActionListener{
     
-    final private Panel y1,y2,y2_1, w, content;
-    final private Button login, signup, exit;
+    final private Panel contain, header,y2_1, w, content, footer;
+    final private Button login, signup, exit, sport;
     final private JLabel system, welcome, describe;
     
     public Page1HomePage(){
@@ -20,28 +20,28 @@ public class Page1HomePage extends JFrame implements ActionListener{
         setLocation(200,100);
                 
         //Panel Properties
-        y1 = new Panel(new GridLayout(2,1));
-        add(y1,BorderLayout.CENTER);
+        contain = new Panel(new GridLayout(2,1));
+        add(contain,BorderLayout.CENTER);
         
         w = new Panel(new GridBagLayout());
         welcome = new JLabel("Welcome to the RCSAS!");
         welcome.setFont(new Font("Serif", Font.BOLD,88));
         w.add(welcome);
-        y1.add(w);
+        contain.add(w);
         content = new Panel();
         describe = new JLabel("<html>We have conduct classes on ten type of sports which are the Swimming, Badminton, Football, Archery, Gymnastics, Volleyball, Basketball, Cricket, Tennis and Table Tennis at Puchong, Subang and Damansara.</html>");
         describe.setFont(new Font("Serif", Font.PLAIN,24));
         describe.setPreferredSize(new Dimension(1000,300));
         content.add(describe);
-        y1.add(content);
+        contain.add(content);
         
-        y2 = new Panel();
-        y2.setBackground(new java.awt.Color(204, 166, 166));
-        y2.setLayout(new GridLayout(1,2));
+        header = new Panel();
+        header.setBackground(new java.awt.Color(204, 166, 166));
+        header.setLayout(new GridLayout(1,2));
         
         system = new JLabel("Real Champions Sport Academy",Label.LEFT);
         system.setFont(myFont);
-        y2.add(system);
+        header.add(system);
         
         y2_1 = new Panel(new GridBagLayout());
         y2_1.setPreferredSize(new Dimension(1500,100));
@@ -68,9 +68,20 @@ public class Page1HomePage extends JFrame implements ActionListener{
         y2_1.add(login, new GridBagConstraints());
         y2_1.add(signup, new GridBagConstraints());
         y2_1.add(exit, new GridBagConstraints());
-        y2.add(y2_1);
-        add(y2,BorderLayout.NORTH);
+        header.add(y2_1);
+        add(header,BorderLayout.NORTH);
         setVisible(true);
+        
+        //
+        //footer
+        //
+        footer = new Panel(new GridBagLayout());
+        sport = new Button("Know More");
+        sport.setPreferredSize(new Dimension(100,40));
+        sport.setFont(new Font("Serif", Font.PLAIN, 18));
+        sport.addActionListener(this);
+        footer.add(sport);
+        add(footer, BorderLayout.SOUTH);
         
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
@@ -97,7 +108,7 @@ public class Page1HomePage extends JFrame implements ActionListener{
         } else if(e.getSource()==signup){
             setVisible(false);
             RCSAS.SignupPage.setVisible(true);
-        } else{
+        } else if(e.getSource() == login){
             String[] options = {"Admin", "Student"};
             int op = JOptionPane.showOptionDialog(null, "Please select your role:","Role for Login",JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
             //Admin
@@ -155,6 +166,9 @@ public class Page1HomePage extends JFrame implements ActionListener{
             else{
                 System.out.println("Error");
             }
+        } else if(e.getSource() == sport){
+            setVisible(false);
+            RCSAS.SportPage.setVisible(true);
         }
     }
     
@@ -211,7 +225,7 @@ public class Page1HomePage extends JFrame implements ActionListener{
                     //Classes
                     p = new PrintWriter("classes.txt");
                     for(int i=0; i<RCSAS.allClasses.size(); i++){
-                        RegisteredClasses b = RCSAS.allClasses.get(i);
+                        Classes b = RCSAS.allClasses.get(i);
                         p.println(b.getId());
                         p.println(b.getStudent().getName());
                         p.println(b.getSport());

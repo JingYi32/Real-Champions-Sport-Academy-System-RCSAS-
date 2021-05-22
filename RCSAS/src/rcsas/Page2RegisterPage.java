@@ -6,7 +6,7 @@ import java.awt.event.*;
 import java.util.regex.Pattern;
 import javax.swing.*;
 
-public class Page3RegisterPage extends JFrame implements ActionListener{
+public class Page2RegisterPage extends JFrame implements ActionListener{
     final private JPanel header, content, footer;
     final private JLabel title, name, gender, email, contact, eme_contact, sport, program, fee;
     final private JLabel errorname, errorgender, erroremail, errorcontact, erroreme_contact, errorsport, errorprogram;
@@ -15,7 +15,7 @@ public class Page3RegisterPage extends JFrame implements ActionListener{
     final private JTextField n, em, cn, ec, fs;
     private boolean error;
     
-    public Page3RegisterPage(){
+    public Page2RegisterPage(){
         setSize(1500,800);
         setLocation(200,100);
         
@@ -184,19 +184,19 @@ public class Page3RegisterPage extends JFrame implements ActionListener{
         
         
         //Add Listener
-        n.getDocument().addDocumentListener((SimpleDocumentListener) e->{
+        n.getDocument().addDocumentListener((ValidationDocumentListener) e->{
             ValidateName();
         });
         gd.addItemListener((ItemEvent arg0) -> {
             ValidateGender();
         });
-        em.getDocument().addDocumentListener((SimpleDocumentListener) e->{
+        em.getDocument().addDocumentListener((ValidationDocumentListener) e->{
             ValidateEmail();
         });
-        cn.getDocument().addDocumentListener((SimpleDocumentListener) e->{
+        cn.getDocument().addDocumentListener((ValidationDocumentListener) e->{
             ValidateContact();
         });
-        ec.getDocument().addDocumentListener((SimpleDocumentListener) e->{
+        ec.getDocument().addDocumentListener((ValidationDocumentListener) e->{
             ValidateEmergency();
         });
         s.addItemListener((ItemEvent arg0) -> {
@@ -251,7 +251,7 @@ public class Page3RegisterPage extends JFrame implements ActionListener{
                     Student st = new Student(id,a,b,c,d,e,f);
                     int idnoc = 1000001+RCSAS.allClasses.size();
                     String cid = "C" + idnoc;
-                    RegisteredClasses cl = new RegisteredClasses(cid,st, g,0,0,false, false);
+                    Classes cl = new Classes(cid,st, g,0,0,false, false);
                     RCSAS.allStudent.add(st);
                     RCSAS.allClasses.add(cl);
                     setVisible(false);

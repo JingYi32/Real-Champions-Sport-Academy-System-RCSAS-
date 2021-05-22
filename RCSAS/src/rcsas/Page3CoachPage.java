@@ -145,11 +145,33 @@ public class Page3CoachPage extends JFrame implements ActionListener{
         right.add(detailright, BorderLayout.LINE_END);
         
         
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                if (RCSAS.currentLogin == RCSAS.currentAdmin){
+                    setVisible(false);
+                    RCSAS.AdminSecondPage.setVisible(true);
+                } else if(RCSAS.currentLogin == RCSAS.currentStudent){
+                    setVisible(false);
+                    Page2StudentMainPage smp = new Page2StudentMainPage();
+                    smp.setVisible(true);
+                }
+
+            }
+        });
+        
     }
     @Override
     public void actionPerformed(ActionEvent e){
         if(e.getSource() == back){
-            
+            if (RCSAS.currentLogin == RCSAS.currentAdmin){
+                setVisible(false);
+                RCSAS.AdminSecondPage.setVisible(true);
+            } else if(RCSAS.currentLogin == RCSAS.currentStudent){
+                setVisible(false);
+                Page2StudentMainPage smp = new Page2StudentMainPage();
+                smp.setVisible(true);
+            }
         }
     }
 }

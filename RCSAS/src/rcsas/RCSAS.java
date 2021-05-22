@@ -10,7 +10,8 @@ public class RCSAS {
     //Page
     public static Page1HomePage HomePage = new Page1HomePage();
     public static Page2SecondPage AdminSecondPage = new Page2SecondPage();
-    public static Page3RegisterPage SignupPage = new Page3RegisterPage();
+    public static Page2RegisterPage SignupPage = new Page2RegisterPage();
+    public static Page3SportPage SportPage = new Page3SportPage();
     //Person
     public static Role currentLogin = null;
     public static Admin currentAdmin = null;
@@ -21,7 +22,7 @@ public class RCSAS {
     public static ArrayList<Coach> allCoach = new ArrayList<Coach>();
     public static ArrayList<String> allCoachName = new ArrayList<String>();
     public static ArrayList<Student> allStudent = new ArrayList<Student>();
-    public static ArrayList<RegisteredClasses> allClasses = new ArrayList<RegisteredClasses>();
+    public static ArrayList<Classes> allClasses = new ArrayList<Classes>();
     public static ArrayList<Booking> allBooking = new ArrayList<Booking>();
     public static ArrayList<Feedback> allFeedback = new ArrayList<Feedback>();
     
@@ -101,7 +102,7 @@ public class RCSAS {
                 for(int st=0; st<allStudent.size(); st++){
                     Student x = allStudent.get(st);
                     if(a.equals(x.getName())){
-                        RegisteredClasses cl = new RegisteredClasses(id,x,b,c,d,e,f);
+                        Classes cl = new Classes(id,x,b,c,d,e,f);
                         x.getMyClasses().add(cl);
                         allClasses.add(cl);                    
                     }
@@ -137,7 +138,6 @@ public class RCSAS {
             //
             s = new Scanner(new File("feedback.txt"));
             while(s.hasNext()){
-                
                 String a1 = s.nextLine();                           //coach
                 String b1 = s.nextLine();                            //student
                 int c = Integer.parseInt(s.nextLine());             //start
@@ -165,7 +165,6 @@ public class RCSAS {
 
                 }
             }s.close();
-            
         } 
         
         catch(FileNotFoundException | NumberFormatException ex){

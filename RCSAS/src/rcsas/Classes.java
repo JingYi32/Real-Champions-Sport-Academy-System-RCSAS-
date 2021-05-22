@@ -1,7 +1,7 @@
 
 package rcsas;
 
-public class RegisteredClasses {
+public class Classes {
     private String id;
     private Student student;
     private Sport sport;
@@ -10,7 +10,7 @@ public class RegisteredClasses {
     private boolean Finish;
     private boolean Paid;
 
-    public RegisteredClasses(String id, Student student, Sport sport, int hourdone, int hasPaid, boolean Finish, boolean Paid) {
+    public Classes(String id, Student student, Sport sport, int hourdone, int hasPaid, boolean Finish, boolean Paid) {
         this.id = id;
         this.student = student;
         this.sport = sport;
