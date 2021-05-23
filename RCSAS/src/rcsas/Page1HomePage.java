@@ -9,7 +9,7 @@ import java.io.PrintWriter;
 public class Page1HomePage extends JFrame implements ActionListener{
     
     final private Panel contain, header,y2_1, w, content, footer;
-    final private Button login, signup, exit, sport;
+    final private Button login, signup, exit, sport, schedule;
     final private JLabel system, welcome, describe;
     
     public Page1HomePage(){
@@ -80,7 +80,12 @@ public class Page1HomePage extends JFrame implements ActionListener{
         sport.setPreferredSize(new Dimension(100,40));
         sport.setFont(new Font("Serif", Font.PLAIN, 18));
         sport.addActionListener(this);
+        schedule = new Button("Schedule");
+        schedule.setPreferredSize(new Dimension(100,40));
+        schedule.setFont(new Font("Serif", Font.PLAIN, 18));
+        schedule.addActionListener(this);
         footer.add(sport);
+        footer.add(schedule);
         add(footer, BorderLayout.SOUTH);
         
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -104,7 +109,17 @@ public class Page1HomePage extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e){
        if(e.getSource()==exit){
-           Save();
+            String input = JOptionPane.showInputDialog("Password:");
+            if (null == input){
+
+            } else switch (input) {
+                case "12345":
+                    Save();
+                    System.exit(0);
+                default:
+                    JOptionPane.showMessageDialog(null,"Wrong password!");
+                    break;
+            }
         } else if(e.getSource()==signup){
             setVisible(false);
             RCSAS.SignupPage.setVisible(true);
@@ -169,111 +184,97 @@ public class Page1HomePage extends JFrame implements ActionListener{
         } else if(e.getSource() == sport){
             setVisible(false);
             RCSAS.SportPage.setVisible(true);
+        } else if(e.getSource() ==schedule){
+            setVisible(false);
+            Page3SchedulePage schedulepage = new Page3SchedulePage();
+            schedulepage.setVisible(true);
         }
     }
     
-    private void Save(){
-        String input = JOptionPane.showInputDialog("Password:");
-        if (null == input){
-            
-        } else switch (input) {
-            case "12345":
-                try{
-                    //Admin
-                    PrintWriter p = new PrintWriter("admin.txt");
-                    for(int i=0; i<RCSAS.allAdmin.size(); i++){
-                        Admin c = RCSAS.allAdmin.get(i);
-                        p.println(c.getId());
-                        p.println(c.getName());
-                        p.println(c.getPin());
-                        p.println();
-                    }
-                    p.close();
-                    
-                    //Coach
-                    p = new PrintWriter("coach.txt");
-                    for(int i=0; i<RCSAS.allCoach.size(); i++){
-                        Coach b = RCSAS.allCoach.get(i);
-                        p.println(b.getId());
-                        p.println(b.getName());
-                        p.println(b.getPhone());
-                        p.println(b.getGender());
-                        p.println(b.getAddress());
-                        p.println(b.getEcontact());
-                        p.println(b.getSport());
-                        p.println(b.getJoined());
-                        p.println(b.getDuration());
-                        p.println();
-                    }
-                    p.close();
-                    
-                    //Student
-                    p = new PrintWriter("student.txt");
-                    for(int i=0; i<RCSAS.allStudent.size(); i++){
-                        Student st = RCSAS.allStudent.get(i);
-                        p.println(st.getId());
-                        p.println(st.getName());
-                        p.println(st.getPin());
-                        p.println(st.getGender());
-                        p.println(st.getPhone());
-                        p.println(st.getEmail());
-                        p.println(st.getEm_phone());
-                        p.println();
-                    }
-                    p.close();
-                    
-                    //Classes
-                    p = new PrintWriter("classes.txt");
-                    for(int i=0; i<RCSAS.allClasses.size(); i++){
-                        Classes b = RCSAS.allClasses.get(i);
-                        p.println(b.getId());
-                        p.println(b.getStudent().getName());
-                        p.println(b.getSport());
-                        p.println(b.getHourdone());
-                        p.println(b.getHasPaid());
-                        p.println(b.isFinish());
-                        p.println(b.isPaid());
-                        p.println();
-                    }
-                    p.close();
-                    
-                    //Booking
-                    p = new PrintWriter("booking.txt");
-                    for(int i=0; i<RCSAS.allBooking.size(); i++){
-                        Booking b = RCSAS.allBooking.get(i);
-                        p.println(b.getId());
-                        p.println(b.getVenue());
-                        p.println(b.getDate());
-                        p.println(b.getSport());
-                        p.println(b.getTimeStarted());
-                        p.println(b.getDuration());
-                        p.println(b.getTimeEnded());
-                        p.println(b.getOwner().getName());
-                        p.println();
-                    }
-                    p.close();
-                    
-                    //Feedback
-                    p = new PrintWriter("feedback.txt");
-                    for(int i=0; i<RCSAS.allFeedback.size(); i++){
-                        Feedback b = RCSAS.allFeedback.get(i);
-                        p.println(b.getCoach().getId());
-                        p.println(b.getStudent().getName());
-                        p.println(b.getStar());
-                        p.println(b.getComment());
-                        p.println();
-                    }
-                    p.close();
-                    
-                    System.exit(0);
-                } 
-                
-                catch(Exception ex){
-                    System.out.println("Error in stop!");
-                }
-            default:
-                JOptionPane.showMessageDialog(null,"Wrong password!");
-                break;
+    public void Save(){
+        try{
+            //Admin
+            PrintWriter p = new PrintWriter("admin.txt");
+            for(int i=0; i<RCSAS.allAdmin.size(); i++){
+                Admin c = RCSAS.allAdmin.get(i);
+                p.println(c.getId());
+                p.println(c.getName());
+                p.println(c.getPin());
+                p.println();
+            } p.close();
+
+            //Coach
+            p = new PrintWriter("coach.txt");
+            for(int i=0; i<RCSAS.allCoach.size(); i++){
+                Coach b = RCSAS.allCoach.get(i);
+                p.println(b.getId());
+                p.println(b.getName());
+                p.println(b.getPhone());
+                p.println(b.getGender());
+                p.println(b.getAddress());
+                p.println(b.getEcontact());
+                p.println(b.getSport());
+                p.println(b.getJoined());
+                p.println(b.getDuration());
+                p.println();
+            } p.close();
+
+            //Student
+            p = new PrintWriter("student.txt");
+            for(int i=0; i<RCSAS.allStudent.size(); i++){
+                Student st = RCSAS.allStudent.get(i);
+                p.println(st.getId());
+                p.println(st.getName());
+                p.println(st.getPin());
+                p.println(st.getGender());
+                p.println(st.getPhone());
+                p.println(st.getEmail());
+                p.println(st.getEm_phone());
+                p.println();
+            } p.close();
+
+            //Classes
+            p = new PrintWriter("classes.txt");
+            for(int i=0; i<RCSAS.allClasses.size(); i++){
+                Classes b = RCSAS.allClasses.get(i);
+                p.println(b.getId());
+                p.println(b.getStudent().getName());
+                p.println(b.getSport());
+                p.println(b.getHourdone());
+                p.println(b.getHasPaid());
+                p.println(b.isFinish());
+                p.println(b.isPaid());
+                p.println();
+            } p.close();
+
+            //Booking
+            p = new PrintWriter("booking.txt");
+            for(int i=0; i<RCSAS.allBooking.size(); i++){
+                Booking b = RCSAS.allBooking.get(i);
+                p.println(b.getId());
+                p.println(b.getVenue());
+                p.println(b.getDate());
+                p.println(b.getSport());
+                p.println(b.getTimeStarted());
+                p.println(b.getDuration());
+                p.println(b.getOwner().getName());
+                p.println();
+            } p.close();
+
+            //Feedback
+            p = new PrintWriter("feedback.txt");
+            for(int i=0; i<RCSAS.allFeedback.size(); i++){
+                Feedback b = RCSAS.allFeedback.get(i);
+                p.println(b.getCoach().getId());
+                p.println(b.getStudent().getName());
+                p.println(b.getStar());
+                p.println(b.getComment());
+                p.println();
+            } p.close();
+        } 
+
+        catch(Exception ex){
+            System.out.println("Error in stop!");
         }
     }
 }

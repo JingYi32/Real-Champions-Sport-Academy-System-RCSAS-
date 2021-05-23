@@ -2,14 +2,19 @@ package rcsas;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.regex.Pattern;
 import javax.swing.*;
 
 public class Page2StudentMainPage extends JFrame implements ActionListener{
     final private JLabel title, name, gender, contact, email, eme_contact;
     public JLabel studentname, studentgender, studentcontact, studentemail, studenteme_contact;
+    private Panel panelgender, panelcontact, panelemail, paneleme_contact;
+    private JTextField textcontact, textemail, texteme_contact;
+    private JComboBox cbgender;
     final private Button SearchCoach, ModifyRecord, ViewSchedule, Logout;
-    final private JPanel a, b, above, label, below;
-    public JPanel detail;
+    private Button Save;
+    final private JPanel a, b, above, label,detail, below;
     
     public Page2StudentMainPage(){
         setSize(1500,800);
@@ -150,11 +155,74 @@ public class Page2StudentMainPage extends JFrame implements ActionListener{
         }
         
         else if(e.getSource()==ModifyRecord){
+            detail.remove(studentgender);
+            detail.remove(studentcontact);
+            detail.remove(studentemail);
+            detail.remove(studenteme_contact);
             
+            panelgender = new Panel();
+            panelcontact = new Panel();
+            panelemail = new Panel();
+            paneleme_contact = new Panel();
+            
+            cbgender = new JComboBox();
+            cbgender.addItem("Female");
+            cbgender.addItem("Male");
+            cbgender.setSelectedItem(RCSAS.currentStudent.getGender());
+            textcontact = new JTextField(RCSAS.currentStudent.getPhone());
+            textemail = new JTextField(RCSAS.currentStudent.getEmail());
+            texteme_contact = new JTextField(RCSAS.currentStudent.getEm_phone());
+            
+            panelgender.add(cbgender);
+            panelcontact.add(textcontact);
+            panelemail.add(textemail);
+            paneleme_contact.add(texteme_contact);
+            
+            detail.add(panelgender);
+            detail.add(panelcontact);
+            detail.add(panelemail);
+            detail.add(paneleme_contact);
+            
+            below.remove(SearchCoach);
+            below.remove(ModifyRecord);
+            below.remove(ViewSchedule);
+            below.remove(Logout);
+            Save = new Button("Save");
+            below.add(Save);
+            
+            Save.addActionListener((ActionEvent ae ) ->{
+                ArrayList<String> message = new ArrayList<>();
+                if(Pattern.compile("^\\d{11}$").matcher(textcontact.getText()).matches() &&
+                        Pattern.compile("^(.+)@(.+)$").matcher(textemail.getText()).matches() &&
+                        Pattern.compile("^\\d{11}$").matcher(texteme_contact.getText()).matches()){
+                    RCSAS.currentStudent.setPhone(textcontact.getText() );
+                    RCSAS.currentStudent.setEmail(textemail.getText());
+                    RCSAS.currentStudent.setEm_phone(texteme_contact.getText());
+                    message.add("Update Successfully!");
+                    setVisible(false);
+                    Page2StudentMainPage reload = new Page2StudentMainPage();
+                    reload.setVisible(true);
+                } else{
+                    message.add("There is error inside the field!");
+                    if(!Pattern.compile("^\\d{11}$").matcher(textcontact.getText()).matches()){
+                        message.add("Invalid Phone Number!");
+                    }
+                    if(!Pattern.compile("^(.+)@(.+)$").matcher(textemail.getText()).matches()){
+                        message.add("Invalid Email Address!");
+                    }
+                    if(!Pattern.compile("^\\d{11}$").matcher(texteme_contact.getText()).matches()){
+                        message.add("Invalid Emergency Number!");
+                    }
+                }
+                JOptionPane.showMessageDialog(null, message);
+            });
+            this.revalidate();
         }
         
-        else{
-            
+        else if (e.getSource() == ViewSchedule){
+            setVisible(false);
+            Page3SchedulePage sp = new Page3SchedulePage();
+            sp.setVisible(true);
         }
     }
 }

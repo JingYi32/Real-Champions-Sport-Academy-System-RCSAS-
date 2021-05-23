@@ -114,7 +114,7 @@ public class RCSAS {
             //
             s = new Scanner(new File("booking.txt"));
             while(s.hasNext()){
-                int a = Integer.parseInt(s.nextLine());             //id
+                String a = s.nextLine();                            //id
                 String b = s.nextLine();                            //venue
                 LocalDate c = LocalDate.parse(s.nextLine());        //date
                 Sport d = Sport.valueOf(s.nextLine());              //sport

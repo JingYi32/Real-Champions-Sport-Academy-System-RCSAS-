@@ -9,6 +9,9 @@ public class Page3CoachPage extends JFrame implements ActionListener{
     private final JLabel title, id, name, gender, contact, address, eme_contact, sport, joined, terminated, hourrate, rating;
     private final JLabel coachId, coachName, coachGender, coachContact, coachAddress, coachEme_contact, coachSport, coachJoined, coachTerminated, coachHourrate, coachRating;
     private final Button back;
+    private JTextField textContact, textAddress, textEme_contact;
+    private JComboBox cbGender, cbSport;
+    private Panel panelGender, panelContact, panelAddress, panelEme_contact, panelSport;
     private Button modify, starFeedback, extension;
     private final JPanel header, content, left, labelleft, labelright, footer, right, detailleft, detailright;
     
@@ -172,6 +175,37 @@ public class Page3CoachPage extends JFrame implements ActionListener{
                 Page2StudentMainPage smp = new Page2StudentMainPage();
                 smp.setVisible(true);
             }
+        } else if (e.getSource() == modify){
+            Modify();
         }
     }
+    
+    private void Modify(){
+        detailleft.remove(coachGender);
+        detailleft.remove(coachContact);
+        detailleft.remove(coachAddress);
+        detailleft.remove(coachEme_contact);
+        detailright.remove(coachSport);
+        
+        panelGender = new Panel();
+        panelContact = new Panel();
+        panelAddress = new Panel();
+        panelEme_contact = new Panel();
+        panelSport = new Panel();
+        
+        cbGender = new JComboBox();
+        textContact = new JTextField();
+        textAddress = new JTextField();
+        textEme_contact = new JTextField();
+        cbSport = new JComboBox();
+        
+        detailleft.validate();
+        detailleft.repaint();
+        detailright.validate();
+        detailright.repaint();
+        
+        panelGender.add(cbGender);
+    }
+    
+    
 }

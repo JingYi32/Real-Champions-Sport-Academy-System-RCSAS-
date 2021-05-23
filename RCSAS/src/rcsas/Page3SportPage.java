@@ -81,16 +81,16 @@ public class Page3SportPage extends JFrame implements ActionListener{
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent e) {
-                if (RCSAS.currentLogin == RCSAS.currentAdmin){
+                if (RCSAS.currentLogin == null) {
                     setVisible(false);
-                    RCSAS.AdminSecondPage.setVisible(true);
+                    RCSAS.HomePage.setVisible(true);
                 } else if(RCSAS.currentLogin == RCSAS.currentStudent){
                     setVisible(false);
                     Page2StudentMainPage smp = new Page2StudentMainPage();
                     smp.setVisible(true);
-                } else if (RCSAS.currentLogin == null){
+                } else if (RCSAS.currentLogin == RCSAS.currentAdmin) {
                     setVisible(false);
-                    RCSAS.HomePage.setVisible(true);
+                    RCSAS.AdminSecondPage.setVisible(true);
                 }
             }
         });

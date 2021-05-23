@@ -29,9 +29,18 @@ public class Page2SecondPage extends JFrame implements ActionListener{
     @Override
      public void actionPerformed(ActionEvent e){
         if(e.getSource()==logout){
-            setVisible(false);
-            RCSAS.HomePage.setVisible(true);
-            Student student = null;
+            String input = JOptionPane.showInputDialog("Password:");
+            if (null == input){
+
+            } else switch (input) {
+                case "12345":
+                    RCSAS.HomePage.Save();
+                    setVisible(false);
+                    RCSAS.HomePage.setVisible(true);
+                default:
+                    JOptionPane.showMessageDialog(null,"Wrong password!");
+                    break;
+            }
         }  
         
         else if(e.getSource()==book){
@@ -48,52 +57,40 @@ public class Page2SecondPage extends JFrame implements ActionListener{
             }
             else{
                 int size = RCSAS.currentStudent.getMyClasses().size();
-                if(size==0 || (RCSAS.currentStudent.getMyClasses().get(size-1).isPaid() && (!RCSAS.currentStudent.getMyClasses().get(size-2).isFinish()))){
+                if(size==0 || (!RCSAS.currentStudent.getMyClasses().get(size-1).isFinish())){
                     boolean flag = true;
-                    String a = null;
-                    LocalDate b1 = null;
-                    Sport c1 = null;
-                    LocalTime d1 = null;
-                    int f = 0;
-                    LocalTime g = null;
-                    int h = 0;
                     try{
-                        String b = JOptionPane.showInputDialog("Date(YYYY-MM-DD):");
-                        b1 = LocalDate.parse(b); 
-                        String c = JOptionPane.showInputDialog("Sport:");
-                        c1 = Sport.valueOf(c);
-                        String d = JOptionPane.showInputDialog("Time(HH:MM):");
-                        d1 = LocalTime.parse(d);
-                        if((d1.compareTo(LocalTime.parse("09:00:00"))<0) || (d1.compareTo(LocalTime.parse("23:00:00"))>0)){
+                        LocalDate b = LocalDate.parse(JOptionPane.showInputDialog("Date(YYYY-MM-DD):")); 
+                        Sport c = Sport.valueOf(JOptionPane.showInputDialog("Sport:"));
+                        LocalTime d = LocalTime.parse(JOptionPane.showInputDialog("Time(HH:MM):"));
+                        if((d.compareTo(LocalTime.parse("09:00:00"))<0) || (d.compareTo(LocalTime.parse("23:00:00"))>0)){
                             throw new Exception();
                         }
-                        f = Integer.parseInt(JOptionPane.showInputDialog("Duration:"));
-                        for(int bk=0; bk<RCSAS.allBooking.size(); bk++){
-                            Booking x = RCSAS.allBooking.get(bk);
-                            for(int no_hall=1; no_hall<=c1.getNo_hall(); no_hall++){
-                                a = c1.getVenue()+no_hall;
-                                System.out.println(a);
-                                if (a.equals(x.getVenue()) && x.getDate()==b1 &&  x.getSport()==c1 && x.getTimeStarted()==d1){
+                        int f = Integer.parseInt(JOptionPane.showInputDialog("Duration:"));
+                        String a = null;
+                        for(int no1 = 1; no1<= c.getNo_hall(); no1++){
+                            a = c.getVenue()+no1;
+                            System.out.println(a);
+                            for(int i=0; i<RCSAS.allBooking.size(); i++){
+                                Booking x = RCSAS.allBooking.get(i);
+                                if (a.equals(x.getVenue()) && x.getDate()==b &&  x.getSport()==c && x.getTimeStarted()==d){
                                     flag = false;
-                                }else{
-                                    flag = true;
-                                    break;
                                 }
                             }
+                        }
+                        if(!flag){
+                            JOptionPane.showMessageDialog(null, "Not available!");
+                        } else{
+                                int idno = 10001+RCSAS.allBooking.size();
+                                String id = "L-"+idno;
+                                Booking y = new Booking(id,a,b,c,d,f,RCSAS.currentStudent);
+                                RCSAS.currentStudent.getMyBooking().add(y);
+                                RCSAS.allBooking.add(y);
+                                JOptionPane.showMessageDialog(null, "Id: "+id);
                         }
                     } catch(Exception ex){
                         flag = false;
                         JOptionPane.showMessageDialog(null, "Wrong input!");
-                    }
-                    
-                    if(flag){
-                        int id = 10001+RCSAS.allBooking.size();
-                        Booking x = new Booking(id,a,b1,c1,d1,f,RCSAS.currentStudent);
-                        RCSAS.currentStudent.getMyBooking().add(x);
-                        RCSAS.allBooking.add(x);
-                        JOptionPane.showMessageDialog(null, "Id: "+id);
-                    }else{
-                        JOptionPane.showMessageDialog(null, "Not available!");
                     }
                 }
             
@@ -101,6 +98,7 @@ public class Page2SecondPage extends JFrame implements ActionListener{
                     JOptionPane.showMessageDialog(null,"You have unpaid booking!");
                 }
             }
+            RCSAS.currentStudent = null;
         } else{
             int size = RCSAS.currentStudent.getMyClasses().size();
             if(size==0 || RCSAS.currentStudent.getMyClasses().get(size-1).isPaid()){

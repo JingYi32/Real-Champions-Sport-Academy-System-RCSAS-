@@ -7,7 +7,7 @@ import java.time.LocalTime;
 
 
 public class Booking {
-    private int id;
+    private String id;
     private String venue;
     private LocalDate date;
     private Sport sport;
@@ -16,7 +16,7 @@ public class Booking {
     private LocalTime timeEnded;
     private Student owner;
 
-    public Booking(int id, String venue, LocalDate date, Sport sport, LocalTime timeStarted, int duration, Student owner) {
+    public Booking(String id, String venue, LocalDate date, Sport sport, LocalTime timeStarted, int duration, Student owner) {
         this.id = id;
         this.venue = venue;
         this.date = date;
@@ -26,16 +26,16 @@ public class Booking {
         this.owner = owner;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
     public String getVenue() {
         return venue;
     }
-    public void setVenue(String hall) {
+    public void setVenue(String venue) {
         this.venue = venue;
     }
     public LocalDate getDate() {
@@ -49,7 +49,7 @@ public class Booking {
     public Sport getSport() {
         return sport;
     }
-    public void setSport(Sport code_sp) {
+    public void setSport(Sport sport) {
         this.sport = sport;
     }
 
@@ -70,11 +70,11 @@ public class Booking {
     }
 
     public LocalTime getTimeEnded() {
+        timeEnded = timeStarted.plusHours(duration);
         return timeEnded;
     }
 
     public void setTimeEnded(LocalTime timeEnded) {
-        timeEnded = timeStarted.plusHours(duration);
         this.timeEnded = timeEnded;
     }
      public Student getOwner() {
