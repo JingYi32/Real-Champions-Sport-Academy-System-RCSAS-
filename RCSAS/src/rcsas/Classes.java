@@ -5,15 +5,17 @@ public class Classes {
     private String id;
     private Student student;
     private Sport sport;
+    private int price;
     private int hourdone;
     private int hasPaid;
     private boolean Finish;
     private boolean Paid;
 
-    public Classes(String id, Student student, Sport sport, int hourdone, int hasPaid, boolean Finish, boolean Paid) {
+    public Classes(String id, Student student, Sport sport, int price, int hourdone, int hasPaid, boolean Finish, boolean Paid) {
         this.id = id;
         this.student = student;
         this.sport = sport;
+        this.price = price;
         this.hourdone = hourdone;
         this.hasPaid = hasPaid;
         this.Finish = Finish;
@@ -43,6 +45,14 @@ public class Classes {
         this.sport = sport;
     }
 
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+    
     public int getHourdone() {
         return hourdone;
     }

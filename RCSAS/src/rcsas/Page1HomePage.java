@@ -8,56 +8,68 @@ import java.io.PrintWriter;
 
 public class Page1HomePage extends JFrame implements ActionListener{
     
-    final private Panel contain, header,y2_1, w, content, footer;
-    final private Button login, signup, exit, sport, schedule;
+    final private Panel contain, header,headerbut, w, content, footer;
+    final private JButton login, signup, exit, sport, schedule;
     final private JLabel system, welcome, describe;
+    public Font title = new Font("Agency FB", Font.PLAIN, 60);
+    public Font label = new Font("Centaur", Font.BOLD, 26);
+    public Font normal = new Font("Centaur", Font.PLAIN,24);
+    public Font button = new Font("Agency FB", Font.BOLD, 18);
     
     public Page1HomePage(){
-        Font myFont = new Font("Serif", Font.PLAIN, 32);
-
-        //Frame Properties
         setSize(1500,800);
         setLocation(200,100);
-                
-        //Panel Properties
+        
+        //
+        //header
+        //
+        header = new Panel();
+        header.setBackground(new java.awt.Color(197, 215, 214));
+        header.setLayout(new GridLayout(1,2));
+        
+        system = new JLabel("REAL CHAMPIONS SPORT ACADEMY",Label.LEFT);
+        system.setForeground(Color.WHITE);
+        system.setFont(new Font("Agency FB", Font.BOLD, 32));
+        header.add(system);
+        
+        //
+        //Center
+        //
         contain = new Panel(new GridLayout(2,1));
         add(contain,BorderLayout.CENTER);
         
         w = new Panel(new GridBagLayout());
         welcome = new JLabel("Welcome to the RCSAS!");
-        welcome.setFont(new Font("Serif", Font.BOLD,88));
+        welcome.setFont(new Font("Agency FB", Font.BOLD,88));
+        welcome.setForeground(Color.WHITE);
         w.add(welcome);
+        w.setBackground(new java.awt.Color(197, 215, 214));
         contain.add(w);
         content = new Panel();
         describe = new JLabel("<html>We have conduct classes on ten type of sports which are the Swimming, Badminton, Football, Archery, Gymnastics, Volleyball, Basketball, Cricket, Tennis and Table Tennis at Puchong, Subang and Damansara.</html>");
-        describe.setFont(new Font("Serif", Font.PLAIN,24));
+        describe.setFont(new Font("Centaur", Font.PLAIN,24));
         describe.setPreferredSize(new Dimension(1000,300));
+        content.setBackground(new java.awt.Color(243, 250, 249));
         content.add(describe);
         contain.add(content);
         
-        header = new Panel();
-        header.setBackground(new java.awt.Color(204, 166, 166));
-        header.setLayout(new GridLayout(1,2));
         
-        system = new JLabel("Real Champions Sport Academy",Label.LEFT);
-        system.setFont(myFont);
-        header.add(system);
-        
-        y2_1 = new Panel(new GridBagLayout());
-        y2_1.setPreferredSize(new Dimension(1500,100));
+        headerbut = new Panel(new GridBagLayout());
+        headerbut.setPreferredSize(new Dimension(1500,100));
         
         //Creating Button
-        login = new Button("Login");
-        signup = new Button("Sign up");
-        exit = new Button("Exit");
+        login = new JButton("Login");
+        signup = new JButton("Sign up");
+        exit = new JButton("Exit");
         
         //Properties of Button
-        login.setPreferredSize(new Dimension(100,40));
-        login.setFont(new Font("Serif", Font.PLAIN, 18));
-        signup.setPreferredSize(new Dimension(100,40));
-        signup.setFont(new Font("Serif", Font.PLAIN, 18));
-        exit.setPreferredSize(new Dimension(100,40));
-        exit.setFont(new Font("Serif", Font.PLAIN, 18));
+        RCSAS.setButton(login);
+        RCSAS.setButton(signup);
+        RCSAS.setButton(exit);
+        
+        login.setFont(button);
+        signup.setFont(button);
+        exit.setFont(button);
         
         //Adding Action Listener to Button
         login.addActionListener(this);
@@ -65,10 +77,10 @@ public class Page1HomePage extends JFrame implements ActionListener{
         exit.addActionListener(this);
         
         //Adding item
-        y2_1.add(login, new GridBagConstraints());
-        y2_1.add(signup, new GridBagConstraints());
-        y2_1.add(exit, new GridBagConstraints());
-        header.add(y2_1);
+        headerbut.add(login, new GridBagConstraints());
+        headerbut.add(signup, new GridBagConstraints());
+        headerbut.add(exit, new GridBagConstraints());
+        header.add(headerbut);
         add(header,BorderLayout.NORTH);
         setVisible(true);
         
@@ -76,27 +88,34 @@ public class Page1HomePage extends JFrame implements ActionListener{
         //footer
         //
         footer = new Panel(new GridBagLayout());
-        sport = new Button("Know More");
+        footer.setBackground(new java.awt.Color(243, 250, 249));
+        sport = new JButton("Know More");
         sport.setPreferredSize(new Dimension(100,40));
-        sport.setFont(new Font("Serif", Font.PLAIN, 18));
+        sport.setFont(new Font("Agency FB", Font.BOLD, 18));
+        sport.setBackground(new java.awt.Color(197, 215, 214));
         sport.addActionListener(this);
-        schedule = new Button("Schedule");
+        schedule = new JButton("Schedule");
         schedule.setPreferredSize(new Dimension(100,40));
-        schedule.setFont(new Font("Serif", Font.PLAIN, 18));
+        schedule.setFont(new Font("Agency FB", Font.BOLD, 18));
+        schedule.setBackground(new java.awt.Color(197, 215, 214));
         schedule.addActionListener(this);
         footer.add(sport);
         footer.add(schedule);
         add(footer, BorderLayout.SOUTH);
         
+        
+        //
+        //WindowListener
+        //
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent e) {
-                int a = JOptionPane.showConfirmDialog(null, "Do you want to save your change?");
+                int a = JOptionPane.showConfirmDialog(null, "Really want to exit?");
                 switch(a){
                     case JOptionPane.YES_OPTION:
-                        Save();
-                    case JOptionPane.NO_OPTION:
                         System.exit(0);
+                    case JOptionPane.NO_OPTION:
+                        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
                     case JOptionPane.CANCEL_OPTION:
                         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
                     case JOptionPane.CLOSED_OPTION:
@@ -109,16 +128,16 @@ public class Page1HomePage extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e){
        if(e.getSource()==exit){
-            String input = JOptionPane.showInputDialog("Password:");
-            if (null == input){
-
-            } else switch (input) {
-                case "12345":
-                    Save();
+            int a = JOptionPane.showConfirmDialog(null, "Really want to exit?");
+            switch(a){
+                case JOptionPane.YES_OPTION:
                     System.exit(0);
-                default:
-                    JOptionPane.showMessageDialog(null,"Wrong password!");
-                    break;
+                case JOptionPane.NO_OPTION:
+                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                case JOptionPane.CANCEL_OPTION:
+                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                case JOptionPane.CLOSED_OPTION:
+                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
             }
         } else if(e.getSource()==signup){
             setVisible(false);
@@ -129,24 +148,28 @@ public class Page1HomePage extends JFrame implements ActionListener{
             //Admin
             if(op == 0){
                 String s = JOptionPane.showInputDialog("Username:");
-                for(int i=0; i<RCSAS.allAdmin.size(); i++){
-                    Admin c = RCSAS.allAdmin.get(i);
-                    if(s.equals(c.getName())){
-                        RCSAS.currentAdmin = c;
-                        break;
-                    }
-                }            
-                if(RCSAS.currentAdmin==null){
-                    JOptionPane.showMessageDialog(null, "Wrong username!");
-                }else{
-                    s = JOptionPane.showInputDialog("Password:");
-                    if(Integer.parseInt(s) != RCSAS.currentAdmin.getPin()){
-                        JOptionPane.showMessageDialog(null, "Wrong password!");
-                        RCSAS.currentAdmin = null;
-                    } else{
-                        RCSAS.currentLogin = RCSAS.currentAdmin;
-                        setVisible(false);
-                        RCSAS.AdminSecondPage.setVisible(true);
+                if (s == null){
+                    
+                } else{
+                    for(int i=0; i<RCSAS.allAdmin.size(); i++){
+                        Admin c = RCSAS.allAdmin.get(i);
+                        if(s.equals(c.getName())){
+                            RCSAS.currentAdmin = c;
+                            break;
+                        }
+                    }            
+                    if(RCSAS.currentAdmin==null){
+                        JOptionPane.showMessageDialog(null, "Wrong username!");
+                    }else{
+                        s = JOptionPane.showInputDialog("Password:");
+                        if(Integer.parseInt(s) != RCSAS.currentAdmin.getPin()){
+                            JOptionPane.showMessageDialog(null, "Wrong password!");
+                            RCSAS.currentAdmin = null;
+                        } else{
+                            RCSAS.currentLogin = RCSAS.currentAdmin;
+                            setVisible(false);
+                            RCSAS.AdminSecondPage.setVisible(true);
+                        }
                     }
                 }
             }
@@ -154,32 +177,36 @@ public class Page1HomePage extends JFrame implements ActionListener{
             //Student
             else if(op == 1){
                 String s = JOptionPane.showInputDialog("Username:");
-                for(int i=0; i<RCSAS.allStudent.size(); i++){
-                    Student c = RCSAS.allStudent.get(i);
-                    if(s.equals(c.getName())){
-                        RCSAS.currentStudent = c;
-                        break;
+                if (s ==null){
+                    
+                } else{
+                    for(int i=0; i<RCSAS.allStudent.size(); i++){
+                        Student c = RCSAS.allStudent.get(i);
+                        if(s.equals(c.getName())){
+                            RCSAS.currentStudent = c;
+                            break;
+                        }
                     }
-                }
-                
-                if(RCSAS.currentStudent==null){
-                    JOptionPane.showMessageDialog(null, "Wrong username!");
-                }else{
-                    s = JOptionPane.showInputDialog("Password:");
-                    if(Integer.parseInt(s) == RCSAS.currentStudent.getPin()){
-                        RCSAS.currentLogin = RCSAS.currentStudent;
-                        setVisible(false);
-                        Page2StudentMainPage smp = new Page2StudentMainPage();
-                        smp.setVisible(true);
-                    } else{
-                        JOptionPane.showMessageDialog(null, "Wrong password!");
-                        RCSAS.currentStudent = null;
+
+                    if(RCSAS.currentStudent==null){
+                        JOptionPane.showMessageDialog(null, "Wrong username!");
+                    }else{
+                        s = JOptionPane.showInputDialog("Password:");
+                        if(Integer.parseInt(s) == RCSAS.currentStudent.getPin()){
+                            RCSAS.currentLogin = RCSAS.currentStudent;
+                            setVisible(false);
+                            Page2StudentMainPage smp = new Page2StudentMainPage();
+                            smp.setVisible(true);
+                        } else{
+                            JOptionPane.showMessageDialog(null, "Wrong password!");
+                            RCSAS.currentStudent = null;
+                        }
                     }
                 }
             }
             //Error
             else{
-                System.out.println("Error");
+                
             }
         } else if(e.getSource() == sport){
             setVisible(false);
@@ -193,8 +220,21 @@ public class Page1HomePage extends JFrame implements ActionListener{
     
     public void Save(){
         try{
+            //Sport
+            PrintWriter p = new PrintWriter("sport.txt");
+            for(int i=0; i<RCSAS.allSport.size(); i++){
+                Sport c = RCSAS.allSport.get(i);
+                p.println(c.getId());
+                p.println(c.getName());
+                p.println(c.getLocation());
+                p.println(c.getVenue());
+                p.println(c.getNo_hall());
+                p.println(c.getPrice());
+                p.println();
+            } p.close();
+            
             //Admin
-            PrintWriter p = new PrintWriter("admin.txt");
+            p = new PrintWriter("admin.txt");
             for(int i=0; i<RCSAS.allAdmin.size(); i++){
                 Admin c = RCSAS.allAdmin.get(i);
                 p.println(c.getId());
@@ -213,7 +253,7 @@ public class Page1HomePage extends JFrame implements ActionListener{
                 p.println(b.getGender());
                 p.println(b.getAddress());
                 p.println(b.getEcontact());
-                p.println(b.getSport());
+                p.println(b.getSport().getName());
                 p.println(b.getJoined());
                 p.println(b.getDuration());
                 p.println();
@@ -239,7 +279,8 @@ public class Page1HomePage extends JFrame implements ActionListener{
                 Classes b = RCSAS.allClasses.get(i);
                 p.println(b.getId());
                 p.println(b.getStudent().getName());
-                p.println(b.getSport());
+                p.println(b.getSport().getName());
+                p.println(b.getPrice());
                 p.println(b.getHourdone());
                 p.println(b.getHasPaid());
                 p.println(b.isFinish());
@@ -254,7 +295,7 @@ public class Page1HomePage extends JFrame implements ActionListener{
                 p.println(b.getId());
                 p.println(b.getVenue());
                 p.println(b.getDate());
-                p.println(b.getSport());
+                p.println(b.getSport().getName());
                 p.println(b.getTimeStarted());
                 p.println(b.getDuration());
                 p.println(b.getOwner().getName());

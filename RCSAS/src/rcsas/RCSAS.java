@@ -1,10 +1,10 @@
 package rcsas;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.awt.*;
+import java.io.*;
+import java.time.*;
 import java.util.*;
+import javax.swing.*;
 
 public class RCSAS {
     //Page
@@ -18,6 +18,8 @@ public class RCSAS {
     public static Student currentStudent = null;
     public static Coach currentCoach = null;
     //ArrayList
+    public static ArrayList<Sport> allSport = new ArrayList<Sport>();
+    public static ArrayList<String> allSportName = new ArrayList<String>();
     public static ArrayList<Admin> allAdmin = new ArrayList<Admin>();
     public static ArrayList<Coach> allCoach = new ArrayList<Coach>();
     public static ArrayList<String> allCoachName = new ArrayList<String>();
@@ -26,6 +28,12 @@ public class RCSAS {
     public static ArrayList<Booking> allBooking = new ArrayList<Booking>();
     public static ArrayList<Feedback> allFeedback = new ArrayList<Feedback>();
     
+    public static void setButton(JButton but){
+        but.setBackground(new java.awt.Color(125, 155, 171));
+        but.setForeground(Color.WHITE);
+        but.setPreferredSize(new Dimension(100,40));
+    }
+    
     public static void main(String[] args) {
         ScanFile();
     }
@@ -33,9 +41,26 @@ public class RCSAS {
     private static void ScanFile(){
         try{
             //
+            //Sport
+            Scanner s = new Scanner(new File("sport.txt"));
+            while(s.hasNext()){
+                String a = s.nextLine();                            //id
+                String b = s.nextLine();                            //name
+                SportCentre c = SportCentre.valueOf(s.nextLine());  //location
+                String d = s.nextLine();                            //venue
+                int e = Integer.parseInt(s.nextLine());             //no_hall
+                int f = Integer.parseInt(s.nextLine());             //price
+                s.nextLine();
+                
+                Sport sp = new Sport(a,b,c,d,e,f);
+                allSport.add(sp);
+                allSportName.add(sp.getName());
+            } s.close();
+            
+            //
             //Admin
             //
-            Scanner s = new Scanner(new File("admin.txt"));
+            s = new Scanner(new File("admin.txt"));
             while(s.hasNext()){
                 String id = s.nextLine();
                 String a = s.nextLine();                            //name
@@ -57,14 +82,19 @@ public class RCSAS {
                 String d = s.nextLine();                            //gender
                 String e = s.nextLine();                            //address
                 String f = s.nextLine();                            //econtact
-                Sport g = Sport.valueOf(s.nextLine());              //S[prt
+                String g = s.nextLine();                            //Sport
                 LocalDate h = LocalDate.parse(s.nextLine());        //DateJoined
                 int i = Integer.parseInt(s.nextLine());             //Duration
                 s.nextLine();
                 
-                Coach ch = new Coach(a,b,c,d,e,f,g,h,i);
-                allCoach.add(ch);
-                allCoachName.add(a);
+                for(int sp=0; sp<allSport.size(); sp++){
+                    Sport x = allSport.get(sp);
+                    if(a.equals(x.getName())){
+                        Coach ch = new Coach(a,b,c,d,e,f,x,h,i);
+                        allCoach.add(ch);
+                        allCoachName.add(a);                  
+                    }
+                }
             } s.close();
             
             //
@@ -88,48 +118,79 @@ public class RCSAS {
             //
             //Classes
             //
+            boolean error5 = true;
             s = new Scanner(new File("classes.txt"));
             while(s.hasNext()){
                 String id = s.nextLine();
                 String a = s.nextLine();                            //StudentName
-                Sport b = Sport.valueOf(s.nextLine());              //Sport
+                String b1 = String.valueOf(s.nextLine());           //Sport
+                int fe = Integer.parseInt(s.nextLine());            //hourdone
                 int c = Integer.parseInt(s.nextLine());             //hourdone
                 int d = Integer.parseInt(s.nextLine());             //hasPaid
                 boolean e = Boolean.parseBoolean(s.nextLine());     //isAssign
                 boolean f = Boolean.parseBoolean(s.nextLine());     //isPaid
                 s.nextLine();
+                Sport b = null;
 
+                for(int sp=0; sp<allSport.size(); sp++){
+                    Sport y = allSport.get(sp);
+                    if(b1.equals(y.getName())){
+                        b = y;
+                    }
+                }
+                
                 for(int st=0; st<allStudent.size(); st++){
                     Student x = allStudent.get(st);
                     if(a.equals(x.getName())){
-                        Classes cl = new Classes(id,x,b,c,d,e,f);
+                        Classes cl = new Classes(id,x,b,fe,c,d,e,f);
                         x.getMyClasses().add(cl);
-                        allClasses.add(cl);                    
+                        allClasses.add(cl);
+                        error5 = false;
+                        break;
                     }
+                }
+                
+                
+                if(error5){
+                    System.out.println("errorclass");
                 }
             } s.close();
             
             //
             //Booking
             //
+            boolean error6 = true;
             s = new Scanner(new File("booking.txt"));
             while(s.hasNext()){
                 String a = s.nextLine();                            //id
                 String b = s.nextLine();                            //venue
                 LocalDate c = LocalDate.parse(s.nextLine());        //date
-                Sport d = Sport.valueOf(s.nextLine());              //sport
+                String d1 = String.valueOf(s.nextLine());           //sport
                 LocalTime f = LocalTime.parse(s.nextLine());        //timeStarted
                 int g = Integer.parseInt(s.nextLine());             //duration
-                String h = s.nextLine();                            //StudentName
+                String h1 = s.nextLine();                            //StudentName
                 s.nextLine();
+                Sport d = null;
+                
+                for(int sp=0; sp<allSport.size(); sp++){
+                    Sport y = allSport.get(sp);
+                    if(d1.equals(y.getName())){
+                        d = y;
+                    }
+                }
                 
                 for(int st=0; st<allStudent.size(); st++){
                     Student x = allStudent.get(st);
-                    if(h.equals(x.getName())){
-                        Booking y = new Booking(a,b,c,d,f,g,x);
-                        x.getMyBooking().add(y);
-                        allBooking.add(y);                    
+                    if(h1.equals(x.getName())){
+                        Booking z = new Booking(a,b,c,d,f,g,x);
+                        x.getMyBooking().add(z);
+                        allBooking.add(z);
+                        error6 = false;
                     }
+                }
+                        
+                if(error6){
+                    System.out.println("errorbooking");
                 }
             }s.close();
             

@@ -2,7 +2,7 @@ ST10001
 Wang
 123456
 Female
-60123456789
-someone@mail.com
 60000000000
+someone@mail.com
+20293877776
 

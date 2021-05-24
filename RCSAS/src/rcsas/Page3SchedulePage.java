@@ -7,24 +7,26 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class Page3SchedulePage extends JFrame implements ActionListener{
-    private final JPanel header, footer;
-    private final JLabel title;
-    private final JScrollPane content;
     private final DefaultTableModel model;
+    private final JLabel title;
+    private final JPanel header, footer;
+    private final JScrollPane content;
     private final JTable schedule;
+    private JButton back, modify;
     
     public Page3SchedulePage(){
         setSize(1500,800);
         setLocation(200,100);
-        
+        setLayout(null);
         //
         //HEADER
         //
         header = new JPanel();
         title = new JLabel("- Sport Schedule -");
-        title.setFont(new Font("Serif", Font.PLAIN, 32));
+        title.setFont(RCSAS.HomePage.title);
         header.add(title);
-        add(header, BorderLayout.NORTH);
+        header.setBounds(0, 0, 1500, 100);
+        add(header);
         
         
         //
@@ -69,16 +71,31 @@ public class Page3SchedulePage extends JFrame implements ActionListener{
             }
         };
         schedule = new JTable(model);
-        schedule.setFont(new Font("Serif", Font.PLAIN, 25));
-        schedule.getTableHeader().setFont(new Font("Serif", Font.BOLD, 25));
+        schedule.setFont(RCSAS.HomePage.normal);
+        schedule.getTableHeader().setFont(RCSAS.HomePage.label);
         schedule.setRowHeight(40);
         content = new JScrollPane(schedule);
-        add(content, BorderLayout.CENTER);
+        content.setBounds(100, 100, 1300, 500);
+        add(content);
+        
         
         //
         //FOOTER
         //
         footer = new JPanel();
+        back = new JButton("Back");
+        RCSAS.setButton(back);
+        back.setFont(RCSAS.HomePage.button);
+        footer.add(back);
+        back.addActionListener(this);
+        if(RCSAS.currentAdmin != null){
+            modify = new JButton("Modify");
+            RCSAS.setButton(modify);
+            modify.setFont(RCSAS.HomePage.button);
+            footer.add(modify);
+            modify.addActionListener(this);
+        }
+        footer.setBounds(0, 700, 1500, 100);
         add(footer, BorderLayout.SOUTH);
         
         //
@@ -90,13 +107,15 @@ public class Page3SchedulePage extends JFrame implements ActionListener{
                 if (RCSAS.currentLogin == null) {
                     setVisible(false);
                     RCSAS.HomePage.setVisible(true);
-                } else if (RCSAS.currentLogin == RCSAS.currentAdmin) {
-                    setVisible(false);
-                    RCSAS.AdminSecondPage.setVisible(true);
-                } else if(RCSAS.currentLogin == RCSAS.currentStudent){
-                    setVisible(false);
-                    Page2StudentMainPage smp = new Page2StudentMainPage();
-                    smp.setVisible(true);
+                } else {
+                    if(RCSAS.currentStudent != null){
+                        setVisible(false);
+                        Page2StudentMainPage smp = new Page2StudentMainPage();
+                        smp.setVisible(true);
+                    } else if (RCSAS.currentAdmin != null) {
+                        setVisible(false);
+                        RCSAS.AdminSecondPage.setVisible(true);
+                    }
                 }
             }
         });
@@ -104,6 +123,22 @@ public class Page3SchedulePage extends JFrame implements ActionListener{
     
     @Override
     public void actionPerformed(ActionEvent e){
-        
+        if(e.getSource() == back){
+            if (RCSAS.currentLogin == null) {
+                setVisible(false);
+                RCSAS.HomePage.setVisible(true);
+            } else {
+                if(RCSAS.currentStudent != null){
+                    setVisible(false);
+                    Page2StudentMainPage smp = new Page2StudentMainPage();
+                    smp.setVisible(true);
+                } else if (RCSAS.currentAdmin != null) {
+                    setVisible(false);
+                    RCSAS.AdminSecondPage.setVisible(true);
+                }
+            }
+        } else if(e.getSource() == modify){
+            
+        }
     }
 }

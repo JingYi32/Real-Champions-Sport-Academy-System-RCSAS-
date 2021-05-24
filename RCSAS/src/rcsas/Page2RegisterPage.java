@@ -3,6 +3,8 @@ package rcsas;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.regex.Pattern;
 import javax.swing.*;
 
@@ -10,36 +12,57 @@ public class Page2RegisterPage extends JFrame implements ActionListener{
     final private JPanel header, content, footer;
     final private JLabel title, name, gender, email, contact, eme_contact, sport, program, fee;
     final private JLabel errorname, errorgender, erroremail, errorcontact, erroreme_contact, errorsport, errorprogram;
-    final private Button submit, back;
+    final private JButton submit, back;
     final private JComboBox gd,s,p;
     final private JTextField n, em, cn, ec, fs;
     private boolean error;
+    private int fees;
     
     public Page2RegisterPage(){
         setSize(1500,800);
         setLocation(200,100);
         
+        
+        //
+        //header
+        //
         header = new JPanel();
-        header.setPreferredSize(new Dimension(1500,100));
+        header.setPreferredSize(new Dimension(1500,125));
+        header.setBackground(new java.awt.Color(197, 215, 214));
         add(header, BorderLayout.NORTH);
-        title = new JLabel("- Register Page -");
-        title.setFont(new Font("Serif", Font.PLAIN, 48));
+        title = new JLabel("--  REGISTER PAGE  --");
+        title.setFont(RCSAS.HomePage.title);
+        title.setForeground(Color.white);
         header.add(title);
         
+        
+        //
+        //content
+        //
         content = new JPanel();
         content.setLayout(null);
+        content.setBackground(new java.awt.Color(197, 215, 214));
         add(content, BorderLayout.CENTER);
         
+        
+        //
+        //footer
+        //
         footer = new JPanel(new FlowLayout());
+        footer.setBackground(new java.awt.Color(197, 215, 214));
         add(footer, BorderLayout.SOUTH);
-        submit = new Button("SUBMMIT");
-        back = new Button("BACK");
+        submit = new JButton("Submit");
+        submit.setBackground(new java.awt.Color(125, 155, 171));
+        submit.setForeground(Color.WHITE);
+        back = new JButton("Back");
+        back.setBackground(new java.awt.Color(125, 155, 171));
+        back.setForeground(Color.WHITE);
         submit.addActionListener(this);
         back.addActionListener(this);
         footer.add(submit);
         footer.add(back);
-        submit.setFont(new Font("Serif", Font.BOLD, 26));
-        back.setFont(new Font("Serif", Font.BOLD, 26));
+        submit.setFont(new Font("Agency FB", Font.BOLD, 26));
+        back.setFont(new Font("Agency FB", Font.BOLD, 26));
         submit.setPreferredSize(new Dimension(150,40));
         back.setPreferredSize(new Dimension(150,40));
         
@@ -130,32 +153,32 @@ public class Page2RegisterPage extends JFrame implements ActionListener{
         errorprogram.setBounds(1135, 190, 300, 20);
         
         //Font
-        name.setFont(new Font("Serif", Font.BOLD, 26));
-        gender.setFont(new Font("Serif", Font.BOLD, 26));
-        email.setFont(new Font("Serif", Font.BOLD, 26));
-        contact.setFont(new Font("Serif", Font.BOLD, 26));
-        remark.setFont(new Font("Serif", Font.BOLD, 12));
-        eme_contact.setFont(new Font("Serif", Font.BOLD, 26));
-        sport.setFont(new Font("Serif", Font.BOLD, 26));
-        program.setFont(new Font("Serif", Font.BOLD, 26));
-        fee.setFont(new Font("Serif", Font.BOLD, 26));
+        name.setFont(new Font("Centaur", Font.BOLD, 26));
+        gender.setFont(new Font("Centaur", Font.BOLD, 26));
+        email.setFont(new Font("Centaur", Font.BOLD, 26));
+        contact.setFont(new Font("Centaur", Font.BOLD, 26));
+        remark.setFont(new Font("Centaur", Font.BOLD, 12));
+        eme_contact.setFont(new Font("Centaur", Font.BOLD, 26));
+        sport.setFont(new Font("Centaur", Font.BOLD, 26));
+        program.setFont(new Font("Centaur", Font.BOLD, 26));
+        fee.setFont(new Font("Centaur", Font.BOLD, 26));
         
-        n.setFont(new Font("Serif", Font.PLAIN, 26));
-        gd.setFont(new Font("Serif", Font.PLAIN, 26));
-        em.setFont(new Font("Serif", Font.PLAIN, 26));
-        cn.setFont(new Font("Serif", Font.PLAIN, 26));
-        ec.setFont(new Font("Serif", Font.PLAIN, 26));
-        s.setFont(new Font("Serif", Font.PLAIN, 26));
-        p.setFont(new Font("Serif", Font.PLAIN, 26));
-        fs.setFont(new Font("Serif", Font.PLAIN, 26));
+        n.setFont(new Font("Centaur", Font.PLAIN, 26));
+        gd.setFont(new Font("Centaur", Font.PLAIN, 26));
+        em.setFont(new Font("Centaur", Font.PLAIN, 26));
+        cn.setFont(new Font("Centaur", Font.PLAIN, 26));
+        ec.setFont(new Font("Centaur", Font.PLAIN, 26));
+        s.setFont(new Font("Centaur", Font.PLAIN, 26));
+        p.setFont(new Font("Centaur", Font.PLAIN, 26));
+        fs.setFont(new Font("Centaur", Font.PLAIN, 26));
         
-        errorname.setFont(new Font("Serif", Font.BOLD, 12));
-        errorgender.setFont(new Font("Serif", Font.BOLD, 12));
-        erroremail.setFont(new Font("Serif", Font.BOLD, 12));
-        errorcontact.setFont(new Font("Serif", Font.BOLD, 12));
-        erroreme_contact.setFont(new Font("Serif", Font.BOLD, 12));
-        errorsport.setFont(new Font("Serif", Font.BOLD, 12)); 
-        errorprogram.setFont(new Font("Serif", Font.BOLD, 12));
+        errorname.setFont(new Font("Centaur", Font.BOLD, 12));
+        errorgender.setFont(new Font("Centaur", Font.BOLD, 12));
+        erroremail.setFont(new Font("Centaur", Font.BOLD, 12));
+        errorcontact.setFont(new Font("Centaur", Font.BOLD, 12));
+        erroreme_contact.setFont(new Font("Centaur", Font.BOLD, 12));
+        errorsport.setFont(new Font("Centaur", Font.BOLD, 12)); 
+        errorprogram.setFont(new Font("Centaur", Font.BOLD, 12));
         
         //ComboBox
         gd.addItem("Female");
@@ -215,6 +238,7 @@ public class Page2RegisterPage extends JFrame implements ActionListener{
                     setVisible(false);
                     RCSAS.HomePage.setVisible(true);
                     RCSAS.currentStudent = null;
+                    RemoveText();
                 }else if (a == JOptionPane.NO_OPTION){
                     setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
                 }
@@ -230,6 +254,7 @@ public class Page2RegisterPage extends JFrame implements ActionListener{
                 setVisible(false);
                 RCSAS.HomePage.setVisible(true);
                 RCSAS.currentStudent = null;
+                RemoveText();
             }else if (a == JOptionPane.NO_OPTION){
                 setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
             }
@@ -242,22 +267,59 @@ public class Page2RegisterPage extends JFrame implements ActionListener{
                 String d = cn.getText();
                 String e = em.getText();
                 String f = ec.getText();
-                Sport g = Sport.valueOf(s.getSelectedItem().toString());
-                String b1 = JOptionPane.showInputDialog("There is no error in the information keyin. \nKindly create a pin number for login.\nPin:");
-                if (Pattern.compile("[1-9]{1}\\d{5,10}").matcher(b1).matches()){
-                    int b = Integer.parseInt(b1);
-                    int idno = 10001+RCSAS.allStudent.size();
-                    String id = "ST" + idno;
-                    Student st = new Student(id,a,b,c,d,e,f);
-                    int idnoc = 1000001+RCSAS.allClasses.size();
-                    String cid = "C" + idnoc;
-                    Classes cl = new Classes(cid,st, g,0,0,false, false);
-                    RCSAS.allStudent.add(st);
-                    RCSAS.allClasses.add(cl);
-                    setVisible(false);
-                    RCSAS.HomePage.setVisible(true);
-                }else{
-                    JOptionPane.showMessageDialog(null,"Invalid pin number! Pin number should match condition below: \n1. Pin number should be numeric. \n2. Length of pin number should be 6-10. \n3. Pin number should not start by 0. \n");
+                for(int i=0; i<RCSAS.allSport.size(); i++){
+                    Sport sp = RCSAS.allSport.get(i);
+                    if(sp.getName().equals(s.getSelectedItem().toString())){
+                        Sport g = sp;
+                        String b1 = JOptionPane.showInputDialog("There is no error in the information keyin. \nKindly create a pin number for login.\nPin:");
+                        if (Pattern.compile("[1-9]{1}\\d{5,10}").matcher(b1).matches()){
+                            int b = Integer.parseInt(b1);
+                            int idno = 10001+RCSAS.allStudent.size();
+                            String id = "ST" + idno;
+                            Student st = new Student(id,a,b,c,d,e,f);
+                            int idnoc = 1000001+RCSAS.allClasses.size();
+                            String cid = "C" + idnoc;
+                            Classes cl = new Classes(cid,st,g,fees,0,0,false, false);
+                            RCSAS.allStudent.add(st);
+                            RCSAS.allClasses.add(cl);
+                            try{
+                                PrintWriter p = new PrintWriter("student.txt");
+                                for(int in=0; in<RCSAS.allStudent.size(); in++){
+                                    Student allst = RCSAS.allStudent.get(in);
+                                    p.println(allst.getId());
+                                    p.println(allst.getName());
+                                    p.println(allst.getPin());
+                                    p.println(allst.getGender());
+                                    p.println(allst.getPhone());
+                                    p.println(allst.getEmail());
+                                    p.println(allst.getEm_phone());
+                                    p.println();
+                                } p.close();
+                                //Classes
+                                p = new PrintWriter("classes.txt");
+                                for(int in=0; in<RCSAS.allClasses.size(); in++){
+                                    Classes allb = RCSAS.allClasses.get(in);
+                                    p.println(allb.getId());
+                                    p.println(allb.getStudent().getName());
+                                    p.println(allb.getSport().getName());
+                                    p.println(allb.getPrice());
+                                    p.println(allb.getHourdone());
+                                    p.println(allb.getHasPaid());
+                                    p.println(allb.isFinish());
+                                    p.println(allb.isPaid());
+                                    p.println();
+                                } p.close();
+                            } catch(FileNotFoundException ex){
+                                System.out.println("Error!");
+                            }
+                            RemoveText();
+                            setVisible(false);
+                            RCSAS.HomePage.setVisible(true);
+                        }else{
+                            JOptionPane.showMessageDialog(null,"Invalid pin number! Pin number should match condition below: \n1. Pin number should be numeric. \n2. Length of pin number should be 6-10. \n3. Pin number should not start by 0. \n");
+                        }
+                        break;
+                    }
                 }
             } else {
                 JOptionPane.showMessageDialog(null,"There is null box!");
@@ -265,19 +327,34 @@ public class Page2RegisterPage extends JFrame implements ActionListener{
         }
     }
     
+    private void RemoveText(){
+        n.setText(null);
+        gd.setSelectedIndex(-1);
+        cn.setText(null);
+        em.setText(null);
+        ec.setText(null);
+        s.setSelectedIndex(-1);
+        p.setSelectedIndex(-1);
+        fs.setText(null);
+    }
     
     private void ValidateName(){
         boolean flag = true;
-        for(int ix=0; ix<RCSAS.allStudent.size(); ix++){
-            Student st = RCSAS.allStudent.get(ix);
-            if(n.getText().equals(st.getName())){
-                flag = false;
-                break;
-            }   
+        if(n.getText().isEmpty()){
+            flag = false;
+        } else{
+            for(int ix=0; ix<RCSAS.allStudent.size(); ix++){
+                Student st = RCSAS.allStudent.get(ix);
+                if(n.getText().equals(st.getName())){
+                    flag = false;
+                    break;
+                }   
+            }
         }
+
         if(!flag){
             errorname.setForeground(Color.red);
-            errorname.setText("Name used!");
+            errorname.setText("Null box / Name used!");
             error = true;
             gd.setEnabled(false);
             gd.setSelectedIndex(-1);
@@ -356,6 +433,14 @@ public class Page2RegisterPage extends JFrame implements ActionListener{
             errorsport.setText("OK! Ready to use!");
             error = false;
             p.setEnabled(true);
+            fees = 0;
+            for(int i=0; i<RCSAS.allSport.size(); i++){
+                Sport sp = RCSAS.allSport.get(i);
+                if(sp.getName().equals(s.getSelectedItem().toString())){
+                    fees = sp.getPrice()*24;
+                }
+            }
+            fs.setText("RM"+String.format("%04d",fees));
         }
     }
     private void ValidateProgram(){
