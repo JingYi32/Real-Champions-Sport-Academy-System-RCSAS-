@@ -87,7 +87,7 @@ public class Page1HomePage extends JFrame implements ActionListener{
         //
         //footer
         //
-        footer = new Panel(new GridBagLayout());
+        footer = new Panel();
         footer.setBackground(new java.awt.Color(243, 250, 249));
         sport = new JButton("Know More");
         sport.setPreferredSize(new Dimension(100,40));
@@ -210,7 +210,8 @@ public class Page1HomePage extends JFrame implements ActionListener{
             }
         } else if(e.getSource() == sport){
             setVisible(false);
-            RCSAS.SportPage.setVisible(true);
+            Page3SportPage SportPage = new Page3SportPage();
+            SportPage.setVisible(true);
         } else if(e.getSource() ==schedule){
             setVisible(false);
             Page3SchedulePage schedulepage = new Page3SchedulePage();

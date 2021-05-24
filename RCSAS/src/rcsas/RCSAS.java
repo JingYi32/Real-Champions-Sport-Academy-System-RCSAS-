@@ -11,7 +11,7 @@ public class RCSAS {
     public static Page1HomePage HomePage = new Page1HomePage();
     public static Page2SecondPage AdminSecondPage = new Page2SecondPage();
     public static Page2RegisterPage SignupPage = new Page2RegisterPage();
-    public static Page3SportPage SportPage = new Page3SportPage();
+    public static Page3CoachPage CoachPage = new Page3CoachPage();
     //Person
     public static Role currentLogin = null;
     public static Admin currentAdmin = null;

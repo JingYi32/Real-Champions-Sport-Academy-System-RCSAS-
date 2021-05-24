@@ -12,7 +12,7 @@ public class Page2StudentMainPage extends JFrame implements ActionListener{
     private Panel panelgender, panelcontact, panelemail, paneleme_contact;
     private JTextField textcontact, textemail, texteme_contact;
     private JComboBox cbgender;
-    final private JButton SearchCoach, ModifyRecord, ViewSchedule, Logout;
+    private final JButton SearchCoach, ModifyRecord, ViewSchedule, Logout, Purchase, ViewSport, ChangePassword;
     private JButton Save;
     final private JPanel header, content, label, detail, below;
     
@@ -47,11 +47,11 @@ public class Page2StudentMainPage extends JFrame implements ActionListener{
         detail.setBackground(new java.awt.Color(197, 215, 214));
         
         //Create Labels
-        name = new JLabel("Name:");
-        gender = new JLabel("Gender:");
-        email = new JLabel("Email:");
-        contact = new JLabel("Contact:");
-        eme_contact = new JLabel("Emergency Contact:");
+        name = new JLabel("NAME:");
+        gender = new JLabel("GENDER:");
+        email = new JLabel("EMAIL:");
+        contact = new JLabel("CONTACT:");
+        eme_contact = new JLabel("EMERGENCY CONTACT:");
         
         studentname = new JLabel(RCSAS.currentStudent.getName());
         studentgender = new JLabel(RCSAS.currentStudent.getGender());
@@ -60,29 +60,16 @@ public class Page2StudentMainPage extends JFrame implements ActionListener{
         studenteme_contact = new JLabel(RCSAS.currentStudent.getEm_phone());
         
         //Propertly of Labels
-        name.setFont(RCSAS.HomePage.label);
-        gender.setFont(RCSAS.HomePage.label);
-        email.setFont(RCSAS.HomePage.label);
-        contact.setFont(RCSAS.HomePage.label);
-        eme_contact.setFont(RCSAS.HomePage.label);
-        
-        studentname.setFont(RCSAS.HomePage.normal);
-        studentgender.setFont(RCSAS.HomePage.normal);
-        studentcontact.setFont(RCSAS.HomePage.normal);
-        studentemail.setFont(RCSAS.HomePage.normal);
-        studenteme_contact.setFont(RCSAS.HomePage.normal);
-
-        name.setForeground(Color.WHITE);
-        gender.setForeground(Color.WHITE);
-        email.setForeground(Color.WHITE);
-        contact.setForeground(Color.WHITE);
-        eme_contact.setForeground(Color.WHITE);
-        
-        studentname.setForeground(Color.WHITE);
-        studentgender.setForeground(Color.WHITE);
-        studentcontact.setForeground(Color.WHITE);
-        studentemail.setForeground(Color.WHITE);
-        studenteme_contact.setForeground(Color.WHITE);
+        setSTLabel(name);
+        setSTLabel(gender);
+        setSTLabel(email);
+        setSTLabel(contact);
+        setSTLabel(eme_contact);
+        setSTLabel(studentname);
+        setSTLabel(studentgender);
+        setSTLabel(studentcontact);
+        setSTLabel(studentemail);
+        setSTLabel(studenteme_contact);
         
         //Add label into panel
         label.add(name);
@@ -98,7 +85,7 @@ public class Page2StudentMainPage extends JFrame implements ActionListener{
         detail.add(studenteme_contact);
 
         //Combine panel 
-        content.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        content.setBorder(BorderFactory.createEmptyBorder(20, 150, 20, 550));
         content.add(label,BorderLayout.CENTER);
         content.add(detail, BorderLayout.LINE_END);
 
@@ -108,31 +95,30 @@ public class Page2StudentMainPage extends JFrame implements ActionListener{
         SearchCoach = new JButton("Search Coach Detials");
         ModifyRecord = new JButton("Modify Self Record");
         ViewSchedule = new JButton("View Registered Schedule");
+        ViewSport = new JButton("View Sport Details");
+        Purchase = new JButton("Purchase More Sport Class");
+        ChangePassword = new JButton("Change Password");
         Logout = new JButton("Log Out");
-        
-        SearchCoach.setFont(RCSAS.HomePage.button);
-        ModifyRecord.setFont(RCSAS.HomePage.button);
-        ViewSchedule.setFont(RCSAS.HomePage.button);
-        Logout.setFont(RCSAS.HomePage.button);
         
         setSTButton(SearchCoach);
         setSTButton(ModifyRecord);
         setSTButton(ViewSchedule);
+        setSTButton(ViewSport);
+        setSTButton(Purchase);
+        setSTButton(ChangePassword);
         setSTButton(Logout);
         
-        SearchCoach.addActionListener(this);
-        ModifyRecord.addActionListener(this);
-        ViewSchedule.addActionListener(this);
-        Logout.addActionListener(this);
-        
-        
-        below = new JPanel(new GridBagLayout());
+        below = new JPanel();
+        below.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
         below.setBackground(new java.awt.Color(243, 250, 249));
         below.add(SearchCoach);
-        below.add(ModifyRecord);
         below.add(ViewSchedule);
+        below.add(ViewSport);
+        below.add(Purchase);
+        below.add(ModifyRecord);
+        below.add(ChangePassword);
         below.add(Logout);
-        below.setBounds(0,550,1500,200);
+        below.setBounds(0,600,1500,200);
         add(below);
                 
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -204,6 +190,7 @@ public class Page2StudentMainPage extends JFrame implements ActionListener{
         else if(e.getSource()==ModifyRecord){
             ModifySetting();
             this.revalidate();
+            this.repaint();
             Save.addActionListener((ActionEvent ae ) ->{
                 CheckModify();
             });
@@ -223,54 +210,56 @@ public class Page2StudentMainPage extends JFrame implements ActionListener{
     }
     
     private void ModifySetting(){
-            detail.remove(studentgender);
-            detail.remove(studentcontact);
-            detail.remove(studentemail);
-            detail.remove(studenteme_contact);
-            
-            panelgender = new Panel();
-            panelcontact = new Panel();
-            panelemail = new Panel();
-            paneleme_contact = new Panel();
-            
-            cbgender = new JComboBox();
-            cbgender.addItem("Female");
-            cbgender.addItem("Male");
-            cbgender.setSelectedItem(RCSAS.currentStudent.getGender());
-            textcontact = new JTextField(RCSAS.currentStudent.getPhone());
-            textemail = new JTextField(RCSAS.currentStudent.getEmail());
-            texteme_contact = new JTextField(RCSAS.currentStudent.getEm_phone());
-            
-            cbgender.setPreferredSize(new Dimension(300, 40));
-            textcontact.setPreferredSize(new Dimension(300, 40));
-            textemail.setPreferredSize(new Dimension(300, 40));
-            texteme_contact.setPreferredSize(new Dimension(300, 40));
-            
-            cbgender.setFont(RCSAS.HomePage.normal);
-            textcontact.setFont(RCSAS.HomePage.normal);
-            textemail.setFont(RCSAS.HomePage.normal);
-            texteme_contact.setFont(RCSAS.HomePage.normal);
-            
-            panelgender.add(cbgender);
-            panelcontact.add(textcontact);
-            panelemail.add(textemail);
-            paneleme_contact.add(texteme_contact);
-            
-            detail.add(panelgender);
-            detail.add(panelcontact);
-            detail.add(panelemail);
-            detail.add(paneleme_contact);
-            
-            below.remove(SearchCoach);
-            below.remove(ModifyRecord);
-            below.remove(ViewSchedule);
-            below.remove(Logout);
-            
-            Save = new JButton("Save");
-            RCSAS.setButton(Save);
-            Save.setFont(RCSAS.HomePage.button);
-            
-            below.add(Save);
+        detail.remove(studentgender);
+        detail.remove(studentcontact);
+        detail.remove(studentemail);
+        detail.remove(studenteme_contact);
+        below.remove(SearchCoach);
+        below.remove(ModifyRecord);
+        below.remove(ViewSchedule);
+        below.remove(ViewSport);
+        below.remove(Purchase);
+        below.remove(ChangePassword);
+        below.remove(Logout);
+        
+        panelgender = new Panel();
+        panelcontact = new Panel();
+        panelemail = new Panel();
+        paneleme_contact = new Panel();
+
+        cbgender = new JComboBox();
+        cbgender.addItem("Female");
+        cbgender.addItem("Male");
+        cbgender.setSelectedItem(RCSAS.currentStudent.getGender());
+        textcontact = new JTextField(RCSAS.currentStudent.getPhone());
+        textemail = new JTextField(RCSAS.currentStudent.getEmail());
+        texteme_contact = new JTextField(RCSAS.currentStudent.getEm_phone());
+
+        cbgender.setPreferredSize(new Dimension(300, 40));
+        textcontact.setPreferredSize(new Dimension(300, 40));
+        textemail.setPreferredSize(new Dimension(300, 40));
+        texteme_contact.setPreferredSize(new Dimension(300, 40));
+
+        cbgender.setFont(RCSAS.HomePage.normal);
+        textcontact.setFont(RCSAS.HomePage.normal);
+        textemail.setFont(RCSAS.HomePage.normal);
+        texteme_contact.setFont(RCSAS.HomePage.normal);
+
+        panelgender.add(cbgender);
+        panelcontact.add(textcontact);
+        panelemail.add(textemail);
+        paneleme_contact.add(texteme_contact);
+
+        detail.add(panelgender);
+        detail.add(panelcontact);
+        detail.add(panelemail);
+        detail.add(paneleme_contact);
+
+        Save = new JButton("Save");
+        RCSAS.setButton(Save);
+        Save.setFont(RCSAS.HomePage.button);
+
+        below.add(Save);
     }
     
     
@@ -283,6 +272,7 @@ public class Page2StudentMainPage extends JFrame implements ActionListener{
         if(Pattern.compile("^\\d{11}$").matcher(textcontact.getText()).matches() &&
                 Pattern.compile("^(.+)@(.+)$").matcher(textemail.getText()).matches() &&
                 Pattern.compile("^\\d{11}$").matcher(texteme_contact.getText()).matches()){
+            RCSAS.currentStudent.setGender(cbgender.getSelectedItem().toString());
             RCSAS.currentStudent.setPhone(textcontact.getText() );
             RCSAS.currentStudent.setEmail(textemail.getText());
             RCSAS.currentStudent.setEm_phone(texteme_contact.getText());
@@ -308,7 +298,15 @@ public class Page2StudentMainPage extends JFrame implements ActionListener{
     private void setSTButton(JButton but){
         but.setBackground(new java.awt.Color(125, 155, 171));
         but.setForeground(Color.WHITE);
-        but.setPreferredSize(new Dimension(300,40));
+        but.setPreferredSize(new Dimension(310,40));
+        but.setFont(RCSAS.HomePage.button);
+        but.addActionListener(this);
+    }
+    
+    private void setSTLabel(JLabel label){
+        label.setForeground(Color.WHITE);
+        label.setPreferredSize(new Dimension(300, 40));
+        label.setFont(new Font("Centaur", Font.BOLD, 30));
     }
 }
 
