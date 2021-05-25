@@ -3,28 +3,60 @@ import java.awt.*;
 import java.awt.event.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import javax.swing.*;
+
 public class Page2SecondPage extends JFrame implements ActionListener{
-    private final Button book, booking_records, display, pay, logout; //booking records=status //display = coach + sport records
+    final private JLabel title;    
+    final private JPanel header;
+    private final JButton  add_schedulercds,booking_records, display, pay, coach, logout; //add_schedulercds=add schedule records //display = coach + sport records 
+    public static ArrayList<Student> allStudent = new ArrayList<Student>();
+            
     public Page2SecondPage(){
-        setSize(250,100);
-        setLocation(1000,300);
-        setLayout(new FlowLayout());
-        book = new Button("Book");
-        booking_records = new Button("Booking Records");
-        display = new Button("Display");
-        pay = new Button("Pay");
-        logout = new Button("Logout");
-        book.addActionListener(this);
+        setSize(1500,800);
+        setLocation(200,100);
+        
+        header = new JPanel();
+        header.setBackground(new java.awt.Color(197, 215, 214));
+        header.setBounds(0,0,1500,100);
+        title = new JLabel("Admin Page");
+        header.add(title);
+        title.setFont(RCSAS.HomePage.title);
+        title.setForeground(Color.BLACK);
+        add(header);
+        
+          
+        add_schedulercds = new JButton("Add Schedule Records");
+        booking_records = new JButton("Booking Records");
+        display = new JButton("Display");
+        pay = new JButton("Pay");
+        coach = new JButton("Coach");
+        logout = new JButton("Logout");
+              
+        add_schedulercds.addActionListener(this);
         booking_records.addActionListener(this);
         display.addActionListener(this);
         pay.addActionListener(this);
+        coach.addActionListener(this);
         logout.addActionListener(this);
-        add(book);
-        add(booking_records);
-        add(display);
-        add(pay);
-        add(logout);
+              
+        setSTButton(add_schedulercds);
+        setSTButton(booking_records);
+        setSTButton(display);
+        setSTButton(pay);
+        setSTButton(coach);
+        setSTButton(logout);
+        
+        header.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
+        header.setBackground(new java.awt.Color(243, 250, 249));                     
+        header.add(add_schedulercds);
+        header.add(booking_records);
+        header.add(display);
+        header.add(pay);
+        header.add(coach);
+        header.add(logout);
+        header.setBounds(0,600,1500,200);
+        add(header);
         
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
@@ -65,7 +97,7 @@ public class Page2SecondPage extends JFrame implements ActionListener{
     
     @Override
     @SuppressWarnings("empty-statement")
-     public void actionPerformed(ActionEvent e){
+    public void actionPerformed(ActionEvent e){
         if(e.getSource()==logout){
             String input = JOptionPane.showInputDialog("Password:");
             if (null == input){
@@ -81,17 +113,28 @@ public class Page2SecondPage extends JFrame implements ActionListener{
             } else{
                 JOptionPane.showMessageDialog(null,"Wrong password!");
             }
-        }  
-        
-        else if(e.getSource()==book){
-            String name = JOptionPane.showInputDialog("Student:");
+        }  else if(e.getSource()==coach){
+            setVisible(false);
+            RCSAS.CoachPage.setVisible(true);
+       // }  else if(e.getSource()==display){
+           // setVisible(false);
+            //RCSAS.SignupPage.setVisible(true);
+        }
+        else if(e.getSource()==add_schedulercds){            
+           String[] name1 = RCSAS.allStudentName.toArray(new String[RCSAS.allStudentName.size()]);
+           //ImageIcon icon = new ImageIcon("src/images/turtle32.png");
+           String name = (String)JOptionPane.showInputDialog(null, "Student:", 
+                "Current Student", JOptionPane.QUESTION_MESSAGE, null, name1, name1[2]);
+            //String name = JOptionPane.showInputDialog("Student:");
             for(int i=0; i<RCSAS.allStudent.size(); i++){
                 Student student = RCSAS.allStudent.get(i);
                 if(name.equals(student.getName())){
                     RCSAS.currentStudent = student;
                     break;
-                }
-            }
+        
+                }           
+            }   
+         
             if(RCSAS.currentStudent == null){
                 JOptionPane.showMessageDialog(null, "Worng student name!");
             }
@@ -172,9 +215,21 @@ public class Page2SecondPage extends JFrame implements ActionListener{
               //  int id = RCSAS.whoLogin.getMyBooking().get(size-1).getId();
                // RCSAS.third.getMessage1().setText("Your booking id is "+id+"!");
                 //setVisible(false);
-               // RCSAS.third.setVisible(true);
-            }
-         }
-     }
+               // RCSAS.third.setVisible(true);                                                                  
+            }                  
+        }
+    }
+        
+   
+        
+
+       
+    private void setSTButton(JButton but) {
+        but.setBackground(new java.awt.Color(125, 155, 171));
+        but.setForeground(Color.BLACK);
+        but.setPreferredSize(new Dimension(310,40));
+        but.setFont(RCSAS.HomePage.button);
+        but.addActionListener(this);
+    }
 }
 

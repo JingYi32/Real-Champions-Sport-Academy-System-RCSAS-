@@ -24,6 +24,7 @@ public class RCSAS {
     public static ArrayList<Coach> allCoach = new ArrayList<Coach>();
     public static ArrayList<String> allCoachName = new ArrayList<String>();
     public static ArrayList<Student> allStudent = new ArrayList<Student>();
+    public static ArrayList<String> allStudentName = new ArrayList<String>();
     public static ArrayList<Classes> allClasses = new ArrayList<Classes>();
     public static ArrayList<Booking> allBooking = new ArrayList<Booking>();
     public static ArrayList<Feedback> allFeedback = new ArrayList<Feedback>();
@@ -113,6 +114,7 @@ public class RCSAS {
                 s.nextLine();
                 Student st = new Student(id,a,b,c,d,e,f);
                 allStudent.add(st);
+                allStudentName.add(st.getName());
             } s.close();
             
             //

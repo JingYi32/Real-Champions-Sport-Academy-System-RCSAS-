@@ -6,3 +6,19 @@ Female
 someone@mail.com
 20293877776
 
+ST10002
+Bong
+123456
+Male
+60000000000
+someone@mail.com
+20293877776
+
+ST10003
+Wang1
+123456
+Female
+60000000000
+someone@mail.com
+20293877776
+

@@ -270,8 +270,8 @@ public class Page2StudentMainPage extends JFrame implements ActionListener{
     private void CheckModify(){
         ArrayList<String> message = new ArrayList<>();
         if(Pattern.compile("^\\d{11}$").matcher(textcontact.getText()).matches() &&
-                Pattern.compile("^(.+)@(.+)$").matcher(textemail.getText()).matches() &&
-                Pattern.compile("^\\d{11}$").matcher(texteme_contact.getText()).matches()){
+            Pattern.compile("^(.+)@(.+)$").matcher(textemail.getText()).matches() &&
+            Pattern.compile("^\\d{11}$").matcher(texteme_contact.getText()).matches()){
             RCSAS.currentStudent.setGender(cbgender.getSelectedItem().toString());
             RCSAS.currentStudent.setPhone(textcontact.getText() );
             RCSAS.currentStudent.setEmail(textemail.getText());

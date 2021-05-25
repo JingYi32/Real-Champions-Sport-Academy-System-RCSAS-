@@ -11,19 +11,19 @@ import javax.swing.*;
 public class Page3CoachPage extends JFrame implements ActionListener{
     private final JLabel title, id, name, gender, contact, address, eme_contact, sport, joined, terminated, hourrate, rating;
     private final JLabel coachId, coachName, coachGender, coachContact, coachAddress, coachEme_contact, coachSport, coachJoined, coachTerminated, coachHourrate, coachRating;
-    private JButton back, modify, starFeedback, extension, save;
-    private JTextField textContact, textAddress, textEme_contact;
-    private JComboBox cbGender, cbSport;
-    private Panel panelGender, panelContact, panelAddress, panelEme_contact, panelSport;
+    private JButton add, back, modify, starFeedback, extension, save;
+    private JTextField textContact, textAddress, textEme_contact,textName;
+    private JComboBox cbGender, cbSport; //,cbDatejoined;
+    private Panel panelName,panelGender, panelContact, panelAddress, panelEme_contact, panelSport, panelDatejoined;
     private final JPanel header, content, left, labelleft, labelright, footer, right, detailleft, detailright;
     private LocalDate newterminated;
+    private boolean error;
     private long duration = 0;
     
     public Page3CoachPage(){
         setSize(1500,800);
         setLocation(200,100);
-        setLayout(null);
-        setVisible(true);
+        setLayout(null);        
         
         //
         //header
@@ -43,14 +43,17 @@ public class Page3CoachPage extends JFrame implements ActionListener{
         footer = new JPanel();
         footer.setBounds(0,700,1500,100);
         footer.setBackground(new java.awt.Color(197, 215, 214));
+        add = new JButton("Add");
         back = new JButton("BACK");
+        setSTButton(add);
         setSTButton(back);
+        footer.add(add);
         footer.add(back);
-//        if (RCSAS.currentLogin.id.equals(RCSAS.currentAdmin.id)){
+//        if (RCSAS.currentLogin.id.equals(RCSAS.currentAdmin.id)){           
             modify = new JButton("MODIFY");
-            extension = new JButton("Contract Extension");
+            extension = new JButton("Contract Extension");           
             setSTButton(modify);
-            setSTButton(extension);
+            setSTButton(extension);            
             footer.add(modify);
             footer.add(extension);
 //        } else if(RCSAS.currentLogin.id.equals(RCSAS.currentStudent.id)){
@@ -92,29 +95,34 @@ public class Page3CoachPage extends JFrame implements ActionListener{
         hourrate = new JLabel("Hourly Rate:");
         rating = new JLabel("Rating:");
         
-//        coachId = new JLabel(RCSAS.currentCoach.getId());
-//        coachName = new JLabel(RCSAS.currentCoach.getName());
-//        coachGender = new JLabel(RCSAS.currentCoach.getGender());
-//        coachContact = new JLabel(RCSAS.currentCoach.getPhone());
-//        coachAddress = new JLabel(RCSAS.currentCoach.getAddress());
-//        coachEme_contact = new JLabel(RCSAS.currentCoach.getEcontact());
-//        coachSport = new JLabel(RCSAS.currentCoach.getSport().toString());
-//        coachJoined = new JLabel(RCSAS.currentCoach.getJoined().toString());
-//        coachTerminated = new JLabel(RCSAS.currentCoach.getId());
-//        coachHourrate = new JLabel(RCSAS.currentCoach.getId());
-//        coachRating = new JLabel(RCSAS.currentCoach.getId());
+//      coachId = new JLabel(RCSAS.currentCoach.getId());
+//      coachName = new JLabel(RCSAS.currentCoach.getName());
+//      coachGender = new JLabel(RCSAS.currentCoach.getGender());
+//      coachContact = new JLabel(RCSAS.currentCoach.getPhone());
+//      coachAddress = new JLabel(RCSAS.currentCoach.getAddress());
+//      coachEme_contact = new JLabel(RCSAS.currentCoach.getEcontact());
+//      coachSport = new JLabel(RCSAS.currentCoach.getSport().toString());
+//      coachJoined = new JLabel(RCSAS.currentCoach.getJoined().toString());
+//      coachTerminated = new JLabel(RCSAS.currentCoach.getId());
+//      coachHourrate = new JLabel(RCSAS.currentCoach.getId());
+//      coachRating = new JLabel(RCSAS.currentCoach.getId());
 
-        coachId = new JLabel("Name:");
-        coachName = new JLabel("Name:");
-        coachGender = new JLabel("Name:");
-        coachContact = new JLabel("Name:");
-        coachAddress = new JLabel("Name:");
-        coachEme_contact = new JLabel("Name:");
-        coachSport = new JLabel("Name:");
-        coachJoined = new JLabel("Name:");
-        coachTerminated = new JLabel("Name:");
-        coachHourrate = new JLabel("Name:");
-        coachRating = new JLabel("Name:");
+        coachId = new JLabel("");
+        coachName = new JLabel("");
+        coachGender = new JLabel("");
+        coachContact = new JLabel("");
+        coachAddress = new JLabel("");
+        coachEme_contact = new JLabel("");
+        coachSport = new JLabel("");
+        coachJoined = new JLabel("");
+        coachTerminated = new JLabel("");
+        coachHourrate = new JLabel("");
+        coachRating = new JLabel("");
+        
+        //Create Text Feild
+        textName = new JTextField();
+        //cbDatejoined = new JComboBox();
+        
         
         //Propertly of Label
         setSTLabel(id);
@@ -194,7 +202,21 @@ public class Page3CoachPage extends JFrame implements ActionListener{
     }
     @Override
     public void actionPerformed(ActionEvent e){
-        if(e.getSource() == back){
+        if(e.getSource() == add){
+            add();
+            save.addActionListener((ActionEvent ae ) ->{
+                checkModify();
+            });
+            back.addActionListener((ActionEvent ae ) ->{
+                int a = JOptionPane.showConfirmDialog(null, "Your change will be discard!");
+                if(a==JOptionPane.YES_OPTION){
+                    setVisible(false);
+                    Page3CoachPage cp = new Page3CoachPage();
+                    cp.setVisible(true);
+                       }
+            });
+        } 
+        else if(e.getSource() == back){
             if (RCSAS.currentLogin == RCSAS.currentAdmin){
                 setVisible(false);
                 RCSAS.AdminSecondPage.setVisible(true);
@@ -424,5 +446,83 @@ public class Page3CoachPage extends JFrame implements ActionListener{
         label.setForeground(Color.WHITE);
         label.setPreferredSize(new Dimension(300, 40));
         label.setFont(new Font("Centaur", Font.BOLD, 30));
+    }
+
+    private void add() {
+        detailleft.remove(coachGender);
+        detailleft.remove(coachContact);
+        detailleft.remove(coachAddress);
+        detailleft.remove(coachEme_contact);
+        detailright.remove(coachSport);
+        footer.remove(back);
+        footer.remove(modify);
+        footer.remove(extension);
+        
+        panelName = new Panel();
+        panelGender = new Panel();
+        panelContact = new Panel();
+        panelAddress = new Panel();
+        panelEme_contact = new Panel();
+        panelSport = new Panel();
+        
+        textName = new JTextField();
+        cbGender = new JComboBox();
+        cbGender.addItem("Female");
+        cbGender.addItem("Male");
+        cbGender.setSelectedItem(coachGender.getText());
+        textContact = new JTextField(coachContact.getText());
+        textAddress = new JTextField(coachAddress.getText());
+        textEme_contact = new JTextField(coachEme_contact.getText());
+        //cbDatejoined = new JComboBox();
+       // cbDatejoined.addItem("Sample"); //date
+        String sport[] = RCSAS.allSportName.toArray(new String[RCSAS.allSportName.size()]);
+        cbSport = new JComboBox(sport);
+        cbSport.setSelectedItem(coachSport.getText());
+        
+        textName.setPreferredSize(new Dimension(300, 40));
+        cbGender.setPreferredSize(new Dimension(300, 40));
+        textContact.setPreferredSize(new Dimension(300, 40));
+        textAddress.setPreferredSize(new Dimension(300, 40));
+        textEme_contact.setPreferredSize(new Dimension(300, 40));
+       //cbDatejoined.setPreferredSize(new Dimension(300, 40));
+        cbSport.setPreferredSize(new Dimension(300, 40));
+
+        textName.setFont(RCSAS.HomePage.normal);
+        cbGender.setFont(RCSAS.HomePage.normal);
+        textContact.setFont(RCSAS.HomePage.normal);
+        textAddress.setFont(RCSAS.HomePage.normal);
+        textEme_contact.setFont(RCSAS.HomePage.normal);
+       //cbDatejoined.setFont(RCSAS.HomePage.normal);
+        cbSport.setFont(RCSAS.HomePage.normal);
+        
+        panelName.add(textName);
+        panelGender.add(cbGender);
+        panelContact.add(textContact);
+        panelAddress.add(textAddress);
+        panelEme_contact.add(textEme_contact);
+      //panelDatejoined.add(cbDatejoined);
+        panelSport.add(cbSport);
+        
+        detailleft.add(panelName);
+        detailleft.add(panelGender);
+        detailleft.add(panelContact);
+        detailleft.add(panelAddress);
+        detailleft.add(panelEme_contact);
+        //detailright.add(panelDatejoined);
+        detailright.add(panelSport);
+        
+        save = new JButton("SAVE");
+        RCSAS.setButton(save);
+        save.setFont(RCSAS.HomePage.button);
+        back = new JButton("BACK");
+        RCSAS.setButton(back);
+        back.setFont(RCSAS.HomePage.button);
+        
+        footer.add(save);
+        footer.add(back);
+        
+        validate();
+        repaint();
+        
     }
 }
