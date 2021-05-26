@@ -412,7 +412,7 @@ public class Page3CoachPage extends JFrame implements ActionListener{
         myPanel.add(myyPanel);
         myPanel.add(l2);
         myPanel.add(feedback);
-
+ 
         int option = JOptionPane.showConfirmDialog(null, myPanel, "Provide feedback and Star", JOptionPane.OK_CANCEL_OPTION);
         if (option == JOptionPane.OK_OPTION) {
             if (bg.getSelection()!=null) {
