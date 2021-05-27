@@ -8,8 +8,9 @@ import javafx.scene.control.DatePicker;
 import javax.swing.*;
 
 public class Page2AdminMainPage extends JFrame implements ActionListener{
-    final private JLabel title;    
-    final private JPanel header;
+    final private JLabel title,describe;  
+    final private Panel contain,w;
+    final private JPanel header,content,label,detail,below;
     private final JButton  add_schedulercds,schedule, display, pay, logout; //add_schedulercds=add schedule records //display = coach + sport records 
     public static ArrayList<Student> allStudent = new ArrayList<Student>();
     private Classes currentClasses;
@@ -18,6 +19,9 @@ public class Page2AdminMainPage extends JFrame implements ActionListener{
         setSize(1500,800);
         setLocation(200,100);
         
+        //
+        //header
+        //
         header = new JPanel();
         header.setBackground(new java.awt.Color(197, 215, 214));
         header.setBounds(0,0,1500,100);
@@ -27,7 +31,33 @@ public class Page2AdminMainPage extends JFrame implements ActionListener{
         title.setForeground(Color.BLACK);
         add(header);
         
-          
+        //
+        //content
+        ///
+        content = new JPanel(new BorderLayout());
+        content.setBackground(new java.awt.Color(197, 215, 214));
+        content.setBounds(0,100,1500,500);
+        add(content);
+        label = new JPanel(new GridLayout(0,1));
+        label.setBackground(new java.awt.Color(197, 215, 214));
+        detail = new JPanel(new GridLayout(0,1));
+        detail.setBackground(new java.awt.Color(197, 215, 214)); 
+        
+        //
+        //Center
+        //
+        contain = new Panel(new GridLayout(2,1));
+        add(contain,BorderLayout.CENTER);
+        
+        w = new Panel(new GridBagLayout());
+        describe = new JLabel(".......................Welcome to the RCSAS!......................");
+        describe.setFont(new Font("Agency FB", Font.BOLD,88));
+        describe.setForeground(Color.WHITE);
+        w.add(describe);
+        w.setBackground(new java.awt.Color(197, 215, 214));
+        contain.add(w);
+        content.add(describe);        
+        
         add_schedulercds = new JButton("Add Schedule Records");
         schedule = new JButton("Schedule");
         display = new JButton("Display");
@@ -46,15 +76,26 @@ public class Page2AdminMainPage extends JFrame implements ActionListener{
         setSTButton(pay);
         setSTButton(logout);
         
+        below = new JPanel();
+        below.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
+        below.setBackground(new java.awt.Color(243, 250, 249));
+        below.add(add_schedulercds);
+        below.add(schedule);
+        below.add(display);
+        below.add(pay);
+        below.add(logout);
+        below.setBounds(0,600,1500,200);
+        add(below);
+        
         header.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
         header.setBackground(new java.awt.Color(243, 250, 249));                     
-        header.add(add_schedulercds);
-        header.add(schedule);
-        header.add(display);
-        header.add(pay);
-        header.add(logout);
-        header.setBounds(0,600,1500,200);
-        add(header);
+       // header.add(add_schedulercds);
+       // header.add(schedule);
+       // header.add(display);
+       // header.add(pay);
+        //header.add(logout);
+       // header.setBounds(0,600,1500,200);
+       add(header);
         
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
@@ -94,7 +135,7 @@ public class Page2AdminMainPage extends JFrame implements ActionListener{
     
     
     @Override
-    @SuppressWarnings("empty-statement")
+//    @SuppressWarnings("empty-statement")
     public void actionPerformed(ActionEvent e){
         if(e.getSource()==logout){
             String input = JOptionPane.showInputDialog("Password:");
