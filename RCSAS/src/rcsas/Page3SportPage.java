@@ -10,6 +10,7 @@ public class Page3SportPage extends JFrame implements ActionListener{
     private JPanel header, content, footer;
     private JPanel desleft, desright;
     private JLabel name, location, no_venue, price, splocation, spno_venue, spprice;
+    private JButton modify;
     private final JButton back, schedule;
     private final JLabel title;
     private final JPanel Swimming, Badminton, Football, Archery, Gymnastics, Volleyball, Basketball, Cricket, Tennis, TableTennis ;
@@ -118,6 +119,13 @@ public class Page3SportPage extends JFrame implements ActionListener{
         back.addActionListener(this);
         schedule.addActionListener(this);
         
+        if(RCSAS.currentAdmin != null){
+            modify = new JButton("Modify");
+            RCSAS.setButton(modify);
+            modify.setFont(RCSAS.HomePage.button);
+            footer.add(modify);
+            modify.addActionListener(this);
+        }
         
         //
         //WindowListener
@@ -162,6 +170,8 @@ public class Page3SportPage extends JFrame implements ActionListener{
             setVisible(false);
             Page3SchedulePage sp = new Page3SchedulePage();
             sp.setVisible(true);
+        } else if (e.getSource() == modify){
+            
         }
     }
     

@@ -1,7 +1,7 @@
 C-001
 Ali
-60123456789
 Male
+60123456789
 Taman Bunga
 60000000000
 Archery

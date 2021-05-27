@@ -10,7 +10,7 @@ import javax.swing.*;
 public class Page2AdminMainPage extends JFrame implements ActionListener{
     final private JLabel title;    
     final private JPanel header;
-    private final JButton  add_schedulercds,booking_records, display, pay, coach, logout; //add_schedulercds=add schedule records //display = coach + sport records 
+    private final JButton  add_schedulercds,schedule, display, pay, logout; //add_schedulercds=add schedule records //display = coach + sport records 
     public static ArrayList<Student> allStudent = new ArrayList<Student>();
     private Classes currentClasses;
             
@@ -29,33 +29,29 @@ public class Page2AdminMainPage extends JFrame implements ActionListener{
         
           
         add_schedulercds = new JButton("Add Schedule Records");
-        booking_records = new JButton("Booking Records");
+        schedule = new JButton("Schedule");
         display = new JButton("Display");
         pay = new JButton("Pay");
-        coach = new JButton("Coach");
         logout = new JButton("Logout");
               
         add_schedulercds.addActionListener(this);
-        booking_records.addActionListener(this);
+        schedule.addActionListener(this);
         display.addActionListener(this);
         pay.addActionListener(this);
-        coach.addActionListener(this);
         logout.addActionListener(this);
               
         setSTButton(add_schedulercds);
-        setSTButton(booking_records);
+        setSTButton(schedule);
         setSTButton(display);
         setSTButton(pay);
-        setSTButton(coach);
         setSTButton(logout);
         
         header.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
         header.setBackground(new java.awt.Color(243, 250, 249));                     
         header.add(add_schedulercds);
-        header.add(booking_records);
+        header.add(schedule);
         header.add(display);
         header.add(pay);
-        header.add(coach);
         header.add(logout);
         header.setBounds(0,600,1500,200);
         add(header);
@@ -115,16 +111,12 @@ public class Page2AdminMainPage extends JFrame implements ActionListener{
             } else{
                 JOptionPane.showMessageDialog(null,"Wrong password!");
             }
-        }  
-        
-        else if(e.getSource()==coach){
-            setVisible(false);
-            Page3CoachPage coachpage = new Page3CoachPage();
-            coachpage.setVisible(true);
-        }  
+        }
         
         else if(e.getSource()==display){
-            DisplaySetting();
+            setVisible(false);
+            Page3DisplayPage DisplayPage = new Page3DisplayPage();
+            DisplayPage.setVisible(true);
         }
         
         else if(e.getSource()==add_schedulercds){            
@@ -132,25 +124,19 @@ public class Page2AdminMainPage extends JFrame implements ActionListener{
             RCSAS.currentStudent = null;
         } 
         
-        else{
-            int size = RCSAS.currentStudent.getMyClasses().size();
-            if(size==0 || RCSAS.currentStudent.getMyClasses().get(size-1).isPaid()){
-                JOptionPane.showMessageDialog(null,"You have no unpaid bookings!");
-            //} else{
-              //  int id = RCSAS.whoLogin.getMyBooking().get(size-1).getId();
-               // RCSAS.third.getMessage1().setText("Your booking id is "+id+"!");
-                //setVisible(false);
-               // RCSAS.third.setVisible(true);                                                                  
-            }                  
+        else if (e.getSource() == schedule){
+            setVisible(false);
+            Page3SchedulePage schedulepage = new Page3SchedulePage();
+            schedulepage.setVisible(true);
+        }
+        
+        else if (e.getSource() == pay){
+//            int size = RCSAS.currentStudent.getMyClasses().size();
+//            if(size==0 || RCSAS.currentStudent.getMyClasses().get(size-1).isPaid()){
+//                JOptionPane.showMessageDialog(null,"You have no unpaid bookings!");                                                                 
+//            }                  
         }
     }
-        
-   private void DisplaySetting(){
-        setVisible(false);
-        Page3DisplayPage DisplayPage = new Page3DisplayPage();
-        DisplayPage.setVisible(true);
-   }
-        
 
        
     private void setSTButton(JButton but) {

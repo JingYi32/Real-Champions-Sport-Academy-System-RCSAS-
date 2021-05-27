@@ -43,7 +43,7 @@ public class Page3CoachPage extends JFrame implements ActionListener{
         footer = new JPanel();
         footer.setBounds(0,700,1500,100);
         footer.setBackground(new java.awt.Color(197, 215, 214));
-        back = new JButton();
+        back = new JButton("BACK");
         setSTButton(back);
         footer.add(back);
         if (RCSAS.currentStudent == null){           
@@ -102,8 +102,6 @@ public class Page3CoachPage extends JFrame implements ActionListener{
         coachJoined = new JLabel(RCSAS.currentCoach.getJoined().toString());
         coachTerminated = new JLabel(RCSAS.currentCoach.getTerminated().toString());
         coachHourrate = new JLabel("RM "+String.format("%03d", RCSAS.currentCoach.getHourrate())+".00");
-        int un = 0;
-//        coachRating = new JLabel("RM "+String.format("%03d", RCSAS.currentCoach.getHourrate())+".00");
         coachRating = new JLabel(String.format("%01d", RCSAS.currentCoach.getRating()));
 
         
@@ -305,7 +303,7 @@ public class Page3CoachPage extends JFrame implements ActionListener{
     private void checkModify(){
         ArrayList<String> message = new ArrayList<>();
         if(Pattern.compile("^\\d{11}$").matcher(textContact.getText()).matches() &&
-                Pattern.compile("^(.+)@(.+)$").matcher(textAddress.getText()).matches() &&
+                textAddress.getText() != null &&
                 Pattern.compile("^\\d{11}$").matcher(textEme_contact.getText()).matches()){
             RCSAS.currentCoach.setGender(cbGender.getSelectedItem().toString());
             RCSAS.currentCoach.setPhone(textContact.getText() );
@@ -320,15 +318,12 @@ public class Page3CoachPage extends JFrame implements ActionListener{
             }
             message.add("Update Successfully!");
             setVisible(false);
-            Page2StudentMainPage reload = new Page2StudentMainPage();
+            Page3CoachPage reload = new Page3CoachPage();
             reload.setVisible(true);
         } else{
             message.add("There is error inside the field!");
             if(!Pattern.compile("^\\d{11}$").matcher(textContact.getText()).matches()){
                 message.add("Invalid Phone Number!");
-            }
-            if(!Pattern.compile("^(.+)@(.+)$").matcher(textAddress.getText()).matches()){
-                message.add("Invalid Email Address!");
             }
             if(!Pattern.compile("^\\d{11}$").matcher(textEme_contact.getText()).matches()){
                 message.add("Invalid Emergency Number!");
@@ -342,16 +337,17 @@ public class Page3CoachPage extends JFrame implements ActionListener{
         JLabel l2 = new JLabel("Current Terminated Date: \n"+RCSAS.currentCoach.getTerminated().toString());
         JLabel l3 = new JLabel("Duration extend (in years):");
         JTextField d = new JTextField(20);
+        JLabel l4 = new JLabel();
 
         d.getDocument().addDocumentListener((ValidationDocumentListener) e->{
             try{
                 duration = Long.parseLong(d.getText());
                 newterminated = RCSAS.currentCoach.getTerminated().plusYears(duration);
+                l4.setText("New Terminated Date:\n"+newterminated);
             }catch(NumberFormatException ex){
                 
             }
         });
-        JLabel l4 = new JLabel("New Terminated Date:\n");
         
         l1.setFont(new Font("Centaur", Font.PLAIN,20));
         l2.setFont(new Font("Centaur", Font.PLAIN,20));

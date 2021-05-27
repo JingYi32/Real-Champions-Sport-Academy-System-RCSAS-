@@ -1,7 +1,6 @@
 
 package rcsas;
 
-import java.awt.HeadlessException;
 import java.awt.event.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -11,14 +10,13 @@ import javax.swing.table.DefaultTableModel;
 
 public class Page3DisplayPage extends JFrame implements ActionListener {
     private DefaultTableModel model;
-    private JLabel title;
-    private JPanel header, footer;
+    private final JLabel title;
+    private final JPanel header, footer;
     private JScrollPane content;
     private JTable schedule;
-    private JTextField seacrh;
-    private JComboBox comboBox;
-    private final JButton back;
-    private JButton seacrhbut, adding;
+    private final JTextField seacrh;
+    private JComboBox comboBox, seacrhch;
+    private final JButton back,seacrhbut, adding;
     private String[][] data;
     private String[] columnNames;
     private JRadioButton s1, s2;
@@ -72,21 +70,45 @@ public class Page3DisplayPage extends JFrame implements ActionListener {
         JOptionPane.showMessageDialog(null, comboBox, "Fav Sports",JOptionPane.QUESTION_MESSAGE);
         DisSetting();
         
-        model = new DefaultTableModel(data, columnNames){
-            @Override
-            public boolean isCellEditable(int row, int column) {
-               //all cells false
-               return false;
-            }
-        };
-        schedule = new JTable(model);
+        schedule = new JTable(data, columnNames);
+        schedule.setCellSelectionEnabled(false);
         schedule.setFont(RCSAS.HomePage.normal);
         schedule.getTableHeader().setFont(RCSAS.HomePage.label);
         schedule.setRowHeight(40);
+        schedule.setAutoCreateRowSorter(true);
         content = new JScrollPane(schedule);
         content.setBounds(100, 185, 1300, 500);
         add(content);
+        
+        MouseListener tableMouseListener = new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int row = schedule.rowAtPoint(e.getPoint());
+                int col = schedule.columnAtPoint(e.getPoint());
+                String y = schedule.getValueAt(row,0).toString();
+                //Coach
+                for(int i=0; i<RCSAS.allCoach.size(); i++){
+                    Coach c = RCSAS.allCoach.get(i);
+                    if(y.equals(c.getId())){
+                        RCSAS.currentCoach = c;
+                        setVisible(false);
+                        Page3CoachPage ch = new Page3CoachPage();
+                        ch.setVisible(true);
+                    }
+                }
+                //Sport
+                for(int i=0; i<RCSAS.allSport.size(); i++){
+                    Sport c = RCSAS.allSport.get(i);
+                    if(y.equals(c.getId())){
+                        setVisible(false);
+                        Page3SportPage ch = new Page3SportPage();
+                        ch.setVisible(true);
+                    }
+                }
 
+           }
+        };
+        schedule.addMouseListener(tableMouseListener);
     }
     
     @Override
@@ -100,21 +122,13 @@ public class Page3DisplayPage extends JFrame implements ActionListener {
     private void DisSetting(){
         String s = comboBox.getSelectedItem().toString();
         if(s.equals("Coach")){
-            s1 = new JRadioButton("Search by ID");
-            s2 = new JRadioButton("Search by Rating");
-            s1.setBounds(100, 100, 150, 40);
-            s2.setBounds(250, 100, 150, 40);
-            bg = new ButtonGroup();
-            bg.add(s1);bg.add(s2);
-            add(s1);
-            add(s2);
             int size = RCSAS.allCoach.size();
             data = new String[size][5];
             for(int i=0; i<size; i++){
                 Coach c = RCSAS.allCoach.get(i);
                 data[i][0] = c.getId();
                 data[i][1] = ""+c.getName();
-                data[i][2] = ""+c.getSport().toString();
+                data[i][2] = ""+c.getSport().getName();
                 data[i][3] = ""+"RM "+String.format("%03d", c.getHourrate())+".00";
                 data[i][4] = ""+String.format("%01d", c.getRating());
             }
@@ -171,22 +185,24 @@ public class Page3DisplayPage extends JFrame implements ActionListener {
     }
     
     private void SeacrhCoachSetting(){
-        if(bg.getSelection().equals(s1)){
-            for(int ix=0; ix<RCSAS.allCoach.size(); ix++){
-                Coach st = RCSAS.allCoach.get(ix);
-                if(st.getId().equals(seacrh.getText())){
-                    SeacrhCoach.add(st);
-                }  
-            }
-        } else if (bg.getSelection().equals(s2)){
-            for(int ix=0; ix<RCSAS.allCoach.size(); ix++){
-                Coach st = RCSAS.allCoach.get(ix);
+        boolean flag = false;
+        for(int ix=0; ix<RCSAS.allCoach.size(); ix++){
+            Coach st = RCSAS.allCoach.get(ix);
+            if(st.getId().equals(seacrh.getText())){
+                SeacrhCoach.add(st);
+                flag = true;
+            }  
+        }
+        for(int ix=0; ix<RCSAS.allCoach.size(); ix++){
+            Coach st = RCSAS.allCoach.get(ix);
+            try{
                 if(st.getRating() == Integer.parseInt(seacrh.getText())){
                     SeacrhCoach.add(st);
+                    flag = true;
                 }
+            } catch(Exception ex){
+                
             }
-        } else if(bg.getSelection()==null){
-            JOptionPane.showMessageDialog(null, "Please select the data to seacrh");
         }
         
         int size = SeacrhCoach.size();
@@ -218,10 +234,10 @@ public class Page3DisplayPage extends JFrame implements ActionListener {
         content = new JScrollPane(schedule);
         content.setBounds(100, 185, 1300, 500);
         add(content);
+        SeacrhCoach.clear();
     }
     
     private void SeacrhStudentSetting(){
-        remove(content);
         for(int ix=0; ix<RCSAS.allStudent.size(); ix++){
             Student st = RCSAS.allStudent.get(ix);
             if(st.getId().equals(seacrh.getText())){
@@ -255,9 +271,7 @@ public class Page3DisplayPage extends JFrame implements ActionListener {
         content = new JScrollPane(schedule);
         content.setBounds(100, 185, 1300, 500);
         add(content);
-        
-        this.revalidate();
-        this.repaint();
+
         SeacrhStudent.clear();
     }
     

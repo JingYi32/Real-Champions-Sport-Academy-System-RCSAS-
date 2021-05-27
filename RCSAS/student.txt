@@ -1,24 +1,8 @@
-ST10001
+ST0001
 Wang
-123456
+1234567
 Female
 60000000000
-someone@mail.com
-20293877776
-
-ST10002
-Bong
-123456
-Male
+wang@mail.com
 60000000000
-someone@mail.com
-20293877776
-
-ST10003
-Wang1
-123456
-Female
-60000000000
-someone@mail.com
-20293877776
 

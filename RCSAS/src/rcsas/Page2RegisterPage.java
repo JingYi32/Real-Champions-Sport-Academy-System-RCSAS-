@@ -274,11 +274,11 @@ public class Page2RegisterPage extends JFrame implements ActionListener{
                         String b1 = JOptionPane.showInputDialog("There is no error in the information keyin. \nKindly create a pin number for login.\nPin:");
                         if (Pattern.compile("[1-9]{1}\\d{5,10}").matcher(b1).matches()){
                             int b = Integer.parseInt(b1);
-                            int idno = 10001+RCSAS.allStudent.size();
-                            String id = "ST" + idno;
+                            int idno = 1+RCSAS.allStudent.size();
+                            String id = "ST" + String.format("%04d", idno);
                             Student st = new Student(id,a,b,c,d,e,f);
-                            int idnoc = 1000001+RCSAS.allClasses.size();
-                            String cid = "C" + idnoc;
+                            int idnoc = 1+RCSAS.allClasses.size();
+                            String cid = "C" + String.format("%06d", idnoc);
                             Classes cl = new Classes(cid,st,g,fees,0,0,false, false);
                             RCSAS.allStudent.add(st);
                             RCSAS.allClasses.add(cl);

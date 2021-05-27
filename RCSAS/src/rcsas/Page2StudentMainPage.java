@@ -224,11 +224,42 @@ public class Page2StudentMainPage extends JFrame implements ActionListener{
         }
         
         else if (e.getSource() == Purchase){
-            
+            int size = RCSAS.currentStudent.getMyClasses().size();
+            if(RCSAS.currentStudent.getMyClasses().get(size-1).isPaid()){
+                String sport[] = RCSAS.allSportName.toArray(new String[RCSAS.allSportName.size()]);
+                String f1 = (String)JOptionPane.showInputDialog(
+                    null,
+                    "Sport:",
+                    "Purchase Sport Class",
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    sport,
+                    null);
+                for(int i=0; i<RCSAS.allSport.size(); i++){
+                    Sport sp = RCSAS.allSport.get(i);
+                    if(f1.equals(sp.getName())){
+                        int idnoc = 1+RCSAS.allClasses.size();
+                        String cid = "C" + String.format("%06d", idnoc);
+                        Classes c = new Classes(cid, RCSAS.currentStudent,sp,sp.getPrice()*24, 0, 0, false,false);
+                        RCSAS.allClasses.add(c);
+                    }
+                }
+            }
+            else{
+                JOptionPane.showMessageDialog(null,"You have unpaid classes!");
+            }
         }
         
         else if (e.getSource() == ChangePassword){
-            
+            String old = JOptionPane.showInputDialog("Current Password:");
+            if(Integer.parseInt(old) == RCSAS.currentStudent.getPin()){
+                String newpass = JOptionPane.showInputDialog("Current Password:");
+                if (Pattern.compile("[1-9]{1}\\d{5,10}").matcher(newpass).matches()){
+                    RCSAS.currentStudent.setPin(Integer.parseInt(newpass));
+                } else{
+                    JOptionPane.showMessageDialog(null,"Invalid pin number! Pin number should match condition below: \n1. Pin number should be numeric. \n2. Length of pin number should be 6-10. \n3. Pin number should not start by 0.");
+                }
+            }
         }
     }
     
