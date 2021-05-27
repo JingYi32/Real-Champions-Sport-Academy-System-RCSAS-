@@ -299,6 +299,7 @@ public class Page1HomePage extends JFrame implements ActionListener{
                 p.println(b.getSport().getName());
                 p.println(b.getTimeStarted());
                 p.println(b.getDuration());
+                p.println(b.getTeacher().getName());
                 p.println(b.getOwner().getName());
                 p.println();
             } p.close();
@@ -307,7 +308,7 @@ public class Page1HomePage extends JFrame implements ActionListener{
             p = new PrintWriter("feedback.txt");
             for(int i=0; i<RCSAS.allFeedback.size(); i++){
                 Feedback b = RCSAS.allFeedback.get(i);
-                p.println(b.getCoach().getId());
+                p.println(b.getCoach().getName());
                 p.println(b.getStudent().getName());
                 p.println(b.getStar());
                 p.println(b.getComment());

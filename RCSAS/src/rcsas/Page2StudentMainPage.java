@@ -185,6 +185,15 @@ public class Page2StudentMainPage extends JFrame implements ActionListener{
                 null,
                 coach,
                 null);
+            
+            for(int i=0; i<RCSAS.allCoach.size(); i++){
+                Coach c = RCSAS.allCoach.get(i);
+                if (s.equals(c.getName())){
+                    RCSAS.currentCoach = c;
+                }
+            }
+            Page3CoachPage coachpage = new Page3CoachPage();
+            coachpage.setVisible(true);
         }
         
         else if(e.getSource()==ModifyRecord){
@@ -206,6 +215,20 @@ public class Page2StudentMainPage extends JFrame implements ActionListener{
             setVisible(false);
             Page3SchedulePage sp = new Page3SchedulePage();
             sp.setVisible(true);
+        }
+        
+        else if (e.getSource() == ViewSport){
+            setVisible(false);
+            Page3SportPage SportPage = new Page3SportPage();
+            SportPage.setVisible(true);
+        }
+        
+        else if (e.getSource() == Purchase){
+            
+        }
+        
+        else if (e.getSource() == ChangePassword){
+            
         }
     }
     

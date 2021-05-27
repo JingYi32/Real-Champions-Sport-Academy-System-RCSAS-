@@ -9,20 +9,22 @@ import java.time.LocalTime;
 public class Booking {
     private String id;
     private String venue;
-    private LocalDate date;
     private Sport sport;
+    private LocalDate date;
     private LocalTime timeStarted;
     private int duration;
     private LocalTime timeEnded;
+    private Coach teacher;
     private Student owner;
 
-    public Booking(String id, String venue, LocalDate date, Sport sport, LocalTime timeStarted, int duration, Student owner) {
+    public Booking(String id, String venue, Sport sport, LocalDate date, LocalTime timeStarted, int duration, Coach teacher, Student owner) {
         this.id = id;
         this.venue = venue;
-        this.date = date;
         this.sport = sport;
+        this.date = date;
         this.timeStarted = timeStarted;
         this.duration = duration;
+        this.teacher = teacher;
         this.owner = owner;
     }
 
@@ -77,12 +79,21 @@ public class Booking {
     public void setTimeEnded(LocalTime timeEnded) {
         this.timeEnded = timeEnded;
     }
-     public Student getOwner() {
+
+    public Coach getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Coach teacher) {
+        this.teacher = teacher;
+    }
+    
+    public Student getOwner() {
         return owner;
-     }
-     public void setOwner(Student owner) {
-          this.owner = owner;
-     }
+    }
+    public void setOwner(Student owner) {
+        this.owner = owner;
+    }
     
     
 }

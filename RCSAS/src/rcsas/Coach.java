@@ -102,20 +102,20 @@ public class Coach {
     }
 
     public LocalDate getTerminated() {
+        terminated = joined.plusYears(duration);
         return terminated;
     }
 
     public void setTerminated(LocalDate terminated) {
-        terminated = joined.plusYears(duration);
         this.terminated = terminated;
     }
 
     public int getHourrate() {
+        hourrate = sport.getPrice();
         return hourrate;
     }
 
     public void setHourrate(int hourrate) {
-        hourrate = sport.getPrice();
         this.hourrate = hourrate;
     }
 
@@ -128,6 +128,19 @@ public class Coach {
     }
 
     public int getRating() {
+        int total = 0;
+        Rating = 0;
+        int size = 0;
+        for(int i=0; i<myfeedback.size(); i++){
+            Feedback f = myfeedback.get(i);
+            total = total + f.getStar();
+        }
+        if (total == 0){
+            Rating = 0;
+        } else{
+            size = size + myfeedback.size();
+            Rating = total/size;
+        }
         return Rating;
     }
 

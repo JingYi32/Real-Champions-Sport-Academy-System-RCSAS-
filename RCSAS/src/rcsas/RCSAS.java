@@ -9,9 +9,8 @@ import javax.swing.*;
 public class RCSAS {
     //Page
     public static Page1HomePage HomePage = new Page1HomePage();
-    public static Page2SecondPage AdminSecondPage = new Page2SecondPage();
+    public static Page2AdminMainPage AdminSecondPage = new Page2AdminMainPage();
     public static Page2RegisterPage SignupPage = new Page2RegisterPage();
-    public static Page3CoachPage CoachPage = new Page3CoachPage();
     //Person
     public static Role currentLogin = null;
     public static Admin currentAdmin = null;
@@ -90,10 +89,10 @@ public class RCSAS {
                 
                 for(int sp=0; sp<allSport.size(); sp++){
                     Sport x = allSport.get(sp);
-                    if(a.equals(x.getName())){
+                    if(g.equals(x.getName())){
                         Coach ch = new Coach(a,b,c,d,e,f,x,h,i);
                         allCoach.add(ch);
-                        allCoachName.add(a);                  
+                        allCoachName.add(b);                  
                     }
                 }
             } s.close();
@@ -170,9 +169,12 @@ public class RCSAS {
                 String d1 = String.valueOf(s.nextLine());           //sport
                 LocalTime f = LocalTime.parse(s.nextLine());        //timeStarted
                 int g = Integer.parseInt(s.nextLine());             //duration
-                String h1 = s.nextLine();                            //StudentName
+                String i1 = s.nextLine();                           //CoachName
+                String h1 = s.nextLine();                           //StudentName
                 s.nextLine();
+                Coach i = null;
                 Sport d = null;
+               
                 
                 for(int sp=0; sp<allSport.size(); sp++){
                     Sport y = allSport.get(sp);
@@ -181,10 +183,17 @@ public class RCSAS {
                     }
                 }
                 
+                for(int sp=0; sp<allCoach.size(); sp++){
+                    Coach y = allCoach.get(sp);
+                    if(i1.equals(y.getName())){
+                        i = y;
+                    }
+                }
+                
                 for(int st=0; st<allStudent.size(); st++){
                     Student x = allStudent.get(st);
                     if(h1.equals(x.getName())){
-                        Booking z = new Booking(a,b,c,d,f,g,x);
+                        Booking z = new Booking(a,b,d,c,f,g,i,x);
                         x.getMyBooking().add(z);
                         allBooking.add(z);
                         error6 = false;
@@ -202,7 +211,7 @@ public class RCSAS {
             s = new Scanner(new File("feedback.txt"));
             while(s.hasNext()){
                 String a1 = s.nextLine();                           //coach
-                String b1 = s.nextLine();                            //student
+                String b1 = s.nextLine();                           //student
                 int c = Integer.parseInt(s.nextLine());             //start
                 String d = s.nextLine();                            //comment
                 s.nextLine();
