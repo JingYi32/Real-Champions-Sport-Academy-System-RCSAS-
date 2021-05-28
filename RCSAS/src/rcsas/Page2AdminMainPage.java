@@ -192,7 +192,7 @@ public class Page2AdminMainPage extends JFrame implements ActionListener{
        String[] name1 = RCSAS.allStudentName.toArray(new String[RCSAS.allStudentName.size()]);
        //ImageIcon icon = new ImageIcon("src/images/turtle32.png");
        String name = (String)JOptionPane.showInputDialog(null, "Student:", 
-            "Current Student", JOptionPane.QUESTION_MESSAGE, null, name1, name1[2]);
+            "Current Student", JOptionPane.QUESTION_MESSAGE, null, name1, null);
         for(int i=0; i<RCSAS.allStudent.size(); i++){
             Student student = RCSAS.allStudent.get(i);
             if(name.equals(student.getName())){
@@ -213,7 +213,7 @@ public class Page2AdminMainPage extends JFrame implements ActionListener{
                     //Sport
                     ArrayList<String> sports = new ArrayList<>();
                     for(int i=0; i<RCSAS.currentStudent.getMyClasses().size(); i++){
-                        sports.add(RCSAS.currentStudent.getMyClasses().get(i).getSport().toString());
+                        sports.add(RCSAS.currentStudent.getMyClasses().get(i).getSport().getName());
                     }
                     String sport[] = sports.toArray(new String[sports.size()]);
                     String c1 = (String)JOptionPane.showInputDialog(
