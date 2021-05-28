@@ -190,7 +190,6 @@ public class Page2AdminMainPage extends JFrame implements ActionListener{
     
     private void AddSchedule(){
        String[] name1 = RCSAS.allStudentName.toArray(new String[RCSAS.allStudentName.size()]);
-       //ImageIcon icon = new ImageIcon("src/images/turtle32.png");
        String name = (String)JOptionPane.showInputDialog(null, "Student:", 
             "Current Student", JOptionPane.QUESTION_MESSAGE, null, name1, null);
         for(int i=0; i<RCSAS.allStudent.size(); i++){

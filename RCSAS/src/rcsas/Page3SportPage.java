@@ -3,6 +3,7 @@ package rcsas;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import javax.swing.*;
 
 public class Page3SportPage extends JFrame implements ActionListener{
@@ -171,7 +172,7 @@ public class Page3SportPage extends JFrame implements ActionListener{
             Page3SchedulePage sp = new Page3SchedulePage();
             sp.setVisible(true);
         } else if (e.getSource() == modify){
-            
+            modify();
         }
     }
     
@@ -238,5 +239,149 @@ public class Page3SportPage extends JFrame implements ActionListener{
         panel.add(right);
         
         panel.setLayout(new GridLayout(1,0));
+    }
+    
+    private void modify(){
+        JPanel label = new JPanel(new GridLayout(0,1));
+        JPanel detail = new JPanel(new GridLayout(0,1));
+        
+        JLabel id = new JLabel("ID");
+        JLabel n = new JLabel("Name:");
+        JLabel l = new JLabel("Location:");
+        JLabel v = new JLabel("Venue:");
+        JLabel no = new JLabel("Number of venue:");
+        JLabel p = new JLabel("Price:");
+        
+        Panel PanelID = new Panel();
+        Panel Panelna = new Panel();
+        Panel Panello = new Panel();
+        Panel Panelve = new Panel();
+        Panel Panelnov = new Panel();
+        Panel Panelpr = new Panel();
+        
+        ArrayList<String> idno = new ArrayList<>();
+        for(int i=0; i<RCSAS.allSport.size();i++){
+            Sport b = RCSAS.allSport.get(i);
+            idno.add(b.getId());
+        }
+        String idnoo[] = idno.toArray(new String[idno.size()]);
+        
+        JPanel contents = new JPanel(new BorderLayout());
+        JComboBox ID = new JComboBox(idnoo);
+        ID.setSelectedIndex(-1);
+        JTextField na = new JTextField();
+        JComboBox lo = new JComboBox(SportCentre.values());
+        lo.setSelectedIndex(-1);
+        JTextField ve = new JTextField();
+        JTextField nov = new JTextField();
+        JTextField pr = new JTextField();
+        
+        na.setEditable(false);
+        lo.setEditable(false);
+        ve.setEditable(false);
+        nov.setEditable(false);
+        pr.setEditable(false);
+        
+        setSTLabel(id);
+        setSTLabel(n);
+        setSTLabel(l);
+        setSTLabel(v);
+        setSTLabel(no);
+        setSTLabel(p);
+        
+        ID.setPreferredSize(new Dimension(200, 35));
+        ID.setFont(new Font("Centaur", Font.PLAIN, 20));
+        ID.addItemListener((ItemEvent arg0) -> {
+            if(ID.getSelectedItem() != null){
+                for(int i=0; i<RCSAS.allSport.size();i++){
+                    Sport b = RCSAS.allSport.get(i);
+                    if(ID.getSelectedItem().toString().equals(b.getId())){
+                        na.setText(b.getName());
+                        lo.setSelectedItem(b.getLocation());
+                        ve.setText(b.getVenue());
+                        nov.setText(String.format("%03d", b.getNo_hall()));
+                        pr.setText(String.format("%03d", b.getPrice()));
+
+                        lo.setEditable(true);
+                        ve.setEditable(true);
+                        nov.setEditable(true);
+                        pr.setEditable(true);
+                        contents.revalidate();
+                        contents.repaint();
+                    }
+                }
+                
+
+            };
+        });
+        setSTDetails(na);
+        lo.setPreferredSize(new Dimension(200, 35));
+        lo.setFont(new Font("Centaur", Font.PLAIN, 20));   
+        setSTDetails(ve);
+        setSTDetails(nov);
+        setSTDetails(pr);
+        
+        label.add(id);
+        label.add(n);
+        label.add(l);
+        label.add(v);
+        label.add(no);
+        label.add(p);
+
+        PanelID.add(ID);
+        Panelna.add(na);
+        Panello.add(lo);
+        Panelve.add(ve);
+        Panelnov.add(nov);
+        Panelpr.add(pr);
+        
+        detail.add(PanelID);
+        detail.add(Panelna);
+        detail.add(Panello);
+        detail.add(Panelve);
+        detail.add(Panelnov);
+        detail.add(Panelpr);
+        
+        contents.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        contents.add(label,BorderLayout.CENTER);
+        contents.add(detail, BorderLayout.LINE_END);
+        
+        int option = JOptionPane.showConfirmDialog(null, contents, "Modify Schedule", JOptionPane.OK_CANCEL_OPTION);
+        if(option == JOptionPane.OK_OPTION){
+            if(ID.getSelectedItem()==null){
+                
+            } else{
+                ArrayList<String> message = new ArrayList<>();
+                try{
+                    for(int i=0; i<RCSAS.allSport.size();i++){
+                        Sport s = RCSAS.allSport.get(i);
+                        if (na.getText().equals(s.getName())){
+                            s.setLocation(SportCentre.valueOf(lo.getSelectedItem().toString()));
+                            s.setVenue(ve.getText());
+                            s.setNo_hall(Integer.parseInt(nov.getText()));
+                            s.setPrice(Integer.parseInt(pr.getText()));
+                            message.add("Update Successfully!");
+                            setVisible(false);
+                            Page3SportPage reload = new Page3SportPage();
+                            reload.setVisible(true);
+                            break;
+                        }
+                    }
+                }catch(Exception ex){
+                    message.add("Invalid Number!");
+                }
+                JOptionPane.showMessageDialog(null, message);
+            }
+        }
+    }
+    
+    private void setSTLabel(JLabel label){
+        label.setPreferredSize(new Dimension(200, 35));
+        label.setFont(new Font("Centaur", Font.BOLD, 20));
+    }
+    
+    private void setSTDetails(JTextField label){
+        label.setPreferredSize(new Dimension(200, 35));
+        label.setFont(new Font("Centaur", Font.PLAIN, 20));
     }
 }

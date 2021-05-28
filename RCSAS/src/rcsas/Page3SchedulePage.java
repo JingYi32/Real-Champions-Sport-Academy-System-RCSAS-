@@ -143,7 +143,7 @@ public class Page3SchedulePage extends JFrame implements ActionListener{
         }
     }
     
-    public void modify(){
+    private void modify(){
         JPanel label = new JPanel(new GridLayout(0,1));
         JPanel detail = new JPanel(new GridLayout(0,1));
         
