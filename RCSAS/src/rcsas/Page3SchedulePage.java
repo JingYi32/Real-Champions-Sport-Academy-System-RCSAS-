@@ -280,36 +280,35 @@ public class Page3SchedulePage extends JFrame implements ActionListener{
                 try{
                     for(int i=0; i<RCSAS.allBooking.size();i++){
                         Booking b = RCSAS.allBooking.get(i);
-                        if (STU.getText().equals(b.getOwner().getName())){ 
+                        if (STU.getText().equals(b.getOwner().getName())){
                             
+                            //Sport
                             for(int o=0; o<RCSAS.allSport.size();o++){ 
-                            Sport s = RCSAS.allSport.get(o);                               
-                            if (SPO.getText().equals(s.getName())){   
-                                
-                            for(int p=0; p<RCSAS.allCoach.size();p++){                                                            
-                            Coach c = RCSAS.allCoach.get(p);                            
-                            if (TEAC.getText().equals(c.getName())&& (c.getSport().equals(s))){
-                                
-                                b.setSport(s);   
-                                b.setTeacher(c);
-                                b.setDate(LocalDate.parse(DATE.getText()));
-                                b.setTimeStarted(LocalTime.parse(START.getText()));
-                                b.setDuration(Integer.parseInt(DURA.getText()));
-                                b.setVenue(VENUE.getText());
-                                
-                                message.add("Update Successfully!");
-                                setVisible(false);
-                                Page3SchedulePage reload = new Page3SchedulePage();
-                                reload.setVisible(true);
-                                break;
-                                                       
-                                    }
-                                }                                                  
+                                Sport s = RCSAS.allSport.get(o);                               
+                                if (SPO.getText().equals(s.getName())){
+                                    
+                                    //Coach
+                                    for(int p=0; p<RCSAS.allCoach.size();p++){                                                            
+                                        Coach c = RCSAS.allCoach.get(p);                            
+                                        if (TEAC.getText().equals(c.getName())&& (c.getSport().equals(s))){
+                                            b.setSport(s);   
+                                            b.setTeacher(c);
+                                            b.setDate(LocalDate.parse(DATE.getText()));
+                                            b.setTimeStarted(LocalTime.parse(START.getText()));
+                                            b.setDuration(Integer.parseInt(DURA.getText()));
+                                            b.setVenue(VENUE.getText());
+
+                                            message.add("Update Successfully!");
+                                            setVisible(false);
+                                            Page3SchedulePage reload = new Page3SchedulePage();
+                                            reload.setVisible(true);
+                                            break;
+                                        }
+                                    }                                                  
+                                }
                             }
                         }
-                    }
-                           
-                   }       
+                    }       
                 } catch(Exception ex){              
                     message.add("Invalid Number!");
                 }

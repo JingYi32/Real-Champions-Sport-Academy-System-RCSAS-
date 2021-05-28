@@ -54,9 +54,14 @@ public class Page3CoachPage extends JFrame implements ActionListener{
             footer.add(modify);
             footer.add(extension);
         } else if(RCSAS.currentAdmin == null){
-            starFeedback = new JButton("Provide feedback and Star");
-            setSTButton(starFeedback);
-            footer.add(starFeedback);
+            for(int i=0; i<RCSAS.currentStudent.getMyBooking().size(); i++){
+                Booking b = RCSAS.currentStudent.getMyBooking().get(i);
+                if(b.getTeacher().getName().equals(RCSAS.currentCoach.getName())){
+                    starFeedback = new JButton("Provide feedback and Star");
+                    setSTButton(starFeedback);
+                    footer.add(starFeedback);
+                }
+            }
         }
         add(footer);
 

@@ -10,10 +10,10 @@ import javax.swing.*;
 
 public class Page2RegisterPage extends JFrame implements ActionListener{
     final private JPanel header, content, footer;
-    final private JLabel title, name, gender, email, contact, eme_contact, sport, program, fee;
-    final private JLabel errorname, errorgender, erroremail, errorcontact, erroreme_contact, errorsport, errorprogram;
+    final private JLabel title, name, gender, email, contact, eme_contact, sport, fee;
+    final private JLabel errorname, errorgender, erroremail, errorcontact, erroreme_contact, errorsport;
     final private JButton submit, back;
-    final private JComboBox gd,s,p;
+    final private JComboBox gd,s;
     final private JTextField n, em, cn, ec, fs;
     private boolean error;
     private int fees;
@@ -75,7 +75,6 @@ public class Page2RegisterPage extends JFrame implements ActionListener{
         JLabel remark = new JLabel("(Please include 60)");
         eme_contact = new JLabel("Emergency Contact:");
         sport = new JLabel("Sport interest:");
-        program = new JLabel("Program:");
         fee = new JLabel("Fee:");
         
         //Create text fields
@@ -85,7 +84,6 @@ public class Page2RegisterPage extends JFrame implements ActionListener{
         em = new JTextField();
         ec = new JTextField();
         s = new JComboBox();
-        p = new JComboBox();
         fs = new JTextField();
         
         //Create ErrorMessage
@@ -95,7 +93,6 @@ public class Page2RegisterPage extends JFrame implements ActionListener{
         errorcontact = new JLabel();
         erroreme_contact = new JLabel();
         errorsport = new JLabel();
-        errorprogram = new JLabel();
         
         //Layout labels in a panel.
         content.add(name);
@@ -105,7 +102,6 @@ public class Page2RegisterPage extends JFrame implements ActionListener{
         content.add(email);
         content.add(eme_contact);
         content.add(sport);
-        content.add(program);
         content.add(fee);
         content.add(n);
         content.add(gd);
@@ -113,7 +109,6 @@ public class Page2RegisterPage extends JFrame implements ActionListener{
         content.add(em);
         content.add(ec);
         content.add(s);
-        content.add(p);
         content.add(fs);
         content.add(errorname);
         content.add(errorgender);
@@ -121,7 +116,6 @@ public class Page2RegisterPage extends JFrame implements ActionListener{
         content.add(errorcontact);
         content.add(erroreme_contact);
         content.add(errorsport);
-        content.add(errorprogram);
         
         
         //Location
@@ -132,8 +126,7 @@ public class Page2RegisterPage extends JFrame implements ActionListener{
         email.setBounds(75,350,250,40);
         eme_contact.setBounds(75,450,250,40);
         sport.setBounds(825,50,250,40);
-        program.setBounds(825,150,250,40);
-        fee.setBounds(825,250,250,40);
+        fee.setBounds(825,150,250,40);
         
         n.setBounds(375, 50, 300, 40);
         gd.setBounds(375, 150, 300, 40);
@@ -141,8 +134,7 @@ public class Page2RegisterPage extends JFrame implements ActionListener{
         em.setBounds(375, 350, 300, 40);
         ec.setBounds(375, 450, 300, 40);
         s.setBounds(1125, 50, 300, 40);
-        p.setBounds(1125, 150, 300, 40);
-        fs.setBounds(1125, 250, 300, 40);
+        fs.setBounds(1125, 150, 300, 40);
         
         errorname.setBounds(385, 90, 300, 20);
         errorgender.setBounds(385, 190, 300, 20);
@@ -150,7 +142,6 @@ public class Page2RegisterPage extends JFrame implements ActionListener{
         erroremail.setBounds(385, 390, 300, 20);
         erroreme_contact.setBounds(385, 490, 300, 20);
         errorsport.setBounds(1135, 90, 300, 20);
-        errorprogram.setBounds(1135, 190, 300, 20);
         
         //Font
         name.setFont(new Font("Centaur", Font.BOLD, 26));
@@ -160,7 +151,6 @@ public class Page2RegisterPage extends JFrame implements ActionListener{
         remark.setFont(new Font("Centaur", Font.BOLD, 12));
         eme_contact.setFont(new Font("Centaur", Font.BOLD, 26));
         sport.setFont(new Font("Centaur", Font.BOLD, 26));
-        program.setFont(new Font("Centaur", Font.BOLD, 26));
         fee.setFont(new Font("Centaur", Font.BOLD, 26));
         
         n.setFont(new Font("Centaur", Font.PLAIN, 26));
@@ -169,7 +159,6 @@ public class Page2RegisterPage extends JFrame implements ActionListener{
         cn.setFont(new Font("Centaur", Font.PLAIN, 26));
         ec.setFont(new Font("Centaur", Font.PLAIN, 26));
         s.setFont(new Font("Centaur", Font.PLAIN, 26));
-        p.setFont(new Font("Centaur", Font.PLAIN, 26));
         fs.setFont(new Font("Centaur", Font.PLAIN, 26));
         
         errorname.setFont(new Font("Centaur", Font.BOLD, 12));
@@ -178,7 +167,6 @@ public class Page2RegisterPage extends JFrame implements ActionListener{
         errorcontact.setFont(new Font("Centaur", Font.BOLD, 12));
         erroreme_contact.setFont(new Font("Centaur", Font.BOLD, 12));
         errorsport.setFont(new Font("Centaur", Font.BOLD, 12)); 
-        errorprogram.setFont(new Font("Centaur", Font.BOLD, 12));
         
         //ComboBox
         gd.addItem("Female");
@@ -202,7 +190,6 @@ public class Page2RegisterPage extends JFrame implements ActionListener{
         cn.setEditable(false);
         ec.setEditable(false);
         s.setEnabled(false);
-        p.setEnabled(false);
         fs.setEditable(false);
         
         
@@ -225,9 +212,6 @@ public class Page2RegisterPage extends JFrame implements ActionListener{
         s.addItemListener((ItemEvent arg0) -> {
             ValidateSport();
         });
-//        p.addItemListener((ItemEvent arg0) -> {
-//            ValidateProgram();
-//        });
         
         
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -334,7 +318,6 @@ public class Page2RegisterPage extends JFrame implements ActionListener{
         em.setText(null);
         ec.setText(null);
         s.setSelectedIndex(-1);
-        p.setSelectedIndex(-1);
         fs.setText(null);
     }
     
@@ -427,12 +410,9 @@ public class Page2RegisterPage extends JFrame implements ActionListener{
         if(s.getSelectedItem() == null){
             errorsport.setText("Sport box is null!");
             error = true;
-            p.setEnabled(false);
-            p.setSelectedIndex(-1);
         }else{
             errorsport.setText("OK! Ready to use!");
             error = false;
-            p.setEnabled(true);
             fees = 0;
             for(int i=0; i<RCSAS.allSport.size(); i++){
                 Sport sp = RCSAS.allSport.get(i);
@@ -441,15 +421,6 @@ public class Page2RegisterPage extends JFrame implements ActionListener{
                 }
             }
             fs.setText("RM"+String.format("%04d",fees));
-        }
-    }
-    private void ValidateProgram(){
-        if(p.getSelectedItem() == null){
-            errorprogram.setText("Program box is null!");
-            error = true;
-        }else{
-            errorprogram.setText("OK! Ready to use!");
-            error = false;
         }
     }
 }

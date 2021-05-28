@@ -4,7 +4,6 @@ import java.awt.event.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import javafx.scene.control.DatePicker;
 import javax.swing.*;
 
 public class Page2AdminMainPage extends JFrame implements ActionListener{
@@ -189,8 +188,8 @@ public class Page2AdminMainPage extends JFrame implements ActionListener{
     }
     
     private void AddSchedule(){
-       String[] name1 = RCSAS.allStudentName.toArray(new String[RCSAS.allStudentName.size()]);
-       String name = (String)JOptionPane.showInputDialog(null, "Student:", 
+        String[] name1 = RCSAS.allStudentName.toArray(new String[RCSAS.allStudentName.size()]);
+        String name = (String)JOptionPane.showInputDialog(null, "Student:", 
             "Current Student", JOptionPane.QUESTION_MESSAGE, null, name1, null);
         for(int i=0; i<RCSAS.allStudent.size(); i++){
             Student student = RCSAS.allStudent.get(i);
@@ -260,7 +259,14 @@ public class Page2AdminMainPage extends JFrame implements ActionListener{
                     
                     Coach g = null;
                     //Coach
-                    String[] coachn = RCSAS.allCoachName.toArray(new String[RCSAS.allCoachName.size()]);
+                    ArrayList<String> SelectCoach = new ArrayList<>();
+                    for(int i=0; i<RCSAS.allCoach.size();i++){
+                        Coach co = RCSAS.allCoach.get(i);
+                        if(c.equals(co.getSport())){
+                            SelectCoach.add(co.getName());
+                        }
+                    }
+                    String[] coachn = SelectCoach.toArray(new String[SelectCoach.size()]);
                     String coacht = (String)JOptionPane.showInputDialog(null, "Coach:", 
                         "Select Coach", JOptionPane.QUESTION_MESSAGE, null, coachn, null);
                     for(int i=0; i<RCSAS.allCoach.size(); i++){
