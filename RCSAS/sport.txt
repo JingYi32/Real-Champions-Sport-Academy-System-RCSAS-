@@ -31,7 +31,7 @@ Gymnastics
 Puchong
 Room
 5
-110
+115
 
 SP006
 Volleyball
