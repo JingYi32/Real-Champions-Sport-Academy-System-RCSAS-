@@ -265,7 +265,7 @@ public class Page2AdminMainPage extends JFrame implements ActionListener{
                         "Select Coach", JOptionPane.QUESTION_MESSAGE, null, coachn, null);
                     for(int i=0; i<RCSAS.allCoach.size(); i++){
                         Coach ch = RCSAS.allCoach.get(i);
-                        if(name.equals(ch.getName())){
+                        if(coacht.equals(ch.getName())){
                             g = ch;
                             break;
                         }           

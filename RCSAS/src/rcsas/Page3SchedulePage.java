@@ -3,6 +3,8 @@ package rcsas;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -173,6 +175,7 @@ public class Page3SchedulePage extends JFrame implements ActionListener{
         String idnoo[] = idno.toArray(new String[idno.size()]);
         
         JComboBox ID = new JComboBox(idnoo);
+        ID.setSelectedIndex(-1);
         JTextField STU = new JTextField();
         JTextField SPO = new JTextField();
         JTextField TEAC = new JTextField();
@@ -198,6 +201,7 @@ public class Page3SchedulePage extends JFrame implements ActionListener{
         setSTLabel(duration);
         setSTLabel(venue);
         
+        JPanel contents = new JPanel(new BorderLayout());
         ID.setPreferredSize(new Dimension(200, 35));
         ID.setFont(new Font("Centaur", Font.PLAIN, 20));
         ID.addItemListener((ItemEvent arg0) -> {
@@ -220,6 +224,8 @@ public class Page3SchedulePage extends JFrame implements ActionListener{
                         DATE.setEditable(true);
                         DURA.setEditable(true);
                         VENUE.setEditable(true);
+                        contents.revalidate();
+                        contents.repaint();
                     }
                 }
                 
@@ -260,8 +266,7 @@ public class Page3SchedulePage extends JFrame implements ActionListener{
         detail.add(PanelSTART);
         detail.add(PanelDURA);
         detail.add(PanelVENUE);
-        
-        JPanel contents = new JPanel(new BorderLayout());
+               
         contents.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         contents.add(label,BorderLayout.CENTER);
         contents.add(detail, BorderLayout.LINE_END);
@@ -271,15 +276,53 @@ public class Page3SchedulePage extends JFrame implements ActionListener{
             if(ID.getSelectedItem()==null){
                 
             } else{
-                CheckModify();
+                ArrayList<String> message = new ArrayList<>();
+                try{
+                    for(int i=0; i<RCSAS.allBooking.size();i++){
+                        Booking b = RCSAS.allBooking.get(i);
+                        if (STU.getText().equals(b.getOwner().getName())){ 
+                            
+                            for(int o=0; o<RCSAS.allSport.size();o++){ 
+                            Sport s = RCSAS.allSport.get(o);                               
+                            if (SPO.getText().equals(s.getName())){   
+                                
+                            for(int p=0; p<RCSAS.allCoach.size();p++){                                                            
+                            Coach c = RCSAS.allCoach.get(p);                            
+                            if (TEAC.getText().equals(c.getName())&& (c.getSport().equals(s))){
+                                
+                                b.setSport(s);   
+                                b.setTeacher(c);
+                                b.setDate(LocalDate.parse(DATE.getText()));
+                                b.setTimeStarted(LocalTime.parse(START.getText()));
+                                b.setDuration(Integer.parseInt(DURA.getText()));
+                                b.setVenue(VENUE.getText());
+                                
+                                message.add("Update Successfully!");
+                                setVisible(false);
+                                Page3SchedulePage reload = new Page3SchedulePage();
+                                reload.setVisible(true);
+                                break;
+                                                       
+                                    }
+                                }                                                  
+                            }
+                        }
+                    }
+                           
+                   }       
+                } catch(Exception ex){              
+                    message.add("Invalid Number!");
+                }
+                JOptionPane.showMessageDialog(null, message);
             }
         }
     }
+       
     
-    private void CheckModify(){
-        ArrayList<String> message = new ArrayList<>();
+//    private void CheckModify(){
+ //       ArrayList<String> message = new ArrayList<>();
         
-    }
+    
     
     private void setSTLabel(JLabel label){
         label.setPreferredSize(new Dimension(200, 35));
