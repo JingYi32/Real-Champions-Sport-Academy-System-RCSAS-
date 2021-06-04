@@ -63,12 +63,6 @@ public class Page2AdminMainPage extends JFrame implements ActionListener{
         pay = new JButton("Pay");
         logout = new JButton("Logout");
               
-        add_schedulercds.addActionListener(this);
-        schedule.addActionListener(this);
-        display.addActionListener(this);
-        pay.addActionListener(this);
-        logout.addActionListener(this);
-              
         setSTButton(add_schedulercds);
         setSTButton(schedule);
         setSTButton(display);
@@ -88,13 +82,7 @@ public class Page2AdminMainPage extends JFrame implements ActionListener{
         
         header.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
         header.setBackground(new java.awt.Color(243, 250, 249));                     
-       // header.add(add_schedulercds);
-       // header.add(schedule);
-       // header.add(display);
-       // header.add(pay);
-        //header.add(logout);
-       // header.setBounds(0,600,1500,200);
-       add(header);
+        add(header);
         
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
