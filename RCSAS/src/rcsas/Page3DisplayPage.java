@@ -102,6 +102,8 @@ public class Page3DisplayPage extends JFrame implements ActionListener {
                     if(y.equals(c.getId())){
                         setVisible(false);
                         Page3SportPage ch = new Page3SportPage();
+                        ch.sport.setSelectedIndex(i);
+                        ch.setVisible(true);
                         ch.setVisible(true);
                     }
                 }
